@@ -4,29 +4,34 @@ class UserRepo {
     constructor(factory) {
         this.factory = factory;
         this.nextIndex = 0;
-        this.users = [];
+        this.users = new Map();
     }
 
     createUser(data) {
         const newUser = this.factory(this.nextIndex, data);
+        this.users.set(this.nextIndex, newUser);
         this.nextIndex++;
-        this.users.push(newUser);
         return newUser;
     }
 
     updateUser(id, data) {
-        const user = this.users[id];
+        const user = this.users.get(id);
+
+        if (!user) {
+            return undefined;
+        }
+
         const updatedUser = { ...user, ...data };
-        this.users[id] = updatedUser;
+        this.users.set(id, updatedUser);
         return updatedUser;
     }
 
     findUserById(id) {
-        return this.users[id]
+        return this.users.get(id)
     }
 
     deleteUserById(id) {
-        return this.users.splice(id, 1);
+        return this.users.delete(id);
     }
 }
 
