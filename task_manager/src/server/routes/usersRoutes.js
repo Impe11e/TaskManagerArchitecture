@@ -1,29 +1,34 @@
 import {Router} from 'express';
-import  userController  from '../../controllers/userController';
+import userController from '../../controllers/userController.js';
 
 const router = Router();
 
 //find user
-router.get('/:user_id', async (req, res) => {
-    const result = await userController.findUserById(req);
+router.get('/:id', async (req, res) => {
+    const {id} = req.params;
+    const result = await userController.findUserById(id);
     res.status(result.status).json(result.data);
 });
 
 //create user with profile
-router.post('/create', async (req, res) => {
-    const result = await userController.createUser(req);
+router.post('/', async (req, res) => {
+    const data = req.body;
+    const result = await userController.createUser(data);
     res.status(result.status).json(result.data);
 });
 
 //update user
-router.patch('/update/:user_id', async (req, res) => {
-    const result = await userController.updateUser(req);
+router.patch('/:id', async (req, res) => {
+    const {id} = req.params;
+    const body = req.body;
+    const result = await userController.updateUser(id, body);
     res.status(result.status).json(result.data);
 });
 
 //delete user
-router.delete('/delete/:user_id', async (req, res) => {
-    const result = await userController.deleteUserById(req);
+router.delete('/:id', async (req, res) => {
+    const {id} = req.params;
+    const result = await userController.deleteUserById(id);
     res.status(result.status).json(result.data);
 });
 
