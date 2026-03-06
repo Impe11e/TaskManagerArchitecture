@@ -1,79 +1,78 @@
 import userService from '../services/userService'
 
 class UserController {
-    constructor (service) {
+    constructor(service) {
         this.service = service
     }
 
-    createUser (data) {
-        //validation...
+    createUser(data) {
+        try {
+            //validation...
 
-        const user = this.service.createUser(data)
+            const user = this.service.createUser(data)
+            return {
+                status: 201,
+                data: user
+            }
 
-        if (!user){
+        } catch (err) {
             return {
                 status: 404,
-                data: {"error": "Unable to create user"}
+                data: err.message
             }
-        }
-
-        return {
-            status: 201,
-            data: user
         }
     }
 
-    updateUser (id, data) {
-        //validation...
+    updateUser({id}, data) {
+        try {
+            //validation...
 
-        const user = this.service.updateUser(id, data)
-
-        if (!user){
+            const user = this.service.updateUser(id, data)
+            return {
+                status: 200,
+                data: user
+            }
+        } catch (err) {
             return {
                 status: 404,
-                data: {"error": "Unable to update user"}
+                data: err.message
             }
-        }
-
-        return {
-            status: 200,
-            data: user
         }
     }
 
-    findUserById (id) {
-        //validation...
+    findUserById({id}) {
+        try {
+            //validation...
 
-        const user = this.service.findUserById(id)
-
-        if (!user){
+            const user = this.service.findUserById(id)
+            return {
+                status: 200,
+                data: user
+            }
+        } catch (err) {
             return {
                 status: 404,
-                data: {"error": "Unable to find user"}
+                data: err.message
             }
-        }
-
-        return {
-            status: 200,
-            data: user
         }
     }
 
-    deleteUserById (id) {
-        //validation...
+    deleteUserById({id}) {
+        try {
+            //validation...
 
-        const deleted = this.service.deleteUserById(id)
-
-        if (deleted){
+            this.service.deleteUserById(id)
+            return {
+                status: 204,
+                data: null
+            }
+        } catch (err) {
             return {
                 status: 404,
-                data: {"error": "Unable to delete user"}
+                data: err.message
             }
-        }
-
-        return {
-            status: 204,
-            data: null
         }
     }
 }
+
+export default new UserController(userService)

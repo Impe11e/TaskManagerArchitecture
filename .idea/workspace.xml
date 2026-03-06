@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="926738ca-44cf-4bac-85af-e65cae34ae8a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/task_manager/src/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/controllers/userController.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="3AY14mT1ULTayX71mwDSSnCouVq" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Node.js.main.jsx.executor": "Run",
+    "Node.js.userModel.cjs.executor": "Run",
+    "Node.js.userModel.js.executor": "Run",
+    "Node.js.userRepo.cjs.executor": "Run",
+    "Node.js.userTest.js.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "git-widget-placeholder": "user__layers",
+    "javascript.preferred.runtime.type.id": "node",
+    "last_opened_file_path": "/home/misha/WebstormProjects/TaskManagerArchitecture",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_interpreter_path": "/home/misha/.config/JetBrains/WebStorm2025.3/node/versions/24.14.0/bin/node",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "ts.external.directory.path": "/opt/webstorm/WebStorm-2025.3.3/WebStorm-253.31033.133/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.31033.133" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="926738ca-44cf-4bac-85af-e65cae34ae8a" name="Changes" comment="" />
+      <created>1772754502449</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1772754502449</updated>
+      <workItem from="1772754506564" duration="554000" />
+      <workItem from="1772755409437" duration="243000" />
+      <workItem from="1772755784660" duration="412000" />
+      <workItem from="1772757057234" duration="2539000" />
+      <workItem from="1772792116328" duration="62000" />
+      <workItem from="1772792377868" duration="316000" />
+      <workItem from="1772792799627" duration="62000" />
+      <workItem from="1772792887925" duration="12865000" />
+      <workItem from="1772826618299" duration="2046000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
