@@ -22,7 +22,6 @@ export class TaskService {
     if (taskData.dueDate && new Date(taskData.dueDate) < new Date()) {
       throw new Error('Due date cannot be in the past');
     }
-    // Normalize priority to match TASK_PRIORITY constants (e.g. 'MEDIUM')
     if (taskData.priority) {
       taskData.priority = taskData.priority.toString().toUpperCase();
     }
@@ -43,7 +42,6 @@ export class TaskService {
         throw new Error("Due date cannot be in the past");
       }
     }
-    // Normalize priority if provided
     if (updatedData.priority) {
       updatedData.priority = updatedData.priority.toString().toUpperCase();
     }
