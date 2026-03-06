@@ -30,6 +30,24 @@ class UserRepo {
         return this.users.get(id)
     }
 
+    findUserByEmail(email) {
+        for (const user of this.users.values()){
+            if (user.email === email){
+                return user;
+            }
+        }
+        return undefined;
+    }
+
+    findUserByUsername(username) {
+        for (const user of this.users.values()){
+            if (user.username === username){
+                return user;
+            }
+        }
+        return undefined;
+    }
+
     deleteUserById(id) {
         return this.users.delete(id);
     }
