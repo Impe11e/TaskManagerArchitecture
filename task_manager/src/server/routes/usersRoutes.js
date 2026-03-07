@@ -6,14 +6,14 @@ const router = Router();
 //find user
 router.get('/:id', async (req, res) => {
     const {id} = req.params;
-    const result = await userController.findUserById(id);
+    const result = userController.findUserById(id);
     res.status(result.status).json(result.data);
 });
 
 //create user with profile
 router.post('/', async (req, res) => {
     const data = req.body;
-    const result = await userController.createUser(data);
+    const result = userController.createUser(data);
     res.status(result.status).json(result.data);
 });
 
@@ -21,14 +21,14 @@ router.post('/', async (req, res) => {
 router.patch('/:id', async (req, res) => {
     const {id} = req.params;
     const body = req.body;
-    const result = await userController.updateUser(id, body);
+    const result = userController.updateUser(id, body);
     res.status(result.status).json(result.data);
 });
 
 //delete user
 router.delete('/:id', async (req, res) => {
     const {id} = req.params;
-    const result = await userController.deleteUserById(id);
+    const result = userController.deleteUserById(id);
     res.status(result.status).json(result.data);
 });
 

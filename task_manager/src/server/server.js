@@ -7,5 +7,4 @@ app.listen(port, 'localhost',() => {
     console.log(
         `🚀 ${encodeURI(`http://localhost:${port}/user/`)}`
     );
-
 });

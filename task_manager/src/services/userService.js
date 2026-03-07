@@ -31,6 +31,8 @@ class UserService {
     }
 
     findUserById(id) {
+        this.#checkUserExists(id);
+
         return this.repository.findUserById(id)
     }
 

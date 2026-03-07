@@ -23,9 +23,10 @@ class UserController {
         }
     }
 
-    updateUser({id}, data) {
+    updateUser(id, data) {
         try {
             //validation...
+            id = parseInt(id)
 
             const user = this.service.updateUser(id, data)
             return {
@@ -40,9 +41,11 @@ class UserController {
         }
     }
 
-    findUserById({id}) {
+    findUserById(id) {
         try {
             //validation...
+            id = parseInt(id)
+
 
             const user = this.service.findUserById(id)
             return {
@@ -57,9 +60,11 @@ class UserController {
         }
     }
 
-    deleteUserById({id}) {
+    deleteUserById(id) {
         try {
             //validation...
+            id = parseInt(id)
+
 
             this.service.deleteUserById(id)
             return {

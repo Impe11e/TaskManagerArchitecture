@@ -27,6 +27,9 @@ class UserRepo {
     }
 
     findUserById(id) {
+        console.log(this.users.get(id))
+        console.log(id)
+        console.log(typeof id)
         return this.users.get(id)
     }
 
