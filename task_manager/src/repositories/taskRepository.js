@@ -1,45 +1,42 @@
-import Task from '../model/taskModel.js';
+import Task from '../models/taskModel.js';
 
-let tasks = [];
+let tasks = new Map();
 let nextId = 1;
 
 export class TaskRepository {
   getAll() {
-    return tasks;
+    return Array.from(tasks.values());
   }
 
   getById(id) {
-    return tasks.find(task => task.id === id);
+    return tasks.get(id) || null;
   }
 
   create(taskData) {
+    const id = nextId++;
     const task = new Task({
-      id: nextId++,
+      id,
       ...taskData,
       createdAt: taskData.createdAt ?? new Date()
     });
-    tasks.push(task);
+    tasks.set(id, task);
     return task;
   }
 
   update(id, updatedData) {
-    const index = tasks.findIndex(task => task.id === id);
-    if (index === -1) return null;
-    const oldTask = tasks[index];
+    if (!tasks.has(id)) return null;
+    const oldTask = tasks.get(id);
     const updatedTask = new Task({
       ...oldTask,
       ...updatedData,
       id: oldTask.id,
       createdAt: oldTask.createdAt
     });
-    tasks[index] = updatedTask;
+    tasks.set(id, updatedTask);
     return updatedTask;
   }
 
   delete(id) {
-    const index = tasks.findIndex(task => task.id === id);
-    if (index === -1) return false;
-    tasks.splice(index, 1);
-    return true;
+    return tasks.delete(id);
   }
 }
