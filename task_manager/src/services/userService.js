@@ -5,41 +5,44 @@ class UserService {
         this.repository = repository;
     }
 
-    #checkUserUnique(data){
+    #checkUnique(data, id = null){
         const userByEmail = this.repository.findByEmail(data.email);
-        if (userByEmail) throw new Error('User with this email already exists');
+        if (userByEmail && userByEmail.id !== id)
+            throw new Error('User with this email already exists');
         const userByUsername = this.repository.findByUsername(data.username);
-        if (userByUsername) throw new Error('User with this username already exists');
+        if (userByUsername && userByUsername.id !== id)
+            throw new Error('User with this username already exists');
     }
 
-    #checkUserExists(id){
+    #checkExists(id){
         const user = this.repository.findById(id);
         if (!user) throw new Error('User with this ID doesnt exist');
     }
 
     create(data) {
-        this.#checkUserUnique(data);
+        this.#checkUnique(data);
 
         return this.repository.create(data);
     }
 
     update(id, data) {
-        this.#checkUserUnique(data);
-        this.#checkUserExists(id);
+        this.#checkExists(id);
+        this.#checkUnique(data, id);
 
         return this.repository.update(id,data);
     }
 
     findById(id) {
-        this.#checkUserExists(id);
+        const user = this.repository.findById(id);
+        if (!user) throw new Error('User with this ID doesnt exist');
 
-        return this.repository.findById(id)
+        return user
     }
 
     deleteById(id) {
-        this.#checkUserExists(id);
+        this.#checkExists(id);
 
-        return this.repository.deleteById(id)
+        return this.repository.deleteById(id);
     }
 }
 
