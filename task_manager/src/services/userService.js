@@ -29,6 +29,9 @@ class UsersService {
         this.#checkExists(id);
         this.#checkUnique(data, id);
 
+        if(data.id)
+            throw new Error('Impossible to manually update users id');
+
         return this.repository.update(id,data);
     }
 
