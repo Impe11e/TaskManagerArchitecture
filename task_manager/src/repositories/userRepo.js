@@ -7,14 +7,14 @@ class UserRepo {
         this.users = new Map();
     }
 
-    createUser(data) {
+    create(data) {
         const newUser = this.factory(this.nextIndex, data);
         this.users.set(this.nextIndex, newUser);
         this.nextIndex++;
         return newUser;
     }
 
-    updateUser(id, data) {
+    update(id, data) {
         const user = this.users.get(id);
 
         if (!user) {
@@ -26,14 +26,11 @@ class UserRepo {
         return updatedUser;
     }
 
-    findUserById(id) {
-        console.log(this.users.get(id))
-        console.log(id)
-        console.log(typeof id)
+    findById(id) {
         return this.users.get(id)
     }
 
-    findUserByEmail(email) {
+    findByEmail(email) {
         for (const user of this.users.values()){
             if (user.email === email){
                 return user;
@@ -42,7 +39,7 @@ class UserRepo {
         return undefined;
     }
 
-    findUserByUsername(username) {
+    findByUsername(username) {
         for (const user of this.users.values()){
             if (user.username === username){
                 return user;
@@ -51,7 +48,7 @@ class UserRepo {
         return undefined;
     }
 
-    deleteUserById(id) {
+    deleteById(id) {
         return this.users.delete(id);
     }
 }

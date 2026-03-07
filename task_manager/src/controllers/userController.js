@@ -5,11 +5,11 @@ class UserController {
         this.service = service
     }
 
-    createUser(data) {
+    create(data) {
         try {
             //validation...
 
-            const user = this.service.createUser(data)
+            const user = this.service.create(data)
             return {
                 status: 201,
                 data: user
@@ -23,12 +23,12 @@ class UserController {
         }
     }
 
-    updateUser(id, data) {
+    update(id, data) {
         try {
             //validation...
             id = parseInt(id)
 
-            const user = this.service.updateUser(id, data)
+            const user = this.service.update(id, data)
             return {
                 status: 200,
                 data: user
@@ -41,13 +41,13 @@ class UserController {
         }
     }
 
-    findUserById(id) {
+    findById(id) {
         try {
             //validation...
             id = parseInt(id)
 
 
-            const user = this.service.findUserById(id)
+            const user = this.service.findById(id)
             return {
                 status: 200,
                 data: user
@@ -60,13 +60,13 @@ class UserController {
         }
     }
 
-    deleteUserById(id) {
+    deleteById(id) {
         try {
             //validation...
             id = parseInt(id)
 
 
-            this.service.deleteUserById(id)
+            this.service.deleteById(id)
             return {
                 status: 204,
                 data: null
