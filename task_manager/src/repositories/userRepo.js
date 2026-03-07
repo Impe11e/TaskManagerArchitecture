@@ -1,6 +1,6 @@
-import userFactory from "../models/userModel.js";
+import usersFactory from "../models/userModel.js";
 
-class UserRepo {
+class UsersRepo {
     constructor(factory) {
         this.factory = factory;
         this.nextIndex = 0;
@@ -53,4 +53,4 @@ class UserRepo {
     }
 }
 
-export default new UserRepo(userFactory);
+export default new UsersRepo(usersFactory);

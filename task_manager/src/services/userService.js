@@ -1,6 +1,6 @@
-import userRepo from '../repositories/userRepo.js';
+import usersRepo from '../repositories/userRepo.js';
 
-class UserService {
+class UsersService {
     constructor(repository) {
         this.repository = repository;
     }
@@ -46,4 +46,4 @@ class UserService {
     }
 }
 
-export default new UserService(userRepo);
+export default new UsersService(usersRepo);

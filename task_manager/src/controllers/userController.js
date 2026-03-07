@@ -1,6 +1,6 @@
-import userService from '../services/userService.js'
+import usersService from '../services/userService.js'
 
-class UserController {
+class UsersController {
     constructor(service) {
         this.service = service
     }
@@ -80,4 +80,4 @@ class UserController {
     }
 }
 
-export default new UserController(userService)
+export default new UsersController(usersService)
