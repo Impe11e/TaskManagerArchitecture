@@ -5,9 +5,32 @@ class UsersController {
         this.service = service
     }
 
+    #validateData(data, strict = false){
+        if(!data || typeof data !== 'object'){
+            throw new Error('Invalid data (not object)');
+        }
+
+        const REQUIRED = ['email', 'username', 'password'];
+        const ALLOWED = ['id', ...REQUIRED];
+        const attributes = Object.keys(data)
+
+        for (const attribute of attributes) {
+            if(!ALLOWED.includes(attribute)) {
+                throw new Error(`User doesnt have ${attribute}`);
+            }
+        }
+        if(strict){
+            for (const required of REQUIRED){
+                if(!attributes.includes(required)){
+                    throw new Error(`User's attribute missing: ${required}`);
+                }
+            }
+        }
+    }
+
     create(data) {
         try {
-            //validation...
+            this.#validateData(data, true);
 
             const user = this.service.create(data)
             return {
@@ -25,7 +48,7 @@ class UsersController {
 
     update(id, data) {
         try {
-            //validation...
+            this.#validateData(data);
 
             const user = this.service.update(id, data)
             return {
