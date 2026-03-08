@@ -1,4 +1,4 @@
-import profileRepo from "../repositories/profileRepository";
+import profileRepo from "../repositories/profileRepository.js";
 
 class ProfileService {
   constructor(repository) {

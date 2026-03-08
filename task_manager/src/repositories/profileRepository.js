@@ -1,4 +1,4 @@
-import profileFactory from "../models/profileModel";
+import profileFactory from "../models/profileModel.js";
 
 class ProfileRepo {
   constructor(factory) {

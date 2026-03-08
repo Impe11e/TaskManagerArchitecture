@@ -1,4 +1,4 @@
-import profileService from "../services/profileService";
+import profileService from "../services/profileService.js";
 
 class ProfileController {
   constructor(service) {
@@ -38,7 +38,7 @@ class ProfileController {
     try {
       id = parseInt(id);
       this.service.deleteById(id);
-      return { status: 404, data: err.message };
+      return { status: 204, data: null };
     } catch (err) {
       return { status: 404, data: err.message };
     }
