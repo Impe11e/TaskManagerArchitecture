@@ -7,7 +7,7 @@ class UsersController {
 
     #validateData(data, strict = false){
         if(!data || typeof data !== 'object'){
-            throw new Error('Invalid data (not object)');
+            throw new Error('Validation error: Invalid data (not object)');
         }
 
         const REQUIRED = ['email', 'username', 'password'];
@@ -16,13 +16,13 @@ class UsersController {
 
         for (const attribute of attributes) {
             if(!ALLOWED.includes(attribute)) {
-                throw new Error(`User doesnt have ${attribute}`);
+                throw new Error(`Validation error: User doesnt have ${attribute}`);
             }
         }
         if(strict){
             for (const required of REQUIRED){
                 if(!attributes.includes(required)){
-                    throw new Error(`User's attribute missing: ${required}`);
+                    throw new Error(`Validation error: User's attribute missing: ${required}`);
                 }
             }
         }
@@ -65,8 +65,6 @@ class UsersController {
 
     findById(id) {
         try {
-            //validation...
-
             const user = this.service.findById(id)
             return {
                 status: 200,
@@ -82,8 +80,6 @@ class UsersController {
 
     deleteById(id) {
         try {
-            //validation...
-
             this.service.deleteById(id)
             return {
                 status: 204,
