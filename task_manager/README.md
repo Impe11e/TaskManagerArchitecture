@@ -5,7 +5,7 @@
 Навчитися будувати програмний застосунок з використанням шарової архітектури (Layered Architecture) та забезпечувати правильну взаємодію між його компонентами.
 
 ## Короткий опис обраної предметної області   
-Приклад моделі для →системи управління задачами 
+Приклад моделі для → системи управління задачами 
 (система що відповідає за створення, перегляд, оновлення, видалення задач):
 
 ```
@@ -65,7 +65,6 @@ task_manager/
 │   └── server/
 │       ├── app.js               ← Express application, route registration
 │       ├── server.js            ← Starting an HTTP server         
-│       ├── middleware/
 │       └── routes/
 │           ├── profilesRoutes.js   ← routes /profiles
 │           ├── tasksRoutes.js   ← routes /tasks
