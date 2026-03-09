@@ -1,4 +1,5 @@
 import profileRepo from "../repositories/profileRepository.js";
+import {ConflictError, ForbiddenError, NotFoundError} from "../errors/customErrors.js";
 
 class ProfileService {
   constructor(repository) {
@@ -8,13 +9,13 @@ class ProfileService {
   #checkUnique(userId, currentProfileId = null) {
     const existingProfile = this.repository.findByUserId(userId);
     if (existingProfile && existingProfile.id !== currentProfileId) {
-      throw new Error("Profile for this user already exists");
+      throw new ConflictError("Profile for this user already exists");
     }
   }
 
   #checkExists(id) {
     const profile = this.repository.findById(id);
-    if (!profile) throw new Error("Profile with this ID doesnt exist");
+    if (!profile) throw new NotFoundError("Profile with this ID doesnt exist");
   }
 
   create(data) {
@@ -24,12 +25,16 @@ class ProfileService {
 
   update(id, data) {
     this.#checkExists(id);
+
+    if(data.id)
+      throw new ForbiddenError('Impossible to manually update profiles id');
+
     return this.repository.update(id, data);
   }
 
   findById(id) {
     const profile = this.repository.findById(id);
-    if (!profile) throw new Error("Profile with this ID doesnt exist");
+    if (!profile) throw new NotFoundError("Profile with this ID doesnt exist");
     return profile;
   }
 

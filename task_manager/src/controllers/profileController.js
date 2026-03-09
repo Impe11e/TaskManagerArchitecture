@@ -1,4 +1,6 @@
 import profileService from "../services/profileService.js";
+//import {ValidationError} from "../errors/customErrors.js";
+import handle from "./errorHandler.js";
 
 class ProfileController {
   constructor(service) {
@@ -10,7 +12,7 @@ class ProfileController {
       const profile = this.service.create(data);
       return { status: 201, data: profile };
     } catch (err) {
-      return { status: 400, data: err.message };
+      return handle(err)
     }
   }
 
@@ -20,7 +22,7 @@ class ProfileController {
       const profile = this.service.update(id, data);
       return { status: 200, data: profile };
     } catch (err) {
-      return { status: 404, data: err.message };
+      return handle(err)
     }
   }
 
@@ -30,7 +32,7 @@ class ProfileController {
       const profile = this.service.findById(id);
       return { status: 200, data: profile };
     } catch (err) {
-      return { status: 400, data: err.message };
+      return handle(err)
     }
   }
 
@@ -40,7 +42,7 @@ class ProfileController {
       this.service.deleteById(id);
       return { status: 204, data: null };
     } catch (err) {
-      return { status: 404, data: err.message };
+      return handle(err)
     }
   }
 }
