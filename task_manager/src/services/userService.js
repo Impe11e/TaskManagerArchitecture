@@ -1,7 +1,6 @@
 import usersRepo from '../repositories/userRepo.js';
 import {ConflictError, NotFoundError, ForbiddenError} from "../errors/customErrors.js";
 
-
 class UsersService {
     constructor(repository) {
         this.repository = repository;
