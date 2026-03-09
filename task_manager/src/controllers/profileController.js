@@ -1,6 +1,6 @@
 import profileService from "../services/profileService.js";
 //import {ValidationError} from "../errors/customErrors.js";
-import handle from "./errorHandler.js";
+import handle from "../errors/errorHandler.js";
 
 class ProfileController {
   constructor(service) {

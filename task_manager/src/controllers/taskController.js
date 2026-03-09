@@ -1,7 +1,7 @@
 import {TaskService} from '../services/taskService.js';
 import {TASK_PRIORITY, TASK_STATUS} from '../models/taskConsts.js';
 import {ValidationError} from "../errors/customErrors.js";
-import handle from "./errorHandler.js";
+import handle from "../errors/errorHandler.js";
 
 const taskService = new TaskService();
 

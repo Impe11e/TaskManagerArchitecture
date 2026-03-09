@@ -1,6 +1,6 @@
 import usersService from '../services/userService.js'
 import {ValidationError} from "../errors/customErrors.js";
-import handle from "./errorHandler.js";
+import handle from "../errors/errorHandler.js";
 
 class UsersController {
     constructor(service) {
