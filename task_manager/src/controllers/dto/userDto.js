@@ -36,7 +36,7 @@ class UserDto {
         if (typeof id !== 'number') {
             throw new ValidationError('Validation error: Id must be a number');
         }
-        if (!Number.isInteger(id) || id <= 0) {
+        if (!Number.isInteger(id)) {
             throw new ValidationError('Validation error: Invalid user id');
         }
     }

@@ -1,5 +1,10 @@
 const handle = (err) => {
-    const status = err.status || 500;
+    let status = err.status || 500;
+
+    if (err.name === 'DomainError') {
+        status = 100;
+    }
+
     return {
         status: status,
         data: err.message,

@@ -1,4 +1,5 @@
 import usersRepo from '../../repositories/userRepo.js';
+import UserEntity from "../../domain/users/userEntity.js";
 
 class CreateUser {
     constructor(repository) {
@@ -6,7 +7,8 @@ class CreateUser {
     }
 
     execute(dto) {
-        return this.repository.create(dto);
+        const user = UserEntity.createEntity(dto.id, dto.username, dto.email, dto.password);
+        return this.repository.create(user);
     }
 }
 
