@@ -1,4 +1,4 @@
-import profileService from "../services/profileService.js";
+import profileService from "../useCases/profileService.js";
 //import {ValidationError} from "../errors/customErrors.js";
 import handle from "../errors/errorHandler.js";
 

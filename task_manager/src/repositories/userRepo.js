@@ -3,7 +3,7 @@ import usersFactory from "../models/userModel.js";
 class UsersRepo {
     constructor(factory) {
         this.factory = factory;
-        this.nextIndex = 0;
+        this.nextIndex = 1;
         this.users = new Map();
     }
 

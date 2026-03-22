@@ -1,40 +1,25 @@
-import usersService from '../services/userService.js'
-import {ValidationError} from "../errors/customErrors.js";
+import createUser from '../useCases/user/createUser.js'
+import updateUser from '../useCases/user/updateUser.js'
+import findUserById from '../useCases/user/findUserById.js'
+import deleteUserById  from '../useCases/user/deleteUserById.js'
+
+import UserCreateDto from './dto/userCreateDto.js'
+import UserUpdateDto from './dto/userUpdateDto.js'
+import UserFindByIdDto from './dto/userFindByIdDto.js'
 import handle from "../errors/errorHandler.js";
 
 class UsersController {
-    constructor(service) {
-        this.service = service
-    }
-
-    #validateData(data, strict = false) {
-        if (!data || typeof data !== 'object') {
-            throw new ValidationError('Validation error: Invalid data (not object)');
-        }
-
-        const REQUIRED = ['email', 'username', 'password'];
-        const ALLOWED = ['id', ...REQUIRED];
-        const attributes = Object.keys(data)
-
-        for (const attribute of attributes) {
-            if (!ALLOWED.includes(attribute)) {
-                throw new ValidationError(`Validation error: User doesnt have ${attribute} as an attribute`);
-            }
-        }
-        if (strict) {
-            for (const required of REQUIRED) {
-                if (!attributes.includes(required)) {
-                    throw new ValidationError(`Validation error: User's attribute missing: ${required}`);
-                }
-            }
-        }
+    constructor(createCase, updateCase, findUserByIdCase, deleteUserByIdCase) {
+        this.createCase = createCase
+        this.updateCase = updateCase
+        this.findUserByIdCase = findUserByIdCase
+        this.deleteUserByIdCase = deleteUserByIdCase
     }
 
     create(data) {
         try {
-            this.#validateData(data, true);
-
-            const user = this.service.create(data)
+            const dto = new UserCreateDto(data)
+            const user = this.createCase.execute(dto)
             return {
                 status: 201,
                 data: user
@@ -47,9 +32,8 @@ class UsersController {
 
     update(id, data) {
         try {
-            this.#validateData(data);
-
-            const user = this.service.update(id, data)
+            const dto = new UserUpdateDto(id, data)
+            const user = this.updateCase.execute(dto)
             return {
                 status: 200,
                 data: user
@@ -61,7 +45,8 @@ class UsersController {
 
     findById(id) {
         try {
-            const user = this.service.findById(id)
+            const dto = new UserFindByIdDto(id)
+            const user = this.findUserByIdCase.execute(dto)
             return {
                 status: 200,
                 data: user
@@ -73,7 +58,8 @@ class UsersController {
 
     deleteById(id) {
         try {
-            this.service.deleteById(id)
+            const dto = new UserFindByIdDto(id)
+            this.deleteUserByIdCase.execute(dto)
             return {
                 status: 204,
                 data: null
@@ -84,6 +70,4 @@ class UsersController {
     }
 }
 
-export default new
-
-UsersController(usersService)
+export default new UsersController(createUser, updateUser, findUserById, deleteUserById)
