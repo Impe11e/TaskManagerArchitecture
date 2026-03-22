@@ -1,7 +1,9 @@
 import usersFactory from "../models/userModel.js";
+import UserInterfaces from "../domain/users/UserInterfaces.js";
 
-class UsersRepo {
+class UsersRepo extends UserInterfaces{
     constructor(factory) {
+        super();
         this.factory = factory;
         this.nextIndex = 1;
         this.users = new Map();
