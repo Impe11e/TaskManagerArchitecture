@@ -7,9 +7,16 @@ class UserUpdateDto extends UserDto {
         this._validateId(id)
 
         this.id = id;
-        this.email = data.email ?? null;
-        this.username = data.username ?? null;
-        this.password = data.password ?? null;
+
+        if (data.email) {
+            this.email = data.email;
+        }
+        if (data.username) {
+            this.username = data.username;
+        }
+        if (data.password) {
+            this.password = data.password;
+        }
     }
 }
 
