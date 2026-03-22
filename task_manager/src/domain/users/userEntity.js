@@ -1,16 +1,22 @@
 import {DomainError} from "../../errors/customErrors.js";
 
 class UserEntity {
-    constructor(id, username, email, password) {
+    constructor(id, username, email, password, cKey) {
+
+        if (cKey !== UserEntity.#key){
+            throw new Error("Can`t create a new user entity with constructor");
+        }
+
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
     }
 
+    static #key = Symbol('key101')
+
     static _validateId(id) {
         if (id <= 0){
-            //placeholder, this error should not occur
             throw new DomainError('Business logic violated: id should be greater than 0.');
         }
     }
@@ -49,18 +55,26 @@ class UserEntity {
         this._validateUsername(username)
         this._validatePassword(password)
 
-        return new UserEntity(id, username, password, email);
+        return new UserEntity(id, username, email, password, UserEntity.#key);
     }
 
-    update({email, username, password}) {
-        if (email !== undefined) {
-            UserEntity._validateEmail(email);
-            this.email = email;
-        }
+    static createEntityWithoutId(username, email, password) {
+        this._validateEmail(email)
+        this._validateUsername(username)
+        this._validatePassword(password)
 
+        return new UserEntity(null, username, email, password, UserEntity.#key);
+    }
+
+    update({username, email, password}) {
         if (username !== undefined) {
             UserEntity._validateUsername(username);
             this.username = username;
+        }
+        console.log(username, email, password);
+        if (email !== undefined) {
+            UserEntity._validateEmail(email);
+            this.email = email;
         }
 
         if (password !== undefined) {
@@ -69,5 +83,5 @@ class UserEntity {
         }
     }
 }
-
+console.log()
 export default UserEntity;

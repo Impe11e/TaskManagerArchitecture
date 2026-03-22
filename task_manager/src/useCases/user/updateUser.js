@@ -1,8 +1,10 @@
 import usersRepo from '../../repositories/userRepo.js';
+import UserDtoMapper from "./userDtoMapper.js";
 
 class UpdateUser {
-    constructor(repository) {
+    constructor(repository, dtoMapper) {
         this.repository = repository;
+        this.dtoMapper = dtoMapper;
     }
 
     execute(dto) {
@@ -14,8 +16,10 @@ class UpdateUser {
             password: data.password
         })
 
-        return this.repository.update(user);
+        const updatedUser = this.repository.update(user);
+
+        return this.dtoMapper.toDto(updatedUser);
     }
 }
 
-export default new UpdateUser(usersRepo);
+export default new UpdateUser(usersRepo, UserDtoMapper);

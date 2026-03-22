@@ -1,14 +1,18 @@
 import usersRepo from '../../repositories/userRepo.js';
+import UserDtoMapper from "./userDtoMapper.js";
 
 class FindUserById {
-    constructor(repository) {
+    constructor(repository, dtoMapper) {
         this.repository = repository;
+        this.dtoMapper = dtoMapper;
     }
 
     execute(dto) {
         const id = dto.id;
-        return this.repository.findById(id);
+        const userEntity = this.repository.findById(id)
+
+        return this.dtoMapper.toDto(userEntity)
     }
 }
 
-export default new FindUserById(usersRepo);
+export default new FindUserById(usersRepo, UserDtoMapper);

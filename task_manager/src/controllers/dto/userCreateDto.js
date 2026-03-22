@@ -5,8 +5,8 @@ class UserCreateDto extends UserDto {
         super();
         this._validateData(data, true);
 
-        this.email = data.email;
         this.username = data.username;
+        this.email = data.email;
         this.password = data.password;
     }
 }

@@ -1,37 +1,46 @@
 import usersFactory from "../models/userModel.js";
 import UserInterfaces from "../domain/users/UserInterfaces.js";
+import UserMapper from "./userMapper.js";
 
 class UsersRepo extends UserInterfaces{
-    constructor(factory) {
+    constructor(factory, mapper) {
         super();
         this.factory = factory;
+        this.mapper = mapper;
         this.nextIndex = 1;
         this.users = new Map();
     }
 
-    create(data) {
+    create(entity) {
+        const userObj = this.mapper.toPersistence(entity);
+        const {id, ...data} = userObj;
+
         const newUser = this.factory(this.nextIndex, data);
         this.users.set(this.nextIndex, newUser);
         this.nextIndex++;
-        return newUser;
+
+        return this.mapper.toDomain(newUser)
     }
 
-    update(id, data) {
-        const user = this.users.get(id);
 
+    update(entity) {
+        const user = this.users.get(entity.id);
         if (!user) {
             return undefined;
         }
 
-        const updatedUser = { ...user, ...data };
-        this.users.set(id, updatedUser);
-        return updatedUser;
+        const userObj = this.mapper.toPersistence(entity);
+        this.users.set(userObj.id, userObj);
+
+        return this.mapper.toDomain(userObj)
     }
 
     findById(id) {
-        return this.users.get(id)
+        const userObj = this.users.get(id);
+        return this.mapper.toDomain(userObj)
     }
 
+    /*
     findByEmail(email) {
         for (const user of this.users.values()){
             if (user.email === email){
@@ -49,10 +58,11 @@ class UsersRepo extends UserInterfaces{
         }
         return undefined;
     }
+     */
 
     deleteById(id) {
         return this.users.delete(id);
     }
 }
 
-export default new UsersRepo(usersFactory);
+export default new UsersRepo(usersFactory, UserMapper);
