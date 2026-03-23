@@ -1,6 +1,6 @@
 import usersFactory from "../models/userModel.js";
-import UserInterfaces from "../domain/users/UserInterfaces.js";
-import UserMapper from "./userMapper.js";
+import UserInterfaces from "../../../domain/users/UserInterfaces.js";
+import UserMapper from "../mapper/userMapper.js";
 
 class UsersRepo extends UserInterfaces{
     constructor(factory, mapper) {

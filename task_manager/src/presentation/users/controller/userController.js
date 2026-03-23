@@ -1,12 +1,12 @@
-import createUser from '../useCases/user/createUser.js'
-import updateUser from '../useCases/user/updateUser.js'
-import findUserById from '../useCases/user/findUserById.js'
-import deleteUserById  from '../useCases/user/deleteUserById.js'
+import createUser from '../../application/users/useCases/createUser.js'
+import updateUser from '../../application/users/useCases/updateUser.js'
+import findUserById from '../../application/users/useCases/findUserById.js'
+import deleteUserById  from '../../application/users/useCases/deleteUserById.js'
 
-import UserCreateDto from './dto/userCreateDto.js'
-import UserUpdateDto from './dto/userUpdateDto.js'
-import UserFindByIdDto from './dto/userFindByIdDto.js'
-import handle from "../errors/errorHandler.js";
+import UserCreateDto from '../dto/userCreateDto.js'
+import UserUpdateDto from '../dto/userUpdateDto.js'
+import UserFindByIdDto from '../dto/userFindByIdDto.js'
+import handle from "../../tools/errors/errorHandler.js";
 
 class UsersController {
     constructor(createCase, updateCase, findUserByIdCase, deleteUserByIdCase) {

@@ -1,4 +1,4 @@
-import usersRepo from '../../repositories/userRepo.js';
+import usersRepo from '../../../infrastructure/repositories/userRepo.js';
 
 class DeleteUserById {
     constructor(repository) {

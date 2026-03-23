@@ -1,5 +1,5 @@
-import usersRepo from '../../repositories/userRepo.js';
-import UserDtoMapper from "./userDtoMapper.js";
+import usersRepo from '../../../infrastructure/repositories/userRepo.js';
+import UserDtoMapper from "./dtoMapper/userDtoMapper.js";
 
 class UpdateUser {
     constructor(repository, dtoMapper) {
