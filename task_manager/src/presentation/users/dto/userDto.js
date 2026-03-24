@@ -1,4 +1,4 @@
-import {ValidationError} from "../../../tools/errors/customErrors.js";
+import {ValidationError} from "../../errors/customErrors.js";
 
 class UserDto {
     constructor() {

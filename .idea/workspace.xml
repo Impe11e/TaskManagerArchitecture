@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="39bcfdec-7bb8-4c39-a8df-42090959aba9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/task_manager/src/server/compos_roots/usersRoot.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/useCases/createUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/application/users/useCases/createUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/useCases/deleteUserById.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/application/users/useCases/deleteUserById.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/useCases/findUserById.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/application/users/useCases/findUserById.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/useCases/updateUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/application/users/useCases/updateUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/infrastructure/users/models/userModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/infrastructure/users/models/usersFactory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/infrastructure/users/repository/userRepo.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/infrastructure/users/repository/userRepo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/controller/usersController.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/controller/usersController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/server/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/server/app.js" afterDir="false" />
-    </list>
+    <list default="true" id="39bcfdec-7bb8-4c39-a8df-42090959aba9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -89,7 +78,7 @@
       <workItem from="1774313522018" duration="81000" />
       <workItem from="1774353988091" duration="1384000" />
       <workItem from="1774363914242" duration="84000" />
-      <workItem from="1774364547541" duration="4474000" />
+      <workItem from="1774364547541" duration="5328000" />
     </task>
     <servers />
   </component>

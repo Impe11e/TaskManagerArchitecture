@@ -6,7 +6,7 @@
 import UserCreateDto from '../dto/userCreateDto.js'
 import UserUpdateDto from '../dto/userUpdateDto.js'
 import UserFindByIdDto from '../dto/userFindByIdDto.js'
-import handle from "../../../tools/errors/errorHandler.js";
+import handle from "../../errors/errorHandler.js";
 
 class UsersController {
     constructor(createCase, updateCase, findUserByIdCase, deleteUserByIdCase) {
