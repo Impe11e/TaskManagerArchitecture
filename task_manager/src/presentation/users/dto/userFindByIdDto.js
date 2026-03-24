@@ -1,10 +1,5 @@
-import UserDto from './userDto.js';
-
-class UserFindByIdDto extends UserDto {
+class UserFindByIdDto {
     constructor(id) {
-        super();
-        this._validateId(id);
-
         this.id = id;
     }
 }

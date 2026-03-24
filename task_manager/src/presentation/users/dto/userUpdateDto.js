@@ -1,11 +1,5 @@
-import UserDto from './userDto.js';
-
-class UserUpdateDto extends UserDto {
+class UserUpdateDto {
     constructor(id, data) {
-        super();
-        this._validateData(data, false);
-        this._validateId(id)
-
         this.id = id;
 
         if (data.email) {
