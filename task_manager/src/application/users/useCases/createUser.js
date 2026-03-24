@@ -11,8 +11,8 @@ class CreateUser {
 
     execute(dto) {
         const user = this.userEntity.createEntityWithoutId(dto.username, dto.email, dto.password);
-        const userEntity = this.repository.create(user);
-        return this.dtoMapper.toDto(userEntity);
+
+        return this.repository.create(user);
     }
 }
 

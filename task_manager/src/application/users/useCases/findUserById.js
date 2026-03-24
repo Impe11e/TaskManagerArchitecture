@@ -9,9 +9,8 @@ class FindUserById {
 
     execute(dto) {
         const id = dto.id;
-        const userEntity = this.repository.findById(id)
 
-        return this.dtoMapper.toDto(userEntity)
+        return this.repository.findById(id)
     }
 }
 

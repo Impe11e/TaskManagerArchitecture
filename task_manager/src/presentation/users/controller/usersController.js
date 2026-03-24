@@ -1,6 +1,7 @@
-import UserCreateDto from '../dto/userCreateDto.js'
-import UserUpdateDto from '../dto/userUpdateDto.js'
-import UserFindByIdDto from '../dto/userFindByIdDto.js'
+import UserCreateDto from '../requestDto/userCreateDto.js'
+import UserUpdateDto from '../requestDto/userUpdateDto.js'
+import UserFindByIdDto from '../requestDto/userFindByIdDto.js'
+import responseMapper from '../responseDto/usersResponseDtoMapper.js'
 import handle from "../../errors/errorHandler.js";
 import {ValidationError} from "../../errors/customErrors.js";
 
@@ -19,7 +20,7 @@ class UsersController {
             const user = this.createCase.execute(dto)
             return {
                 status: 201,
-                data: user
+                data: responseMapper.toResponseDto(user),
             }
 
         } catch (err) {
@@ -35,7 +36,7 @@ class UsersController {
             const user = this.updateCase.execute(dto)
             return {
                 status: 200,
-                data: user
+                data: responseMapper.toResponseDto(user)
             }
         } catch (err) {
             return handle(err)
@@ -49,7 +50,7 @@ class UsersController {
             const user = this.findUserByIdCase.execute(dto)
             return {
                 status: 200,
-                data: user
+                data: responseMapper.toResponseDto(user)
             }
         } catch (err) {
             return handle(err)

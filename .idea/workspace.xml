@@ -3,11 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="39bcfdec-7bb8-4c39-a8df-42090959aba9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/dtoMapper/userDtoMapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/responseDto/usersResponseDtoMapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/useCases/createUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/application/users/useCases/createUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/useCases/findUserById.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/application/users/useCases/findUserById.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/useCases/updateUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/application/users/useCases/updateUser.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/controller/usersController.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/controller/usersController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userCreateDto.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userCreateDto.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userDto.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userDto.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userFindByIdDto.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userFindByIdDto.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userUpdateDto.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userUpdateDto.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userCreateDto.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/requestDto/userCreateDto.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userDto.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userFindByIdDto.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/requestDto/userFindByIdDto.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userUpdateDto.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/requestDto/userUpdateDto.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/server/compos_roots/usersRoot.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/server/compos_roots/usersRoot.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,11 +63,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/task_manager/src/presentation/users" />
+      <recent name="$PROJECT_DIR$/task_manager/src/application/users/responseDto" />
+      <recent name="$PROJECT_DIR$/task_manager/src/application/users/responseDto/dto" />
+      <recent name="$PROJECT_DIR$/task_manager/src/application/users/responseDto/mapper" />
       <recent name="$PROJECT_DIR$/task_manager/src/presentation" />
-      <recent name="$PROJECT_DIR$/task_manager/src/server/compos_roots" />
-      <recent name="$PROJECT_DIR$/task_manager/src/server" />
-      <recent name="$PROJECT_DIR$/task_manager/src/domain/users/repoInterfaces" />
-      <recent name="$PROJECT_DIR$/task_manager/src/domain/users/entity" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -86,7 +91,7 @@
       <workItem from="1774353988091" duration="1384000" />
       <workItem from="1774363914242" duration="84000" />
       <workItem from="1774364547541" duration="5328000" />
-      <workItem from="1774374225423" duration="1478000" />
+      <workItem from="1774374225423" duration="5552000" />
     </task>
     <servers />
   </component>

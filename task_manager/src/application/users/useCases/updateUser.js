@@ -16,9 +16,7 @@ class UpdateUser {
             password: data.password
         })
 
-        const updatedUser = this.repository.update(user);
-
-        return this.dtoMapper.toDto(updatedUser);
+        return this.repository.update(user);
     }
 }
 

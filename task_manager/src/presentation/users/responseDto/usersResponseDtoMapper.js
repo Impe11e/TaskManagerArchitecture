@@ -1,10 +1,9 @@
 class UserDtoMapper {
-    static toDto(entity) {
+    static toResponseDto(entity) {
         return {
             id: entity.id,
             username: entity.username,
             email: entity.email,
-            password: entity.password,
         };
     }
 }

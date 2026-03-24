@@ -12,12 +12,12 @@ import CreateUser from "../../application/users/useCases/createUser.js";
 import DeleteUser from "../../application/users/useCases/deleteUserById.js"
 import FindUserById from "../../application/users/useCases/findUserById.js"
 import UpdateUser from "../../application/users/useCases/updateUser.js"
-import UserDtoMapper from "../../application/users/dtoMapper/userDtoMapper.js";
+import UsersResponseDtoMapper from "../../presentation/users/responseDto/usersResponseDtoMapper.js";
 import UserEntity from "../../domain/users/entity/userEntity.js";
 
-const createUser = new CreateUser(usersRepository,UserEntity, UserDtoMapper);
-const updateUser = new UpdateUser(usersRepository, UserDtoMapper);
-const findUserById = new FindUserById(usersRepository, UserDtoMapper);
+const createUser = new CreateUser(usersRepository,UserEntity, UsersResponseDtoMapper);
+const updateUser = new UpdateUser(usersRepository, UsersResponseDtoMapper);
+const findUserById = new FindUserById(usersRepository, UsersResponseDtoMapper);
 const deleteUserById = new DeleteUser(usersRepository);
 
 //controller (part of presentation)

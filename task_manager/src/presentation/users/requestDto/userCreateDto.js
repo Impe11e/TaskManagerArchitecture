@@ -1,4 +1,3 @@
-
 class UserCreateDto {
     constructor(data) {
         this.username = data.username;
