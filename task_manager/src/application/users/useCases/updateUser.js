@@ -1,5 +1,5 @@
-import usersRepo from '../../../infrastructure/users/repository/userRepo.js';
-import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
+//import usersRepo from '../../../infrastructure/users/repository/userRepo.js';
+//import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
 
 class UpdateUser {
     constructor(repository, dtoMapper) {
@@ -22,4 +22,5 @@ class UpdateUser {
     }
 }
 
-export default new UpdateUser(usersRepo, UserDtoMapper);
+//export default new UpdateUser(usersRepo, UserDtoMapper);
+export default UpdateUser;

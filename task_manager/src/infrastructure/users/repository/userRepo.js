@@ -1,9 +1,9 @@
-import usersFactory from "../models/userModel.js";
+//import usersFactory from "../models/userModel.js";
 import UserRepo from "../../../domain/users/repoInterfaces/userRepo.js";
-import UserMapper from "../mapper/userMapper.js";
-import pool from "../../pool.js";
+//import UserMapper from "../mapper/userMapper.js";
+//import pool from "../../pool.js";
 
-class UsersRepo extends UserRepo{
+class UsersRepository extends UserRepo{
     constructor(factory, mapper, pool) {
         super();
         this.factory = factory;
@@ -48,4 +48,5 @@ class UsersRepo extends UserRepo{
 
 }
 
-export default new UsersRepo(usersFactory, UserMapper, pool);
+//export default new UsersRepo(usersFactory, UserMapper, pool);
+export default UsersRepository;

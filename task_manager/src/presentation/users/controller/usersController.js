@@ -1,7 +1,7 @@
-import createUser from '../../../application/users/useCases/createUser.js'
-import updateUser from '../../../application/users/useCases/updateUser.js'
-import findUserById from '../../../application/users/useCases/findUserById.js'
-import deleteUserById  from '../../../application/users/useCases/deleteUserById.js'
+//import createUser from '../../../application/users/useCases/createUser.js'
+//import updateUser from '../../../application/users/useCases/updateUser.js'
+//import findUserById from '../../../application/users/useCases/findUserById.js'
+//import deleteUserById  from '../../../application/users/useCases/deleteUserById.js'
 
 import UserCreateDto from '../dto/userCreateDto.js'
 import UserUpdateDto from '../dto/userUpdateDto.js'
@@ -70,4 +70,5 @@ class UsersController {
     }
 }
 
-export default new UsersController(createUser, updateUser, findUserById, deleteUserById)
+//export default new UsersController(createUser, updateUser, findUserById, deleteUserById)
+export default UsersController

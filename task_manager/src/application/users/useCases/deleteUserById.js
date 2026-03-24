@@ -1,4 +1,4 @@
-import usersRepo from '../../../infrastructure/users/repository/userRepo.js';
+//import usersRepo from '../../../infrastructure/users/repository/userRepo.js';
 
 class DeleteUserById {
     constructor(repository) {
@@ -11,4 +11,5 @@ class DeleteUserById {
     }
 }
 
-export default new DeleteUserById(usersRepo);
+//export default new DeleteUserById(usersRepo);
+export default DeleteUserById;

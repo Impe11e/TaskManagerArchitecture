@@ -1,5 +1,5 @@
-import usersRepo from '../../../infrastructure/users/repository/userRepo.js';
-import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
+//import usersRepo from '../../../infrastructure/users/repository/userRepo.js';
+//import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
 
 class FindUserById {
     constructor(repository, dtoMapper) {
@@ -15,4 +15,5 @@ class FindUserById {
     }
 }
 
-export default new FindUserById(usersRepo, UserDtoMapper);
+//export default new FindUserById(usersRepo, UserDtoMapper);
+export default FindUserById
