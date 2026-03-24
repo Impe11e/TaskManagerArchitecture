@@ -1,5 +1,5 @@
-import usersRepo from '../../../infrastructure/repositories/userRepo.js';
-import UserDtoMapper from "./dtoMapper/userDtoMapper.js";
+import usersRepo from '../../../infrastructure/users/repository/userRepo.js';
+import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
 
 class FindUserById {
     constructor(repository, dtoMapper) {

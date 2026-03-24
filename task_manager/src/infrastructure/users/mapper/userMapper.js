@@ -1,4 +1,4 @@
-import UserEntity from '../../domain/users/userEntity.js';
+import UserEntity from '../../../domain/users/entity/userEntity.js';
 
 class UserMapper {
     static toDomain(raw) {

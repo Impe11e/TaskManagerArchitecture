@@ -1,12 +1,14 @@
 import usersFactory from "../models/userModel.js";
-import UserInterfaces from "../../../domain/users/UserInterfaces.js";
+import UserRepo from "../../../domain/users/repoInterfaces/userRepo.js";
 import UserMapper from "../mapper/userMapper.js";
+import pool from "../../pool.js";
 
-class UsersRepo extends UserInterfaces{
-    constructor(factory, mapper) {
+class UsersRepo extends UserRepo{
+    constructor(factory, mapper, pool) {
         super();
         this.factory = factory;
         this.mapper = mapper;
+        this.pool = pool;
         this.nextIndex = 1;
         this.users = new Map();
     }
@@ -40,29 +42,10 @@ class UsersRepo extends UserInterfaces{
         return this.mapper.toDomain(userObj)
     }
 
-    /*
-    findByEmail(email) {
-        for (const user of this.users.values()){
-            if (user.email === email){
-                return user;
-            }
-        }
-        return undefined;
-    }
-
-    findByUsername(username) {
-        for (const user of this.users.values()){
-            if (user.username === username){
-                return user;
-            }
-        }
-        return undefined;
-    }
-     */
-
     deleteById(id) {
         return this.users.delete(id);
     }
+
 }
 
-export default new UsersRepo(usersFactory, UserMapper);
+export default new UsersRepo(usersFactory, UserMapper, pool);

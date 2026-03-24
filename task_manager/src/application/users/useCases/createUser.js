@@ -1,6 +1,6 @@
-import usersRepo from '../../../infrastructure/repositories/userRepo.js';
-import UserEntity from "../../../domain/users/userEntity.js";
-import UserDtoMapper from "./dtoMapper/userDtoMapper.js";
+import usersRepo from '../../../infrastructure/users/repository/userRepo.js';
+import UserEntity from "../../../domain/users/entity/userEntity.js";
+import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
 
 class CreateUser {
     constructor(repository, dtoMapper) {

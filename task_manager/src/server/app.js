@@ -1,5 +1,5 @@
 import express from "express";
-import userRouter from "./routes/usersRoutes.js";
+import userRouter from "../presentation/users/routes/usersRoutes.js";
 //import taskRouter from "./routes/tasksRoutes.js";
 //import profileRouter from "./routes/profilesRoutes.js";
 

@@ -1,4 +1,4 @@
-class UserInterfaces {
+class UserRepo {
     create() {
         throw new Error('Method create not implemented');
     }
@@ -11,17 +11,9 @@ class UserInterfaces {
         throw new Error('Method findById not implemented');
     }
 
-    findByEmail() {
-        throw new Error('Method findByEmail not implemented');
-    }
-
-    findByUsername() {
-        throw new Error('Method findByUsername not implemented');
-    }
-
     deleteById() {
         throw new Error('Method deleteById not implemented');
     }
 }
 
-export default UserInterfaces
+export default UserRepo
