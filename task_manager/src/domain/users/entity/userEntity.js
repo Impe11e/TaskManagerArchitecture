@@ -49,6 +49,11 @@ class UserEntity {
         }
     }
 
+    toSafe() {
+        this.password = null;
+        return this;
+    }
+
     static createEntity(id, username, email, password) {
         this._validateId(id)
         this._validateEmail(email)

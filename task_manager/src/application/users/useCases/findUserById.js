@@ -9,8 +9,9 @@ class FindUserById {
 
     execute(dto) {
         const id = dto.id;
+        const user = this.repository.findById(id)
 
-        return this.repository.findById(id)
+        return user.toSafe()
     }
 }
 
