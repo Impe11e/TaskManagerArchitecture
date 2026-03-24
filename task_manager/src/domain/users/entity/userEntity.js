@@ -1,4 +1,4 @@
-import {DomainError} from "../../../tools/errors/customErrors.js";
+import DomainError from "../../errors/domainErrors.js";
 
 class UserEntity {
     constructor(id, username, email, password, cKey) {

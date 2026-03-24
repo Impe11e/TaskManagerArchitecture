@@ -26,11 +26,4 @@ class ForbiddenError extends Error {
     }
 }
 
-class DomainError extends Error {
-    constructor(message) {
-        super(message);
-        this.name = 'DomainError';
-    }
-}
-
-export {ValidationError, NotFoundError, ConflictError, ForbiddenError, DomainError};
+export {ValidationError, NotFoundError, ConflictError, ForbiddenError};
