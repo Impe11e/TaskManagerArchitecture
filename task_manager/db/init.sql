@@ -1,0 +1,29 @@
+CREATE TABLE IF NOT EXISTS Users (
+id SERIAL PRIMARY KEY,
+username TEXT NOT NULL,
+email TEXT NOT NULL,
+password TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Profiles (
+id SERIAL PRIMARY KEY,
+user_id INT NOT NULL REFERENCES Users(id) ON DELETE CASCADE,
+bio TEXT,
+avatar TEXT,
+bdate DATE,
+phone VARCHAR(20)
+);
+
+CREATE TYPE statuses AS ENUM ('NEW','IN_PROGRESS','DONE');
+CREATE TYPE priorities AS ENUM ('LOW','MEDIUM','HIGH');
+
+CREATE TABLE IF NOT EXISTS Tasks (
+id SERIAL PRIMARY KEY,
+title TEXT,
+description TEXT,
+status statuses,
+created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+priority priorities,
+due_date DATE 
+);
+
