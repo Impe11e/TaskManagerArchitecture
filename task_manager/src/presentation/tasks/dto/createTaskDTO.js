@@ -1,4 +1,4 @@
-import { ValidationError } from '../../../application/errors/customErrors.js';
+import { ValidationError } from '../../errors/customErrors.js';
 
 export default class CreateTaskDTO {
   constructor(data) {

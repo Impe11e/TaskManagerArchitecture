@@ -1,4 +1,4 @@
-import { NotFoundError } from "../../errors/customErrors.js";
+import { NotFoundError } from "../../errors/applicationErrors.js";
 
 export default class DeleteTaskUseCase {
   constructor(taskRepository) {

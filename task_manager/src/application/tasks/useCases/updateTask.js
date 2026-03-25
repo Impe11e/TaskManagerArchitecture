@@ -1,4 +1,4 @@
-import { NotFoundError, ValidationError} from "../../errors/customErrors.js";
+import { ValidationError, NotFoundError } from "../../errors/applicationErrors.js";
 
 export default class UpdateTaskUseCase {
   constructor(taskRepository) {

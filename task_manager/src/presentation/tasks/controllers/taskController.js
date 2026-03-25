@@ -1,6 +1,6 @@
 import CreateTaskDTO from '../dto/createTaskDTO.js';
 import UpdateTaskDTO from '../dto/updateTaskDTO.js';
-import handle from "../../../application/errors/errorHandler.js";
+import handle from "../../errors/errorHandler.js";
 
 export default class TaskController {
   constructor(
