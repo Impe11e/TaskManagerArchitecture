@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="39bcfdec-7bb8-4c39-a8df-42090959aba9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/dtoMapper/userDtoMapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/responseDto/usersResponseDtoMapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/useCases/createUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/application/users/useCases/createUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/useCases/findUserById.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/application/users/useCases/findUserById.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/useCases/updateUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/application/users/useCases/updateUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/controller/usersController.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/controller/usersController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userCreateDto.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/requestDto/userCreateDto.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userDto.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userFindByIdDto.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/requestDto/userFindByIdDto.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userUpdateDto.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/requestDto/userUpdateDto.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/server/compos_roots/usersRoot.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/server/compos_roots/usersRoot.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="3BJeDP3aPaKPsdWi5VBY53s8jsQ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Node.js.app.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.createUser.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.pool.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.server.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.userEntity.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.userRepo.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.usersRoot.js.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;user__layers&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/opt/WebStorm-253.32098.39/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/task_manager/src/presentation/users" />
+      <recent name="$PROJECT_DIR$/task_manager/src/application/users/responseDto" />
+      <recent name="$PROJECT_DIR$/task_manager/src/application/users/responseDto/dto" />
+      <recent name="$PROJECT_DIR$/task_manager/src/application/users/responseDto/mapper" />
+      <recent name="$PROJECT_DIR$/task_manager/src/presentation" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.32098.39" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="39bcfdec-7bb8-4c39-a8df-42090959aba9" name="Changes" comment="" />
+      <created>1774211479746</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1774211479746</updated>
+      <workItem from="1774211481826" duration="10382000" />
+      <workItem from="1774295644528" duration="2518000" />
+      <workItem from="1774312776906" duration="685000" />
+      <workItem from="1774313522018" duration="81000" />
+      <workItem from="1774353988091" duration="1384000" />
+      <workItem from="1774363914242" duration="84000" />
+      <workItem from="1774364547541" duration="5328000" />
+      <workItem from="1774374225423" duration="5552000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
