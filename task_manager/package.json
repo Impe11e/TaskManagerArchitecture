@@ -7,13 +7,14 @@
     "dev": "vite",
     "build": "vite build",
     "build-db": "docker build -t db-image .",
-    "start-db": "docker run -d -p 5433:5432 --name database db-image",
+    "start-db": "docker run -d -p 5433:5432 --name database --env-file .env_db db-image",
     "run-db": "docker start database",
     "stop-db": "docker stop database",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "pg": "^8.20.0",
     "react": "^19.2.0",
