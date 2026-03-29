@@ -5,9 +5,9 @@ class DeleteUserById {
         this.repository = repository;
     }
 
-    execute(dto) {
+    async execute(dto) {
         const id = dto.id;
-        return this.repository.deleteById(id);
+        return await this.repository.deleteById(id);
     }
 }
 

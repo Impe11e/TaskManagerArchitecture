@@ -1,10 +1,9 @@
 //infrastructure
-import usersFactory from '../../infrastructure/users/models/usersFactory.js'
 import UserMapper from '../../infrastructure/users/mapper/userMapper.js'
 import pool from '../../infrastructure/pool.js'
 import UsersRepository from '../../infrastructure/users/repository/userRepo.js'
 
-const usersRepository = new UsersRepository(usersFactory, UserMapper, pool)
+const usersRepository = new UsersRepository(UserMapper, pool)
 
 //application
 

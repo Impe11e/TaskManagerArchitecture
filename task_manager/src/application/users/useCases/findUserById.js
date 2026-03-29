@@ -7,9 +7,9 @@ class FindUserById {
         this.dtoMapper = dtoMapper;
     }
 
-    execute(dto) {
+    async execute(dto) {
         const id = dto.id;
-        const user = this.repository.findById(id)
+        const user = await this.repository.findById(id)
 
         return user.toSafe()
     }

@@ -7,14 +7,14 @@ const getRouter = (controller) => {
     router.get('/:id', async (req, res) => {
         const {id} = req.params;
         const parsedId = parseInt(id)
-        const result = controller.findById(parsedId);
+        const result = await controller.findById(parsedId);
         res.status(result.status).json(result.data);
     });
 
 //create user with profile
     router.post('/', async (req, res) => {
         const data = req.body;
-        const result = controller.create(data);
+        const result = await controller.create(data);
         res.status(result.status).json(result.data);
     });
 
@@ -23,7 +23,7 @@ const getRouter = (controller) => {
         const {id} = req.params;
         const parsedId = parseInt(id)
         const body = req.body;
-        const result = controller.update(parsedId, body);
+        const result = await controller.update(parsedId, body);
         res.status(result.status).json(result.data);
     });
 
@@ -31,7 +31,7 @@ const getRouter = (controller) => {
     router.delete('/:id', async (req, res) => {
         const {id} = req.params;
         const parsedId = parseInt(id)
-        const result = controller.deleteById(parsedId);
+        const result = await controller.deleteById(parsedId);
         res.status(result.status).json(result.data);
     });
 

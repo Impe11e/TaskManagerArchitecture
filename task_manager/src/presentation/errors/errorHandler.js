@@ -6,6 +6,8 @@ const handle = (err) => {
         status = 400;
     }
 
+    console.log(err.message + err.stack);
+
     return {
         status: status,
         data: err.message,

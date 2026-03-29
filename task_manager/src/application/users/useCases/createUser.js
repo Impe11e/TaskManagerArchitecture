@@ -9,10 +9,10 @@ class CreateUser {
         this.dtoMapper = dtoMapper;
     }
 
-    execute(dto) {
+    async execute(dto) {
         const user = this.userEntity.createEntityWithoutId(dto.username, dto.email, dto.password);
 
-        const createdUser = this.repository.create(user);
+        const createdUser = await this.repository.create(user);
         return createdUser.toSafe();
     }
 }
