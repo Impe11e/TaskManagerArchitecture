@@ -3,7 +3,7 @@ import UserUpdateDto from '../requestDto/userUpdateDto.js'
 import UserFindByIdDto from '../requestDto/userFindByIdDto.js'
 import responseMapper from '../responseDto/usersResponseDtoMapper.js'
 import handle from "../../errors/errorHandler.js";
-import {ValidationError} from "../../errors/customErrors.js";
+import {ValidationError} from "../../errors/presentationErrors.js";
 
 class UsersController {
     constructor(createCase, updateCase, findUserByIdCase, deleteUserByIdCase) {

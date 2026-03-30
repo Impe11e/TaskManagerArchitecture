@@ -1,5 +1,6 @@
 //import usersRepo from '../../../infrastructure/users/repository/userRepo.js';
 //import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
+import {NotFoundError} from '../../errors/applicationErrors.js';
 
 class FindUserById {
     constructor(repository) {
@@ -15,7 +16,7 @@ class FindUserById {
         const user = await this.repository.findById(id)
 
         if(!user) {
-            throw new Error('User not found');
+            throw new NotFoundError('User with this not found');
         }
 
         return user;

@@ -60,7 +60,7 @@ task_manager/
 │   │   ├── taskConsts.js        ← Configuration values ​​for tasks (statuses, priorities)
 │   │   └── userModel.js
 │   ├── errors/                  ← Helpers for error handling
-│   │   ├── customErrors.js
+│   │   ├── presentationErrors.js
 │   │   └── errorHandler.js
 │   └── server/
 │       ├── app.js               ← Express application, route registration

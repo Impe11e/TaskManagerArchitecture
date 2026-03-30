@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="39bcfdec-7bb8-4c39-a8df-42090959aba9" name="Changes" comment="">
+    <list default="true" id="4cc76ee9-3633-42fd-95b0-0e2cab15d14c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/task_manager/src/application/errors/applicationErrors.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/dtoMapper/userDtoMapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/responseDto/usersResponseDtoMapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/useCases/createUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/application/users/useCases/createUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/useCases/deleteUserById.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/application/users/useCases/deleteUserById.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/useCases/findUserById.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/application/users/useCases/findUserById.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/task_manager/src/application/users/useCases/updateUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/application/users/useCases/updateUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/domain/errors/domainErrors.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/domain/errors/domainErrors.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/domain/users/entity/userEntity.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/domain/users/entity/userEntity.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/domain/users/service/usersDomainService.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/domain/users/service/usersDomainService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/errors/customErrors.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/errors/presentationErrors.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/errors/errorHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/errors/errorHandler.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/controller/usersController.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/controller/usersController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userCreateDto.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/requestDto/userCreateDto.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userDto.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userFindByIdDto.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/requestDto/userFindByIdDto.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/presentation/users/dto/userUpdateDto.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/presentation/users/requestDto/userUpdateDto.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task_manager/src/server/compos_roots/usersRoot.js" beforeDir="false" afterPath="$PROJECT_DIR$/task_manager/src/server/compos_roots/usersRoot.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,68 +32,63 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 4
+  &quot;associatedIndex&quot;: 7,
+  &quot;fromUser&quot;: false
 }</component>
-  <component name="ProjectId" id="3BJeDP3aPaKPsdWi5VBY53s8jsQ" />
+  <component name="ProjectId" id="3BcKzGRAt9jBPhVOm7sr58QmAYV" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Node.js.app.js.executor&quot;: &quot;Run&quot;,
     &quot;Node.js.createUser.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.main.jsx.executor&quot;: &quot;Run&quot;,
     &quot;Node.js.pool.js.executor&quot;: &quot;Run&quot;,
     &quot;Node.js.server.js.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.userEntity.js.executor&quot;: &quot;Run&quot;,
     &quot;Node.js.userRepo.js.executor&quot;: &quot;Run&quot;,
     &quot;Node.js.usersRoot.js.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;user__layers&quot;,
     &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/opt/WebStorm-253.32098.39/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/opt/WebStorm-261.22158.274/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/task_manager/src/presentation/users" />
-      <recent name="$PROJECT_DIR$/task_manager/src/application/users/responseDto" />
-      <recent name="$PROJECT_DIR$/task_manager/src/application/users/responseDto/dto" />
-      <recent name="$PROJECT_DIR$/task_manager/src/application/users/responseDto/mapper" />
-      <recent name="$PROJECT_DIR$/task_manager/src/presentation" />
-    </key>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.32098.39" />
+        <option value="bundled-js-predefined-d6986cc7102b-3bd3a6803838-JavaScript-WS-261.22158.274" />
       </set>
     </attachedChunks>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="39bcfdec-7bb8-4c39-a8df-42090959aba9" name="Changes" comment="" />
-      <created>1774211479746</created>
+      <changelist id="4cc76ee9-3633-42fd-95b0-0e2cab15d14c" name="Changes" comment="" />
+      <created>1774783178286</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1774211479746</updated>
-      <workItem from="1774211481826" duration="10382000" />
-      <workItem from="1774295644528" duration="2518000" />
-      <workItem from="1774312776906" duration="685000" />
-      <workItem from="1774313522018" duration="81000" />
-      <workItem from="1774353988091" duration="1384000" />
-      <workItem from="1774363914242" duration="84000" />
-      <workItem from="1774364547541" duration="5328000" />
-      <workItem from="1774374225423" duration="5552000" />
+      <updated>1774783178286</updated>
+      <workItem from="1774783179475" duration="1917000" />
+      <workItem from="1774785107461" duration="41000" />
+      <workItem from="1774785172863" duration="6513000" />
+      <workItem from="1774799258450" duration="970000" />
+      <workItem from="1774807024437" duration="4081000" />
+      <workItem from="1774881675399" duration="1532000" />
+      <workItem from="1774889529629" duration="3961000" />
+      <workItem from="1774898170650" duration="3827000" />
+      <workItem from="1774907082362" duration="2753000" />
+      <workItem from="1774911650937" duration="5000" />
+      <workItem from="1774912021328" duration="1836000" />
     </task>
     <servers />
   </component>

@@ -1,4 +1,4 @@
-import DomainError from "../../errors/domainErrors.js";
+import {ConflictError} from "../../errors/domainErrors.js";
 
 class UsersDomainService {
     constructor(repository) {
@@ -8,14 +8,14 @@ class UsersDomainService {
     async checkByEmail(email) {
         const user = await this.repository.checkByEmail(email);
         if (user) {
-            throw new DomainError(`User ${email} already exists`);
+            throw new ConflictError(`User ${email} already exists`);
         }
     }
 
     async checkByUsername(username) {
         const user = await this.repository.checkByUsername(username);
         if (user) {
-            throw new DomainError(`User ${username} already exists`);
+            throw new ConflictError(`User ${username} already exists`);
         }
     }
 }

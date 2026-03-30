@@ -1,4 +1,4 @@
-import DomainError from "../../errors/domainErrors.js";
+import {InvariantError} from "../../errors/domainErrors.js";
 
 class UserEntity {
     constructor(id, username, email, password) {
@@ -12,7 +12,7 @@ class UserEntity {
 
     static _validateId(id) {
         if (id <= 0){
-            throw new DomainError('Business logic violated: id should be greater than 0.');
+            throw new InvariantError('Business logic violated: id should be greater than 0.');
         }
     }
 
@@ -20,27 +20,27 @@ class UserEntity {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!emailRegex.test(email)) {
-            throw new DomainError('Business logic violated: email has invalid format.');
+            throw new InvariantError('Business logic violated: email has invalid format.');
         }
     }
 
     static _validateUsername(username) {
         if (username.length <= 5) {
-            throw new DomainError('Business logic violated: username is too short.');
+            throw new InvariantError('Business logic violated: username is too short.');
         }
 
         if (username.length >= 20) {
-            throw new DomainError('Business logic violated: username is too long.');
+            throw new InvariantError('Business logic violated: username is too long.');
         }
     }
 
     static _validatePassword(password) {
         if (password.length <= 8) {
-            throw new DomainError('Business logic violated: password is too short.');
+            throw new InvariantError('Business logic violated: password is too short.');
         }
 
         if (password.length >= 30) {
-            throw new DomainError('Business logic violated: password is too long.');
+            throw new InvariantError('Business logic violated: password is too long.');
         }
     }
 

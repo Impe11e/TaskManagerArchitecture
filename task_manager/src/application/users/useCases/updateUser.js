@@ -1,5 +1,6 @@
 //import usersRepo from '../../../infrastructure/users/repository/userRepo.js';
 //import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
+import {NotFoundError} from '../../errors/applicationErrors.js';
 
 class UpdateUser {
     constructor(repository, domainService) {
@@ -8,7 +9,7 @@ class UpdateUser {
     }
 
     async execute(dto) {
-        const user = await this.repository.findById(dto.id)
+        const user = await this._findUserOrFail(dto.id)
 
         if (dto.email) {
             await this.domainService.checkByEmail(dto.email);
@@ -24,6 +25,14 @@ class UpdateUser {
         })
 
         return await this.repository.update(user);
+    }
+
+    async _findUserOrFail(id) {
+        const user = await this.repository.findById(id)
+
+        if(!user) {
+            throw new NotFoundError('User with this not found');
+        }
     }
 }
 

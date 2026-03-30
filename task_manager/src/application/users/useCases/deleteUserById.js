@@ -1,4 +1,5 @@
 //import usersRepo from '../../../infrastructure/users/repository/userRepo.js';
+import {NotFoundError} from '../../errors/applicationErrors.js';
 
 class DeleteUserById {
     constructor(repository) {
@@ -15,7 +16,7 @@ class DeleteUserById {
         const user = await this.repository.findById(id)
 
         if(!user) {
-            throw new Error('User not found');
+            throw new NotFoundError('User with this not found');
         }
     }
 }
