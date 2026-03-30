@@ -1,32 +1,32 @@
 import UserRepo from "../../../domain/users/repoInterfaces/userRepo.js";
+import UsersMapper from "../mapper/usersMapper.js";
 import queries from "./queries.js"
 
 class UsersRepository extends UserRepo {
     constructor(mapper, pool) {
         super();
-        this.mapper = mapper;
         this.pool = pool;
     }
 
     async create(entity) {
-        const userObj = this.mapper.toPersistence(entity);
+        const userObj = UsersMapper.toPersistence(entity);
         const {id, ...data} = userObj;
 
         const response = await this.pool.query(queries.create, [data.username, data.email, data.password]);
         const created = response.rows[0]
 
-        return this.mapper.toDomain(created);
+        return UsersMapper.toDomain(created);
     }
 
 
     async update(entity) {
-        const userObj = this.mapper.toPersistence(entity);
+        const userObj = UsersMapper.toPersistence(entity);
         const {id, ...data} = userObj;
 
         const query = queries.update;
         const response = await this.pool.query(query, [data.username,data.email,data.password, id]);
 
-        return this.mapper.toDomain(response.rows[0]);
+        return UsersMapper.toDomain(response.rows[0]);
     }
 
     async findById(id) {
@@ -37,7 +37,7 @@ class UsersRepository extends UserRepo {
             return null;
         }
 
-        return this.mapper.toDomain(user)
+        return UsersMapper.toDomain(user)
     }
 
     async deleteById(id) {
@@ -57,5 +57,5 @@ class UsersRepository extends UserRepo {
 
 }
 
-//export default new UsersRepo(usersFactory, UserMapper, pool);
+//export default new UsersRepo(usersFactory, UsersMapper, pool);
 export default UsersRepository;

@@ -1,9 +1,9 @@
 //infrastructure
-import UserMapper from '../../infrastructure/users/mapper/userMapper.js'
+import UsersMapper from '../../infrastructure/users/mapper/usersMapper.js'
 import pool from '../../infrastructure/pool.js'
 import UsersRepository from '../../infrastructure/users/repository/userRepo.js'
 
-const usersRepository = new UsersRepository(UserMapper, pool)
+const usersRepository = new UsersRepository(UsersMapper, pool)
 
 //application
 
@@ -14,9 +14,9 @@ import UpdateUser from "../../application/users/useCases/updateUser.js"
 import UsersResponseDtoMapper from "../../presentation/users/responseDto/usersResponseDtoMapper.js";
 import UserEntity from "../../domain/users/entity/userEntity.js";
 
-const createUser = new CreateUser(usersRepository,UserEntity, UsersResponseDtoMapper);
-const updateUser = new UpdateUser(usersRepository, UsersResponseDtoMapper);
-const findUserById = new FindUserById(usersRepository, UsersResponseDtoMapper);
+const createUser = new CreateUser(usersRepository,UserEntity);
+const updateUser = new UpdateUser(usersRepository);
+const findUserById = new FindUserById(usersRepository);
 const deleteUserById = new DeleteUser(usersRepository);
 
 //controller (part of presentation)

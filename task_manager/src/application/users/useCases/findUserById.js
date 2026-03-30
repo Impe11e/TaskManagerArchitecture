@@ -2,9 +2,8 @@
 //import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
 
 class FindUserById {
-    constructor(repository, dtoMapper) {
+    constructor(repository) {
         this.repository = repository;
-        this.dtoMapper = dtoMapper;
     }
 
     async execute(dto) {

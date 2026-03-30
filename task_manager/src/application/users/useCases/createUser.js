@@ -3,10 +3,9 @@
 //import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
 
 class CreateUser {
-    constructor(repository, userEntity, dtoMapper) {
+    constructor(repository, userEntity) {
         this.repository = repository;
         this.userEntity = userEntity;
-        this.dtoMapper = dtoMapper;
     }
 
     async execute(dto) {

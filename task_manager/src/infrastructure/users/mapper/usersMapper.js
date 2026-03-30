@@ -1,6 +1,6 @@
 import UserEntity from '../../../domain/users/entity/userEntity.js';
 
-class UserMapper {
+class UsersMapper {
     static toDomain(raw) {
         return UserEntity.createEntity(raw.id, raw.username, raw.email, raw.password);
     }
@@ -15,4 +15,4 @@ class UserMapper {
     }
 }
 
-export default UserMapper
+export default UsersMapper
