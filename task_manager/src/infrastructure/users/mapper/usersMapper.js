@@ -1,8 +1,8 @@
-import userFabric from "../../../domain/users/fabrics/userFabric.js";
+import UsersFabric from "../../../domain/users/fabrics/usersFabric.js";
 
 class UsersMapper {
     static toDomain(raw) {
-        return userFabric.create(raw.id, raw.username, raw.email, raw.password);
+        return UsersFabric.create(raw.id, raw.username, raw.email, raw.password);
     }
 
     static toPersistence(user) {
