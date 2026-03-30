@@ -15,9 +15,7 @@ class UpdateUser {
             password: data.password
         })
 
-        const updatedUser = await this.repository.update(user);
-
-        return updatedUser.toSafe();
+        return await this.repository.update(user);
     }
 }
 

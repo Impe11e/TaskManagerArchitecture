@@ -8,9 +8,7 @@ class FindUserById {
 
     async execute(dto) {
         const id = dto.id;
-        const user = await this.repository.findById(id)
-
-        return user.toSafe()
+        return await this.repository.findById(id)
     }
 }
 

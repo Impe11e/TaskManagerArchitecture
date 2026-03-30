@@ -11,8 +11,7 @@ class CreateUser {
     async execute(dto) {
         const user = this.userEntity.createEntityWithoutId(dto.username, dto.email, dto.password);
 
-        const createdUser = await this.repository.create(user);
-        return createdUser.toSafe();
+        return await this.repository.create(user);
     }
 }
 
