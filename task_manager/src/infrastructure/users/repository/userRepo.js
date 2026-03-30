@@ -32,11 +32,26 @@ class UsersRepository extends UserRepo {
     async findById(id) {
         const response = await this.pool.query(queries.findById, [id]);
         const user = response.rows[0];
+
+        if(!user) {
+            return null;
+        }
+
         return this.mapper.toDomain(user)
     }
 
     async deleteById(id) {
         const response = await this.pool.query(queries.deleteById, [id]);
+        return response.rowCount > 0;
+    }
+
+    async checkByUsername(username){
+        const response = await this.pool.query(queries.findUsername, [username]);
+        return response.rowCount > 0;
+    }
+
+    async findByEmail(email){
+        const response = await this.pool.query(queries.findEmail, [email]);
         return response.rowCount > 0;
     }
 

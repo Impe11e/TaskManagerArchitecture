@@ -23,10 +23,15 @@ const update = `
     RETURNING *
 `;
 
+const findUsername = `SELECT * FROM Users WHERE username = $1`
+const findEmail = `SELECT * FROM Users WHERE email = $1`
+
 export default {
     create,
     findById,
     deleteById,
     buildUpdateQuery,
     update,
+    findUsername,
+    findEmail
 }

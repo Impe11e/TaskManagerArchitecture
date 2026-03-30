@@ -1,18 +1,26 @@
 class UserRepo {
-    create() {
+    async create() {
         throw new Error('Method create not implemented');
     }
 
-    update() {
+    async update() {
         throw new Error('Method update not implemented');
     }
 
-    findById() {
+    async findById() {
         throw new Error('Method findById not implemented');
     }
 
-    deleteById() {
+    async deleteById() {
         throw new Error('Method deleteById not implemented');
+    }
+
+    async checkByUsername(){
+        throw new Error('Method findByUsername not implemented');
+    }
+
+    async findByEmail(){
+        throw new Error('Method findByEmail not implemented');
     }
 }
 
