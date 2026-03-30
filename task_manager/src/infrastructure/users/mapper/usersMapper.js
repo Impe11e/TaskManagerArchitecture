@@ -1,4 +1,4 @@
-import userFabric from "../../../domain/users/fabrics/UserFabric.js";
+import userFabric from "../../../domain/users/fabrics/userFabric.js";
 
 class UsersMapper {
     static toDomain(raw) {

@@ -9,10 +9,12 @@ import CreateUser from "../../application/users/useCases/createUser.js";
 import DeleteUser from "../../application/users/useCases/deleteUserById.js"
 import FindUserById from "../../application/users/useCases/findUserById.js"
 import UpdateUser from "../../application/users/useCases/updateUser.js"
-import userFabric from "../../domain/users/fabrics/UserFabric.js";
+import userFabric from "../../domain/users/fabrics/userFabric.js";
+import UsersDomainService from "../../domain/users/service/usersDomainService.js";
 
-const createUser = new CreateUser(usersRepository,userFabric);
-const updateUser = new UpdateUser(usersRepository);
+const usersDomainService = new UsersDomainService(usersRepository);
+const createUser = new CreateUser(usersRepository,userFabric, usersDomainService);
+const updateUser = new UpdateUser(usersRepository, usersDomainService);
 const findUserById = new FindUserById(usersRepository);
 const deleteUserById = new DeleteUser(usersRepository);
 

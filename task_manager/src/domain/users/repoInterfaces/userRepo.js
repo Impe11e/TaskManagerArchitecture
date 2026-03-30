@@ -19,7 +19,7 @@ class UserRepo {
         throw new Error('Method findByUsername not implemented');
     }
 
-    async findByEmail(){
+    async checkByEmail(){
         throw new Error('Method findByEmail not implemented');
     }
 }

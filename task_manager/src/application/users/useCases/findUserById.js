@@ -8,7 +8,17 @@ class FindUserById {
 
     async execute(dto) {
         const id = dto.id;
-        return await this.repository.findById(id)
+        return await this._findUserOrFail(id)
+    }
+
+    async _findUserOrFail(id) {
+        const user = await this.repository.findById(id)
+
+        if(!user) {
+            throw new Error('User not found');
+        }
+
+        return user;
     }
 }
 

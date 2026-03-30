@@ -61,7 +61,7 @@ class UsersController {
         try {
             this._validateId(id);
             const dto = new UserFindByIdDto(id)
-            await this.deleteUserByIdCase.execute(dto)
+            const isDeleted = await this.deleteUserByIdCase.execute(dto)
             return {
                 status: 204,
                 data: null

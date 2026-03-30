@@ -2,6 +2,8 @@ import DomainError from "../../errors/domainErrors.js";
 
 class UserEntity {
     constructor(id, username, email, password) {
+        UserEntity._validateInConstructor(id,username, email);
+
         this.id = id;
         this.username = username;
         this.email = email;
@@ -40,6 +42,14 @@ class UserEntity {
         if (password.length >= 30) {
             throw new DomainError('Business logic violated: password is too long.');
         }
+    }
+
+    static _validateInConstructor(id,username,email) {
+        if(id) {
+            UserEntity._validateId(id)
+        }
+        UserEntity._validateUsername(username)
+        UserEntity._validateEmail(email)
     }
 
     update({username, email, password}) {

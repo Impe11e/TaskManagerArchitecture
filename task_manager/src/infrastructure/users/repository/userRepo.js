@@ -50,7 +50,7 @@ class UsersRepository extends UserRepo {
         return response.rowCount > 0;
     }
 
-    async findByEmail(email){
+    async checkByEmail(email){
         const response = await this.pool.query(queries.findEmail, [email]);
         return response.rowCount > 0;
     }
