@@ -1,19 +1,12 @@
 import DomainError from "../../errors/domainErrors.js";
 
 class UserEntity {
-    constructor(id, username, email, password, cKey) {
-
-        if (cKey !== UserEntity.#key){
-            throw new Error("Can`t create a new user entity with constructor");
-        }
-
+    constructor(id, username, email, password) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
     }
-
-    static #key = Symbol('key101')
 
     static _validateId(id) {
         if (id <= 0){
@@ -47,23 +40,6 @@ class UserEntity {
         if (password.length >= 30) {
             throw new DomainError('Business logic violated: password is too long.');
         }
-    }
-
-    static createEntity(id, username, email, password) {
-        this._validateId(id)
-        this._validateEmail(email)
-        this._validateUsername(username)
-        this._validatePassword(password)
-
-        return new UserEntity(id, username, email, password, UserEntity.#key);
-    }
-
-    static createEntityWithoutId(username, email, password) {
-        this._validateEmail(email)
-        this._validateUsername(username)
-        this._validatePassword(password)
-
-        return new UserEntity(null, username, email, password, UserEntity.#key);
     }
 
     update({username, email, password}) {

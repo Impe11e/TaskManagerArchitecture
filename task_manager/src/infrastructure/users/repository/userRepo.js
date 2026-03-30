@@ -3,7 +3,7 @@ import UsersMapper from "../mapper/usersMapper.js";
 import queries from "./queries.js"
 
 class UsersRepository extends UserRepo {
-    constructor(mapper, pool) {
+    constructor(pool) {
         super();
         this.pool = pool;
     }

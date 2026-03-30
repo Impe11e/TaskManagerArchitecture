@@ -3,13 +3,13 @@
 //import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
 
 class CreateUser {
-    constructor(repository, userEntity) {
+    constructor(repository, userFabric) {
         this.repository = repository;
-        this.userEntity = userEntity;
+        this.userFabric = userFabric;
     }
 
     async execute(dto) {
-        const user = this.userEntity.createEntityWithoutId(dto.username, dto.email, dto.password);
+        const user = this.userFabric.create(null, dto.username, dto.email, dto.password);
 
         return await this.repository.create(user);
     }
