@@ -6,8 +6,7 @@ const getRouter = (controller) => {
 //find user
     router.get('/:id', async (req, res) => {
         const {id} = req.params;
-        const parsedId = parseInt(id)
-        const result = await controller.findById(parsedId);
+        const result = await controller.findById(id);
         res.status(result.status).json(result.data);
     });
 
@@ -21,17 +20,15 @@ const getRouter = (controller) => {
 //update user
     router.patch('/:id', async (req, res) => {
         const {id} = req.params;
-        const parsedId = parseInt(id)
         const body = req.body;
-        const result = await controller.update(parsedId, body);
+        const result = await controller.update(id, body);
         res.status(result.status).json(result.data);
     });
 
 //delete user
     router.delete('/:id', async (req, res) => {
         const {id} = req.params;
-        const parsedId = parseInt(id)
-        const result = await controller.deleteById(parsedId);
+        const result = await controller.deleteById(id);
         res.status(result.status).json(result.data);
     });
 

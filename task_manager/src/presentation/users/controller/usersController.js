@@ -31,7 +31,7 @@ class UsersController {
     async update(id, data) {
         try {
             this._validateData(data, false);
-            this._validateId(id)
+            this._parseId(id)
             const dto = new UserUpdateDto(id, data)
             const user = await this.updateCase.execute(dto)
             return {
@@ -45,7 +45,7 @@ class UsersController {
 
     async findById(id) {
         try {
-            this._validateId(id);
+            this._parseId(id);
             const dto = new UserFindByIdDto(id)
             const user = await this.findUserByIdCase.execute(dto)
             return {
@@ -59,9 +59,9 @@ class UsersController {
 
     async deleteById(id) {
         try {
-            this._validateId(id);
+            this._parseId(id);
             const dto = new UserFindByIdDto(id)
-            const isDeleted = await this.deleteUserByIdCase.execute(dto)
+            await this.deleteUserByIdCase.execute(dto)
             return {
                 status: 204,
                 data: null
@@ -99,7 +99,8 @@ class UsersController {
         this._validatePassword(data.password)
     }
 
-    _validateId(id) {
+    _parseId(rawId) {
+        const id = parseInt(rawId)
         if (typeof id !== 'number') {
             throw new ValidationError('Validation error: Id must be a number');
         }
