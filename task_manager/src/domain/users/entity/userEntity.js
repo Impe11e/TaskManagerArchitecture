@@ -2,7 +2,7 @@ import {InvariantError} from "../../errors/domainErrors.js";
 
 class UserEntity {
     constructor(id, username, email, password) {
-        UserEntity._validateInConstructor(id,username, email);
+        UserEntity._validateInConstructor(id,username, email, password);
 
         this.id = id;
         this.username = username;
@@ -44,12 +44,13 @@ class UserEntity {
         }
     }
 
-    static _validateInConstructor(id,username,email) {
+    static _validateInConstructor(id,username,email,password) {
         if(id) {
             UserEntity._validateId(id)
         }
         UserEntity._validateUsername(username)
         UserEntity._validateEmail(email)
+        UserEntity._validatePassword(password);
     }
 
     update({username, email, password}) {

@@ -1,4 +1,4 @@
-//import usersRepo from '../../../infrastructure/users/repository/userRepo.js';
+//import usersRepo from '../../../infrastructure/users/repository/usersRepo.js';
 //import UserEntity from "../../../domain/users/entity/userEntity.js";
 //import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
 

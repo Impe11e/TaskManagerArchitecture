@@ -1,6 +1,6 @@
 //infrastructure
 import pool from '../../infrastructure/pool.js'
-import UsersRepository from '../../infrastructure/users/repository/userRepo.js'
+import UsersRepository from '../../infrastructure/users/repository/usersRepo.js'
 
 const usersRepository = new UsersRepository(pool)
 

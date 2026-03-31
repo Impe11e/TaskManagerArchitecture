@@ -1,6 +1,6 @@
 import express from "express";
 import getUserRouter from "../presentation/users/routes/usersRoutes.js";
-import container from "./compos_roots/usersRoot.js"
+import container from "./compose_roots/usersRoot.js"
 //import taskRouter from "./routes/tasksRoutes.js";
 //import profileRouter from "./routes/profilesRoutes.js";
 

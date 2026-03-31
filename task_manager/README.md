@@ -53,7 +53,7 @@ task_manager/
 │   ├── repositories/            ← Repositories for data access
 │   │   ├── profileRepository.js
 │   │   ├── taskRepository.js
-│   │   └── userRepo.js
+│   │   └── usersRepo.js
 │   ├── models/                  ← Domain models and data structures
 │   │   ├── profileModel.js
 │   │   ├── taskModel.js
