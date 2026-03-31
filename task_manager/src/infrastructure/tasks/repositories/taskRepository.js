@@ -1,4 +1,3 @@
-// src/infrastructure/repositories/TaskRepository.js
 import ITaskRepository from '../../../domain/tasks/repoInterfaces/ITaskRepository.js';
 import { TaskMapper } from '../mappers/taskMapper.js';
 import queries from './queries.js';
@@ -15,7 +14,8 @@ export default class TaskRepository extends ITaskRepository {
   }
 
   async findById(id) {
-    const res = await this.pool.query(queries.findById, [id]);
+    const numId = parseInt(id, 10);
+    const res = await this.pool.query(queries.findById, [numId]);
     const row = res.rows[0];
     return row ? TaskMapper.toDomain(row) : null;
   }
@@ -44,7 +44,8 @@ export default class TaskRepository extends ITaskRepository {
   }
 
   async delete(id) {
-    const res = await this.pool.query(queries.deleteById, [id]);
+    const numId = parseInt(id, 10);
+    const res = await this.pool.query(queries.deleteById, [numId]);
     return res.rowCount > 0;
   }
 }

@@ -6,8 +6,8 @@ export default class CreateTaskUseCase {
 
   async execute(dto) {
     const task = await this.taskFactory.create(dto);
-    await this.taskRepository.save(task);
+    const savedTask = await this.taskRepository.save(task);
 
-    return task;
+    return savedTask;
   }
 }
