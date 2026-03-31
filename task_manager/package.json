@@ -11,6 +11,11 @@
     "run-db": "docker start database",
     "stop-db": "docker stop database",
     "delete-db-container": "docker rm database",
+    "build-tdb": "docker build -t tdb-image .",
+    "start-tdb": "docker run -d -p 5433:5432 --name test_db --env-file .env_tdb tdb-image",
+    "run-tdb": "docker start test_db",
+    "stop-tdb": "docker stop test_db",
+    "delete-tdb-container": "docker rm test_db",
     "lint": "eslint .",
     "preview": "vite preview"
   },

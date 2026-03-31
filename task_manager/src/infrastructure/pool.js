@@ -1,7 +1,13 @@
 // db.js
 import {Pool} from 'pg'
 import dotenv from 'dotenv';
-dotenv.config({path: "../../.env_pool"});
+
+let envfile = ".env_pool"
+// eslint-disable-next-line no-undef
+if(process.env.NODE_ENV === 'test') {
+    envfile = ".env_tpool";
+}
+dotenv.config({path: `../../${envfile}`});
 
 const pool = new Pool({
     // eslint-disable-next-line no-undef
