@@ -1,17 +1,25 @@
-//import usersRepo from '../../../infrastructure/users/repository/userRepo.js';
+//import usersRepo from '../../../infrastructure/users/repository/usersRepo.js';
 //import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
+import {NotFoundError} from '../../errors/applicationErrors.js';
 
 class FindUserById {
-    constructor(repository, dtoMapper) {
+    constructor(repository) {
         this.repository = repository;
-        this.dtoMapper = dtoMapper;
     }
 
-    execute(dto) {
+    async execute(dto) {
         const id = dto.id;
-        const user = this.repository.findById(id)
+        return await this._findUserOrFail(id)
+    }
 
-        return user.toSafe()
+    async _findUserOrFail(id) {
+        const user = await this.repository.findById(id)
+
+        if(!user) {
+            throw new NotFoundError('User with this id not found');
+        }
+
+        return user;
     }
 }
 

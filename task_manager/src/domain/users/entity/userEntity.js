@@ -1,11 +1,8 @@
-import DomainError from "../../errors/domainErrors.js";
+import {InvariantError} from "../../errors/domainErrors.js";
 
 class UserEntity {
-    constructor(id, username, email, password, cKey) {
-
-        if (cKey !== UserEntity.#key){
-            throw new Error("Can`t create a new user entity with constructor");
-        }
+    constructor(id, username, email, password) {
+        UserEntity._validateInConstructor(id,username, email, password);
 
         this.id = id;
         this.username = username;
@@ -13,11 +10,9 @@ class UserEntity {
         this.password = password;
     }
 
-    static #key = Symbol('key101')
-
     static _validateId(id) {
         if (id <= 0){
-            throw new DomainError('Business logic violated: id should be greater than 0.');
+            throw new InvariantError('Business logic violated: id should be greater than 0.');
         }
     }
 
@@ -25,50 +20,37 @@ class UserEntity {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!emailRegex.test(email)) {
-            throw new DomainError('Business logic violated: email has invalid format.');
+            throw new InvariantError('Business logic violated: email has invalid format.');
         }
     }
 
     static _validateUsername(username) {
         if (username.length <= 5) {
-            throw new DomainError('Business logic violated: username is too short.');
+            throw new InvariantError('Business logic violated: username is too short.');
         }
 
         if (username.length >= 20) {
-            throw new DomainError('Business logic violated: username is too long.');
+            throw new InvariantError('Business logic violated: username is too long.');
         }
     }
 
     static _validatePassword(password) {
         if (password.length <= 8) {
-            throw new DomainError('Business logic violated: password is too short.');
+            throw new InvariantError('Business logic violated: password is too short.');
         }
 
         if (password.length >= 30) {
-            throw new DomainError('Business logic violated: password is too long.');
+            throw new InvariantError('Business logic violated: password is too long.');
         }
     }
 
-    toSafe() {
-        this.password = null;
-        return this;
-    }
-
-    static createEntity(id, username, email, password) {
-        this._validateId(id)
-        this._validateEmail(email)
-        this._validateUsername(username)
-        this._validatePassword(password)
-
-        return new UserEntity(id, username, email, password, UserEntity.#key);
-    }
-
-    static createEntityWithoutId(username, email, password) {
-        this._validateEmail(email)
-        this._validateUsername(username)
-        this._validatePassword(password)
-
-        return new UserEntity(null, username, email, password, UserEntity.#key);
+    static _validateInConstructor(id,username,email,password) {
+        if(id) {
+            UserEntity._validateId(id)
+        }
+        UserEntity._validateUsername(username)
+        UserEntity._validateEmail(email)
+        UserEntity._validatePassword(password);
     }
 
     update({username, email, password}) {

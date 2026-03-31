@@ -8,10 +8,9 @@ export class TaskMapper {
       description: raw.description,
       status: raw.status,
       priority: raw.priority,
-      dueDate: raw.dueDate,
-      createdAt: raw.createdAt,
-    //   ownerId: raw.ownerId,
-    //   projectId: raw.projectId,
+      dueDate: raw.due_date || raw.dueDate,
+      createdAt: raw.created_at || raw.createdAt,
+      userId: raw.user_id || raw.userId,
     });
   }
 
@@ -21,9 +20,8 @@ export class TaskMapper {
       description: entity.description,
       status: entity.status,
       priority: entity.priority,
-      due_date: entity.dueDate, 
-    //   owner_id: entity.ownerId,
-    //   project_id: entity.project_id,
+      due_date: entity.dueDate,
+      user_id: entity.userId,
     };
   }
 }

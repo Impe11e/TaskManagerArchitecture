@@ -1,24 +1,40 @@
-//import usersRepo from '../../../infrastructure/users/repository/userRepo.js';
+//import usersRepo from '../../../infrastructure/users/repository/usersRepo.js';
 //import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
+import {NotFoundError} from '../../errors/applicationErrors.js';
 
 class UpdateUser {
-    constructor(repository, dtoMapper) {
+    constructor(repository, domainService) {
         this.repository = repository;
-        this.dtoMapper = dtoMapper;
+        this.domainService = domainService;
     }
 
-    execute(dto) {
-        const {id, ...data} = dto;
-        const user = this.repository.findById(id)
+    async execute(dto) {
+        const user = await this._findUserOrFail(dto.id)
+
+        if (dto.email) {
+            await this.domainService.checkByEmail(dto.email);
+        }
+        if (dto.username) {
+            await this.domainService.checkByUsername(dto.username);
+        }
+
         user.update({
-            username: data.username,
-            email: data.email,
-            password: data.password
+            username: dto.username,
+            email: dto.email,
+            password: dto.password
         })
 
-        const updatedUser = this.repository.update(user);
+        return await this.repository.update(user);
+    }
 
-        return updatedUser.toSafe();
+    async _findUserOrFail(id) {
+        const user = await this.repository.findById(id)
+
+        if(!user) {
+            throw new NotFoundError('User with this id not found');
+        }
+
+        return user
     }
 }
 

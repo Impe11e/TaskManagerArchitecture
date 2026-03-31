@@ -1,8 +1,8 @@
 import express from "express";
 import getUserRouter from "../presentation/users/routes/usersRoutes.js";
 import getTaskRouter from "../presentation/tasks/routes/tasksRoutes.js";
-import userContainer from "./compos_roots/usersRoot.js"
-import taskContainer from "./compos_roots/taskRoot.js"
+import userContainer from "./compose_roots/usersRoot.js"
+import taskContainer from "./compose_roots/taskRoot.js"
 // import profileRouter from "./routes/profilesRoutes.js";
 
 const app = express();

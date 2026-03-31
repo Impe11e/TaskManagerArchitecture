@@ -1,15 +1,15 @@
-class ValidationError extends Error {
-    constructor(message) {
-        super(message);
-        this.status = 400;
-    }
-}
-
 class NotFoundError extends Error {
     constructor(message) {
         super(message);
-        this.status = 404;
+        this.type = 'NOT_FOUND';
     }
 }
 
-export {NotFoundError, ValidationError};
+class ValidationError extends Error {
+    constructor(message) {
+        super(message);
+        this.type = 'VALIDATION';
+    }
+}   
+    
+export {NotFoundError, ValidationError}

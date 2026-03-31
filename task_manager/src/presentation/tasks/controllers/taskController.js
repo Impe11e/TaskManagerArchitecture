@@ -51,6 +51,7 @@ export default class TaskController {
       const result = await this.createTaskUseCase.execute(taskDto);
       return { status: 201, data: result };
     } catch (err) {
+      console.error('❌ Error in TaskController.create:', err.message);
       return handle(err);
     }
   }

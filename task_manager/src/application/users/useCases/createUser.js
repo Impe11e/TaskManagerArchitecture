@@ -1,19 +1,21 @@
-//import usersRepo from '../../../infrastructure/users/repository/userRepo.js';
+//import usersRepo from '../../../infrastructure/users/repository/usersRepo.js';
 //import UserEntity from "../../../domain/users/entity/userEntity.js";
 //import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
 
 class CreateUser {
-    constructor(repository, userEntity, dtoMapper) {
+    constructor(repository, userFabric, domainService) {
         this.repository = repository;
-        this.userEntity = userEntity;
-        this.dtoMapper = dtoMapper;
+        this.userFabric = userFabric;
+        this.domainService = domainService;
     }
 
-    execute(dto) {
-        const user = this.userEntity.createEntityWithoutId(dto.username, dto.email, dto.password);
+    async execute(dto) {
+        await this.domainService.checkByEmail(dto.email);
+        await this.domainService.checkByUsername(dto.username);
 
-        const createdUser = this.repository.create(user);
-        return createdUser.toSafe();
+        const user = this.userFabric.create(null, dto.username, dto.email, dto.password);
+
+        return await this.repository.create(user);
     }
 }
 

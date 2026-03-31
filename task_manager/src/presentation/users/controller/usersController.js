@@ -3,7 +3,7 @@ import UserUpdateDto from '../requestDto/userUpdateDto.js'
 import UserFindByIdDto from '../requestDto/userFindByIdDto.js'
 import responseMapper from '../responseDto/usersResponseDtoMapper.js'
 import handle from "../../errors/errorHandler.js";
-import { ValidationError } from '../../errors/customErrors.js';
+import {ValidationError} from "../../errors/presentationErrors.js";
 
 class UsersController {
     constructor(createCase, updateCase, findUserByIdCase, deleteUserByIdCase) {
@@ -13,11 +13,11 @@ class UsersController {
         this.deleteUserByIdCase = deleteUserByIdCase
     }
 
-    create(data) {
+    async create(data) {
         try {
             this._validateData(data, true);
             const dto = new UserCreateDto(data)
-            const user = this.createCase.execute(dto)
+            const user = await this.createCase.execute(dto)
             return {
                 status: 201,
                 data: responseMapper.toResponseDto(user),
@@ -28,12 +28,12 @@ class UsersController {
         }
     }
 
-    update(id, data) {
+    async update(id, data) {
         try {
             this._validateData(data, false);
-            this._validateId(id)
+            this._parseId(id)
             const dto = new UserUpdateDto(id, data)
-            const user = this.updateCase.execute(dto)
+            const user = await this.updateCase.execute(dto)
             return {
                 status: 200,
                 data: responseMapper.toResponseDto(user)
@@ -43,11 +43,11 @@ class UsersController {
         }
     }
 
-    findById(id) {
+    async findById(id) {
         try {
-            this._validateId(id);
+            this._parseId(id);
             const dto = new UserFindByIdDto(id)
-            const user = this.findUserByIdCase.execute(dto)
+            const user = await this.findUserByIdCase.execute(dto)
             return {
                 status: 200,
                 data: responseMapper.toResponseDto(user)
@@ -57,11 +57,11 @@ class UsersController {
         }
     }
 
-    deleteById(id) {
+    async deleteById(id) {
         try {
-            this._validateId(id);
+            this._parseId(id);
             const dto = new UserFindByIdDto(id)
-            this.deleteUserByIdCase.execute(dto)
+            await this.deleteUserByIdCase.execute(dto)
             return {
                 status: 204,
                 data: null
@@ -99,7 +99,8 @@ class UsersController {
         this._validatePassword(data.password)
     }
 
-    _validateId(id) {
+    _parseId(rawId) {
+        const id = parseInt(rawId)
         if (typeof id !== 'number') {
             throw new ValidationError('Validation error: Id must be a number');
         }

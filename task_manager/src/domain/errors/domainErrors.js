@@ -1,8 +1,15 @@
-class DomainError extends Error {
+class InvariantError extends Error {
     constructor(message) {
         super(message);
-        this.name = 'DomainError';
+        this.type = 'INVARIANT';
     }
 }
 
-export default DomainError;
+class ConflictError extends Error {
+    constructor(message) {
+        super(message);
+        this.type = 'CONFLICT';
+    }
+}
+
+export {InvariantError, ConflictError};

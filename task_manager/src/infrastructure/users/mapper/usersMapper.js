@@ -1,8 +1,8 @@
-import UserEntity from '../../../domain/users/entity/userEntity.js';
+import UsersFabric from "../../../domain/users/fabrics/usersFabric.js";
 
-class UserMapper {
+class UsersMapper {
     static toDomain(raw) {
-        return UserEntity.createEntity(raw.id, raw.username, raw.email, raw.password);
+        return UsersFabric.create(raw.id, raw.username, raw.email, raw.password);
     }
 
     static toPersistence(user) {
@@ -15,4 +15,4 @@ class UserMapper {
     }
 }
 
-export default UserMapper
+export default UsersMapper
