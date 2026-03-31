@@ -1,13 +1,21 @@
-// db.js
 import {Pool} from 'pg'
-import dotenv from 'dotenv';
+import path from "path";
+import { fileURLToPath } from "url";
+import dotenv from "dotenv";
 
-let envfile = ".env_pool"
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+let envfile = ".env_pool";
+
 // eslint-disable-next-line no-undef
-if(process.env.NODE_ENV === 'test') {
+if (process.env.NODE_ENV === "test") {
     envfile = ".env_tpool";
 }
-dotenv.config({path: `../../${envfile}`});
+
+dotenv.config({
+    path: path.resolve(__dirname, "../../", envfile)
+});
 
 const pool = new Pool({
     // eslint-disable-next-line no-undef

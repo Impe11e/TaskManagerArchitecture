@@ -16,7 +16,7 @@ class DeleteUserById {
         const user = await this.repository.findById(id)
 
         if(!user) {
-            throw new NotFoundError('User with this not found');
+            throw new NotFoundError('User with this id not found');
         }
     }
 }
