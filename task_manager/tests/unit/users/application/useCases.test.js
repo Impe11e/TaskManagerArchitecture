@@ -2,12 +2,12 @@
 import InMemoryUsersRepository from "../userRepoMock.js";
 
 //application
-import CreateUser from "../../../../../src/application/users/useCases/createUser.js";
-import DeleteUserById from "../../../../../src/application/users/useCases/deleteUserById.js"
-import FindUserById from "../../../../../src/application/users/useCases/findUserById.js"
-import UpdateUser from "../../../../../src/application/users/useCases/updateUser.js"
-import UsersFabric from "../../../../../src/domain/users/fabrics/usersFabric.js";
-import UsersDomainService from "../../../../../src/domain/users/service/usersDomainService.js";
+import CreateUser from "../../../../src/application/users/useCases/createUser.js";
+import DeleteUserById from "../../../../src/application/users/useCases/deleteUserById.js"
+import FindUserById from "../../../../src/application/users/useCases/findUserById.js"
+import UpdateUser from "../../../../src/application/users/useCases/updateUser.js"
+import UsersFabric from "../../../../src/domain/users/fabrics/usersFabric.js";
+import UsersDomainService from "../../../../src/domain/users/service/usersDomainService.js";
 
 describe("Use cases tests", () => {
     test("Should create user", async () => {
