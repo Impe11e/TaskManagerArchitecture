@@ -1,4 +1,5 @@
 import TaskEntity from '../../../domain/tasks/entities/taskEntity.js';
+import TaskModel from '../models/taskModel.js';
 
 export class TaskMapper {
   static toDomain(raw) {
@@ -14,14 +15,17 @@ export class TaskMapper {
     });
   }
 
+
   static toPersistence(entity) {
-    return {
+    return new TaskModel({
+      id: entity.id,
       title: entity.title,
       description: entity.description,
       status: entity.status,
       priority: entity.priority,
-      due_date: entity.dueDate,
-      user_id: entity.userId,
-    };
+      dueDate: entity.dueDate,
+      createdAt: entity.createdAt,
+      userId: entity.userId,
+    });
   }
 }
