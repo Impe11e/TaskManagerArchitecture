@@ -1,23 +1,21 @@
-import ProfileEntity from "../../../domain/profiles/entity/profileEntity.js";
-import ProfileDtoMapper from "../dtoMapper/profileDtoMapper.js";
-
 class CreateProfile {
-  constructor(repository) {
+  constructor(repository, profilesFabric, domainService) {
     this.repository = repository;
+    this.profilesFabric = profilesFabric;
+    this.domainService = domainService;
   }
 
-  execute(dto) {
-    const existing = this.repository.findByUserId(dto.userId);
-    if (existing) throw new Error("Profile already exists");
+  async execute(dto) {
+    await this.domainService.checkExistingProfile(dto.userId);
 
-    const entity = ProfileEntity.createEntityWithoutId(
+    const profile = this.profilesFabric.create(
+      null,
       dto.userId,
       dto.phone,
       dto.bio,
     );
-    const savedEntity = this.repository.create(entity);
 
-    return ProfileDtoMapper.toDto(savedEntity);
+    return await this.repository.create(profile);
   }
 }
 

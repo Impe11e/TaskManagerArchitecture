@@ -1,57 +1,51 @@
-import profileFactory from "../models/profileModel.js";
-import ProfileRepository from "../../../domain/profiles/repository/ProfileRepository.js";
+import ProfileRepoInterface from "../../../domain/profiles/repoInterfaces/profileRepo.js";
 import ProfileMapper from "../mapper/profileMapper.js";
+import queries from "./queries.js";
 
-class ProfileRepo extends ProfileRepository {
-  constructor(factory, mapper) {
+class ProfileRepository extends ProfileRepoInterface {
+  constructor(pool) {
     super();
-    this.factory = factory;
-    this.mapper = mapper;
-    this.nextIndex = 1;
-    this.profiles = new Map();
+    this.pool = pool;
   }
 
-  create(entity) {
-    const profileObj = this.mapper.toPersistence(entity);
-    const { id: _id, ...data } = profileObj;
+  async create(entity) {
+    const { userId, phone, bio } = ProfileMapper.toPersistence(entity);
 
-    const newProfile = this.factory(this.nextIndex, data);
-    this.profiles.set(this.nextIndex, newProfile);
-    this.nextIndex++;
-
-    return this.mapper.toDomain(newProfile);
+    const response = await this.pool.query(queries.create, [
+      userId,
+      phone,
+      bio,
+    ]);
+    return ProfileMapper.toDomain(response.rows[0]);
   }
 
-  update(entity) {
-    const profile = this.profiles.get(entity.id);
-    if (!profile) {
-      return undefined;
-    }
+  async update(entity) {
+    const { id, phone, bio } = ProfileMapper.toPersistence(entity);
 
-    const profileObj = this.mapper.toPersistence(entity);
-    this.profiles.set(profileObj.id, profileObj);
-
-    return this.mapper.toDomain(profileObj);
+    const response = await this.pool.query(queries.update, [phone, bio, id]);
+    return ProfileMapper.toDomain(response.rows[0]);
   }
 
-  findById(id) {
-    const profileObj = this.profiles.get(id);
-    if (!profileObj) return undefined;
-    return this.mapper.toDomain(profileObj);
+  async findById(id) {
+    const response = await this.pool.query(queries.findById, [id]);
+    const profile = response.rows[0];
+
+    if (!profile) return null;
+    return ProfileMapper.toDomain(profile);
   }
 
-  findByUserId(userId) {
-    for (const profile of this.profiles.values()) {
-      if (profile.userId === parseInt(userId)) {
-        return this.mapper.toDomain(profile);
-      }
-    }
-    return undefined;
+  async findByUserId(userId) {
+    const response = await this.pool.query(queries.findByUserId, [userId]);
+    const profile = response.rows[0];
+
+    if (!profile) return null;
+    return ProfileMapper.toDomain(profile);
   }
 
-  deleteById(id) {
-    return this.profiles.delete(id);
+  async deleteById(id) {
+    const response = await this.pool.query(queries.deleteById, [id]);
+    return response.rowCount > 0;
   }
 }
 
-export default new ProfileRepo(profileFactory, ProfileMapper);
+export default ProfileRepository;

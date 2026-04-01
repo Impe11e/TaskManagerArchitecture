@@ -1,34 +1,27 @@
-import { DomainError } from "../errors/profileErrors.js";
+import { InvariantError } from "../../errors/domainErrors.js";
 
 class ProfileEntity {
-  constructor(id, userId, phone, bio, cKey) {
-    if (cKey !== ProfileEntity.#key) {
-      throw new Error("Can't create a new profile entity with constructor");
-    }
+  constructor(id, userId, phone, bio) {
+    ProfileEntity._validateInConstructor(id, userId, phone);
+
     this.id = id;
     this.userId = userId;
     this.phone = phone;
     this.bio = bio;
   }
 
-  static #key = Symbol("profileKey");
-
   static _validatePhone(phone) {
     if (!phone || !phone.startsWith("+380")) {
-      throw new DomainError(
+      throw new InvariantError(
         "Business logic violated: phone must be a valid UA format.",
       );
     }
   }
 
-  static createEntity(id, userId, phone, bio) {
+  static _validateInConstructor(id, userId, phone) {
+    if (id && id <= 0) throw new InvariantError("ID must be positive");
+    if (!userId) throw new InvariantError("User ID is required");
     this._validatePhone(phone);
-    return new ProfileEntity(id, userId, phone, bio, ProfileEntity.#key);
-  }
-
-  static createEntityWithoutId(userId, phone, bio) {
-    this._validatePhone(phone);
-    return new ProfileEntity(null, userId, phone, bio, ProfileEntity.#key);
   }
 
   update({ phone, bio }) {
@@ -41,4 +34,5 @@ class ProfileEntity {
     }
   }
 }
+
 export default ProfileEntity;

@@ -1,17 +1,21 @@
+import { NotFoundError } from "../../errors/applicationErrors.js";
+
 class DeleteProfileById {
   constructor(repository) {
     this.repository = repository;
   }
 
-  execute(dto) {
-    const id = dto.id;
-    const exists = this.repository.findById(id);
+  async execute(dto) {
+    await this._findProfileOrFail(dto.id);
+    return await this.repository.deleteById(dto.id);
+  }
 
-    if (!exists) {
-      throw new Error("Profile not found");
+  async _findProfileOrFail(id) {
+    const profile = await this.repository.findById(id);
+
+    if (!profile) {
+      throw new NotFoundError("Profile not found");
     }
-
-    return this.repository.deleteById(id);
   }
 }
 

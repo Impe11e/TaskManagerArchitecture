@@ -1,25 +1,29 @@
-import ProfileDtoMapper from "../dtoMapper/profileDtoMapper.js";
+import { NotFoundError } from "../../errors/applicationErrors.js";
 
 class UpdateProfile {
   constructor(repository) {
     this.repository = repository;
   }
 
-  execute(dto) {
-    const { id, ...data } = dto;
-
-    const profile = this.repository.findById(id);
-    if (!profile) {
-      throw new Error("Profile not found");
-    }
+  async execute(dto) {
+    const profile = await this._findProfileOrFail(dto.id);
 
     profile.update({
-      phone: data.phone,
-      bio: data.bio,
+      phone: dto.phone,
+      bio: dto.bio,
     });
 
-    const updatedProfile = this.repository.update(profile);
-    return ProfileDtoMapper.toDto(updatedProfile);
+    return await this.repository.update(profile);
+  }
+
+  async _findProfileOrFail(id) {
+    const profile = await this.repository.findById(id);
+
+    if (!profile) {
+      throw new NotFoundError("Profile with this id not found");
+    }
+
+    return profile;
   }
 }
 
