@@ -1,6 +1,6 @@
 // infrastructure
 import InMemoryTaskRepository from "../taskRepoMock.js";
-import InMemoryUsersRepository from "../../users/application/userRepoMock.js";
+import InMemoryUsersRepository from "../../users/userRepoMock.js";
 
 // application
 import CreateTaskUseCase from "../../../../src/application/tasks/useCases/createTask.js";
