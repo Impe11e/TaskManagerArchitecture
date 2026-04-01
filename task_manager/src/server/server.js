@@ -7,6 +7,6 @@ app.listen(port, "localhost", () => {
   console.log(
     `🚀 ${encodeURI(`http://localhost:${port}/users/`)}`,
     `🚀 ${encodeURI(`http://localhost:${port}/tasks/`)}`,
-    `🚀 ${encodeURI(`http://localhost:${port}/profiles/`)}`,
+    // `🚀 ${encodeURI(`http://localhost:${port}/profiles/`)}`,
   );
 });

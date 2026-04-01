@@ -53,14 +53,14 @@ task_manager/
 │   ├── repositories/            ← Repositories for data access
 │   │   ├── profileRepository.js
 │   │   ├── taskRepository.js
-│   │   └── userRepo.js
+│   │   └── usersRepo.js
 │   ├── models/                  ← Domain models and data structures
 │   │   ├── profileModel.js
 │   │   ├── taskModel.js
 │   │   ├── taskConsts.js        ← Configuration values ​​for tasks (statuses, priorities)
 │   │   └── userModel.js
 │   ├── errors/                  ← Helpers for error handling
-│   │   ├── customErrors.js
+│   │   ├── presentationErrors.js
 │   │   └── errorHandler.js
 │   └── server/
 │       ├── app.js               ← Express application, route registration
