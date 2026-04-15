@@ -1,10 +1,10 @@
-import UsersFabric from "../../../../src/domain/users/fabrics/usersFabric.js";
+import UsersFactory from "../../../../src/domain/users/factory/usersFactory.js";
 import UsersDomainService from "../../../../src/domain/users/service/usersDomainService.js";
 import UserRepoMock from "../userRepoMock.js";
 
 describe("Users Domain Entity test", () => {
     test("should create user entity", () => {
-        const user = UsersFabric.create(
+        const user = UsersFactory.create(
             null,
             "testuser",
             "test@gmail.com",
@@ -18,7 +18,7 @@ describe("Users Domain Entity test", () => {
     });
 
     test("should create user with id", () => {
-        const user = UsersFabric.create(
+        const user = UsersFactory.create(
             1,
             "testuser",
             "test@gmail.com",
@@ -29,7 +29,7 @@ describe("Users Domain Entity test", () => {
     });
 
     test("should update user data", () => {
-        const user = UsersFabric.create(
+        const user = UsersFactory.create(
             1,
             "testuser",
             "test@gmail.com",
@@ -48,7 +48,7 @@ describe("Users Domain Entity test", () => {
     });
 
     test("should partially update user", () => {
-        const user = UsersFabric.create(
+        const user = UsersFactory.create(
             1,
             "testuser",
             "test@gmail.com",

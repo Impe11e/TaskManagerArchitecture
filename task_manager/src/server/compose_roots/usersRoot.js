@@ -9,11 +9,11 @@ import CreateUserHandler from "../../application/users/commandHandlers/createUse
 import DeleteUser from "../../application/users/commandHandlers/deleteUserById.js"
 import FindUserQueryHandler from "../../application/users/queryHandlers/findUserById.js"
 import UpdateUserCommandHandler from "../../application/users/commandHandlers/updateUser.js"
-import UsersFabric from "../../domain/users/fabrics/usersFabric.js";
+import UsersFactory from "../../domain/users/factory/usersFactory.js";
 import UsersDomainService from "../../domain/users/service/usersDomainService.js";
 
 const usersDomainService = new UsersDomainService(usersRepository);
-const createUser = new CreateUserHandler(usersRepository, UsersFabric, usersDomainService);
+const createUser = new CreateUserHandler(usersRepository, UsersFactory, usersDomainService);
 const updateUser = new UpdateUserCommandHandler(usersRepository, usersDomainService);
 const findUserById = new FindUserQueryHandler(usersRepository);
 const deleteUserById = new DeleteUser(usersRepository);

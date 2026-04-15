@@ -1,7 +1,7 @@
 class CreateUserHandler {
-    constructor(repository, userFabric, domainService) {
+    constructor(repository, userFactory, domainService) {
         this.repository = repository;
-        this.userFabric = userFabric;
+        this.userFactory = userFactory;
         this.domainService = domainService;
     }
 
@@ -9,7 +9,7 @@ class CreateUserHandler {
         await this.domainService.checkByEmail(command.email);
         await this.domainService.checkByUsername(command.username);
 
-        const userDM = this.userFabric.create(null, command.username, command.email, command.password);
+        const userDM = this.userFactory.create(null, command.username, command.email, command.password);
         const createdUser = await this.repository.create(userDM);
 
         return createdUser.id

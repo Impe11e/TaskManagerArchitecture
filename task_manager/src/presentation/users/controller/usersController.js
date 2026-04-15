@@ -9,10 +9,10 @@ import handle from "../../errors/errorHandler.js";
 import {ValidationError} from "../../errors/presentationErrors.js";
 
 class UsersController {
-    constructor(createHandler, updateHandler, findUserByIdCase, deleteHandler) {
+    constructor(createHandler, updateHandler, findHandler, deleteHandler) {
         this.createHandler = createHandler
         this.updateHandler = updateHandler
-        this.findUserByIdCase = findUserByIdCase
+        this.findHandler = findHandler
         this.deleteHandler = deleteHandler
     }
 
@@ -57,7 +57,7 @@ class UsersController {
         try {
             this._parseId(id);
             const command = new FindUserQuery(id)
-            const user = await this.findUserByIdCase.handle(command)
+            const user = await this.findHandler.handle(command)
             return {
                 status: 200,
                 data: responseMapper.toResponseDto(user)

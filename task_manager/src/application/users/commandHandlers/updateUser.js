@@ -24,7 +24,7 @@ class UpdateUserCommandHandler {
             password: command.password
         })
 
-        const updatedUser = await this.repository.update(user)
+        const updatedUser = await this.repository.update(userDM)
 
         return updatedUser.id
     }

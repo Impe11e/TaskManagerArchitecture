@@ -6,14 +6,14 @@ import CreateUser from "../../../../src/application/users/commandHandlers/create
 import DeleteUserCommandHandler from "../../../../src/application/users/commandHandlers/deleteUserById.js"
 import FindUserQueryHandler from "../../../../src/application/users/queryHandlers/findUserById.js"
 import UpdateUserCommandHandler from "../../../../src/application/users/commandHandlers/updateUser.js"
-import UsersFabric from "../../../../src/domain/users/fabrics/usersFabric.js";
+import UsersFactory from "../../../../src/domain/users/factory/usersFactory.js";
 import UsersDomainService from "../../../../src/domain/users/service/usersDomainService.js";
 
 describe("Use cases tests", () => {
     test("Should create user", async () => {
         const usersRepository = new InMemoryUsersRepository()
         const usersDomainService = new UsersDomainService(usersRepository);
-        const createUser = new CreateUser(usersRepository, UsersFabric, usersDomainService);
+        const createUser = new CreateUser(usersRepository, UsersFactory, usersDomainService);
 
         const result = await createUser.execute({
             username: "testuser",
@@ -29,7 +29,7 @@ describe("Use cases tests", () => {
         const usersRepository = new InMemoryUsersRepository()
         const usersDomainService = new UsersDomainService(usersRepository);
         const updateUser = new UpdateUserCommandHandler(usersRepository, usersDomainService);
-        const createUser = new CreateUser(usersRepository, UsersFabric, usersDomainService);
+        const createUser = new CreateUser(usersRepository, UsersFactory, usersDomainService);
 
         await createUser.execute({
             username: "testuser",
@@ -51,7 +51,7 @@ describe("Use cases tests", () => {
     test("Should find user", async () => {
         const usersRepository = new InMemoryUsersRepository()
         const usersDomainService = new UsersDomainService(usersRepository);
-        const createUser = new CreateUser(usersRepository, UsersFabric, usersDomainService);
+        const createUser = new CreateUser(usersRepository, UsersFactory, usersDomainService);
         const findUserById = new FindUserQueryHandler(usersRepository);
 
         await createUser.execute({
@@ -69,7 +69,7 @@ describe("Use cases tests", () => {
     test("Should not find user", async () => {
         const usersRepository = new InMemoryUsersRepository()
         const usersDomainService = new UsersDomainService(usersRepository);
-        const createUser = new CreateUser(usersRepository, UsersFabric, usersDomainService);
+        const createUser = new CreateUser(usersRepository, UsersFactory, usersDomainService);
         const findUserById = new FindUserQueryHandler(usersRepository);
 
         await createUser.execute({
@@ -87,7 +87,7 @@ describe("Use cases tests", () => {
     test("Should delete user", async () => {
         const usersRepository = new InMemoryUsersRepository()
         const usersDomainService = new UsersDomainService(usersRepository);
-        const createUser = new CreateUser(usersRepository, UsersFabric, usersDomainService);
+        const createUser = new CreateUser(usersRepository, UsersFactory, usersDomainService);
         const deleteUserById = new DeleteUserCommandHandler(usersRepository);
 
         await createUser.execute({
