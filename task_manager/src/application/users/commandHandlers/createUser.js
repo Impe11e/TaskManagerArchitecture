@@ -12,7 +12,7 @@ class CreateUserHandler {
         const userDM = this.userFactory.create(null, command.username, command.email, command.password);
         const createdUser = await this.repository.create(userDM);
 
-        return createdUser.id
+        return {id: createdUser.id}
     }
 }
 

@@ -22,10 +22,10 @@ class UsersController {
             const command = new CreateUserCommand(
                 data.username, data.email, data.password,
             )
-            const user_id = await this.createHandler.handle(command)
+            const res = await this.createHandler.handle(command)
             return {
                 status: 201,
-                data: {id : user_id}
+                data: res
             }
 
         } catch (err) {
@@ -43,10 +43,10 @@ class UsersController {
                 data.email ?? undefined,
                 data.password ?? undefined
             );
-            const user_id = await this.updateHandler.handle(command)
+            const res = await this.updateHandler.handle(command)
             return {
                 status: 200,
-                data: {id : user_id}
+                data: res
             }
         } catch (err) {
             return handle(err)

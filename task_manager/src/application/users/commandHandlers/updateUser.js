@@ -26,7 +26,7 @@ class UpdateUserCommandHandler {
 
         const updatedUser = await this.repository.update(userDM)
 
-        return updatedUser.id
+        return {id: updatedUser.id}
     }
 
     async _findUserOrFail(id) {
