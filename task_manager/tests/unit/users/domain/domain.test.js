@@ -1,6 +1,5 @@
 import UsersFabric from "../../../../src/domain/users/fabrics/usersFabric.js";
 import UsersDomainService from "../../../../src/domain/users/service/usersDomainService.js";
-import userRepoMock from "../userRepoMock.js";
 import UserRepoMock from "../userRepoMock.js";
 
 describe("Users Domain Entity test", () => {

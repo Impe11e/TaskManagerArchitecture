@@ -1,14 +1,12 @@
-//import usersRepo from '../../../infrastructure/users/repository/usersRepo.js';
-//import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
 import {NotFoundError} from '../../errors/applicationErrors.js';
 
-class FindUserById {
+class FindUserQueryHandler {
     constructor(repository) {
         this.repository = repository;
     }
 
-    async execute(dto) {
-        const id = dto.id;
+    async handle(command) {
+        const id = command.id;
         return await this._findUserOrFail(id)
     }
 
@@ -24,4 +22,4 @@ class FindUserById {
 }
 
 //export default new FindUserById(usersRepo, UserDtoMapper);
-export default FindUserById
+export default FindUserQueryHandler

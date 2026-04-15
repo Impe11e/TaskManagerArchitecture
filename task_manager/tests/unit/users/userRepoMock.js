@@ -8,7 +8,6 @@ class InMemoryUsersRepository extends UserRepo{
     }
 
     async create(entity) {
-        // емуляція поведінки БД: проставляємо id
         entity.id = this.currentId++;
 
         this.users.push(entity);

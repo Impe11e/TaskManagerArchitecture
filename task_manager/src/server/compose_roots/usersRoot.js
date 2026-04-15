@@ -5,17 +5,17 @@ import UsersRepository from '../../infrastructure/users/repository/usersRepo.js'
 const usersRepository = new UsersRepository(pool)
 
 //application
-import CreateUser from "../../application/users/useCases/createUser.js";
-import DeleteUser from "../../application/users/useCases/deleteUserById.js"
-import FindUserById from "../../application/users/useCases/findUserById.js"
-import UpdateUser from "../../application/users/useCases/updateUser.js"
+import CreateUserHandler from "../../application/users/commandHandlers/createUser.js";
+import DeleteUser from "../../application/users/commandHandlers/deleteUserById.js"
+import FindUserQueryHandler from "../../application/users/queryHandlers/findUserById.js"
+import UpdateUserCommandHandler from "../../application/users/commandHandlers/updateUser.js"
 import UsersFabric from "../../domain/users/fabrics/usersFabric.js";
 import UsersDomainService from "../../domain/users/service/usersDomainService.js";
 
 const usersDomainService = new UsersDomainService(usersRepository);
-const createUser = new CreateUser(usersRepository, UsersFabric, usersDomainService);
-const updateUser = new UpdateUser(usersRepository, usersDomainService);
-const findUserById = new FindUserById(usersRepository);
+const createUser = new CreateUserHandler(usersRepository, UsersFabric, usersDomainService);
+const updateUser = new UpdateUserCommandHandler(usersRepository, usersDomainService);
+const findUserById = new FindUserQueryHandler(usersRepository);
 const deleteUserById = new DeleteUser(usersRepository);
 
 //controller (part of presentation)

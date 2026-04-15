@@ -2,10 +2,10 @@
 import InMemoryUsersRepository from "../userRepoMock.js";
 
 //application
-import CreateUser from "../../../../src/application/users/useCases/createUser.js";
-import DeleteUserById from "../../../../src/application/users/useCases/deleteUserById.js"
-import FindUserById from "../../../../src/application/users/useCases/findUserById.js"
-import UpdateUser from "../../../../src/application/users/useCases/updateUser.js"
+import CreateUser from "../../../../src/application/users/commandHandlers/createUser.js";
+import DeleteUserCommandHandler from "../../../../src/application/users/commandHandlers/deleteUserById.js"
+import FindUserQueryHandler from "../../../../src/application/users/queryHandlers/findUserById.js"
+import UpdateUserCommandHandler from "../../../../src/application/users/commandHandlers/updateUser.js"
 import UsersFabric from "../../../../src/domain/users/fabrics/usersFabric.js";
 import UsersDomainService from "../../../../src/domain/users/service/usersDomainService.js";
 
@@ -28,7 +28,7 @@ describe("Use cases tests", () => {
     test("Should update user", async () => {
         const usersRepository = new InMemoryUsersRepository()
         const usersDomainService = new UsersDomainService(usersRepository);
-        const updateUser = new UpdateUser(usersRepository, usersDomainService);
+        const updateUser = new UpdateUserCommandHandler(usersRepository, usersDomainService);
         const createUser = new CreateUser(usersRepository, UsersFabric, usersDomainService);
 
         await createUser.execute({
@@ -37,7 +37,7 @@ describe("Use cases tests", () => {
             password: "123456789"
         });
 
-        const result = await updateUser.execute({
+        const result = await updateUser.handle({
             id: 1,
             username: "testuser2",
             email: "test22@gmail.com",
@@ -52,7 +52,7 @@ describe("Use cases tests", () => {
         const usersRepository = new InMemoryUsersRepository()
         const usersDomainService = new UsersDomainService(usersRepository);
         const createUser = new CreateUser(usersRepository, UsersFabric, usersDomainService);
-        const findUserById = new FindUserById(usersRepository);
+        const findUserById = new FindUserQueryHandler(usersRepository);
 
         await createUser.execute({
             username: "testuser",
@@ -60,7 +60,7 @@ describe("Use cases tests", () => {
             password: "123456789"
         });
 
-        const result = await findUserById.execute({id: 1})
+        const result = await findUserById.handle({id: 1})
 
         expect(result.id).toBe(1);
         expect(result.username).toBe("testuser");
@@ -70,7 +70,7 @@ describe("Use cases tests", () => {
         const usersRepository = new InMemoryUsersRepository()
         const usersDomainService = new UsersDomainService(usersRepository);
         const createUser = new CreateUser(usersRepository, UsersFabric, usersDomainService);
-        const findUserById = new FindUserById(usersRepository);
+        const findUserById = new FindUserQueryHandler(usersRepository);
 
         await createUser.execute({
             username: "testuser",
@@ -78,7 +78,7 @@ describe("Use cases tests", () => {
             password: "123456789"
         });
 
-        await expect(findUserById.execute({ id: 4 }))
+        await expect(findUserById.handle({ id: 4 }))
             .rejects
             .toBeInstanceOf(Error);
 
@@ -88,7 +88,7 @@ describe("Use cases tests", () => {
         const usersRepository = new InMemoryUsersRepository()
         const usersDomainService = new UsersDomainService(usersRepository);
         const createUser = new CreateUser(usersRepository, UsersFabric, usersDomainService);
-        const deleteUserById = new DeleteUserById(usersRepository);
+        const deleteUserById = new DeleteUserCommandHandler(usersRepository);
 
         await createUser.execute({
             username: "testuser",
@@ -96,7 +96,7 @@ describe("Use cases tests", () => {
             password: "123456789"
         });
 
-        const isDeleted = await deleteUserById.execute({id: 1})
+        const isDeleted = await deleteUserById.handle({id: 1})
 
         await expect(isDeleted).toBe(true);
     })

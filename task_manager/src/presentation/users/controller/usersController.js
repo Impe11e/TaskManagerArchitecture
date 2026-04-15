@@ -1,26 +1,31 @@
-import UserCreateDto from '../requestDto/userCreateDto.js'
-import UserUpdateDto from '../requestDto/userUpdateDto.js'
-import UserFindByIdDto from '../requestDto/userFindByIdDto.js'
+//import UserCreateDto from '../requestDto/userCreateDto.js'
+import CreateUserCommand from "../../../application/users/commands/createUser.js";
+import DeleteUserCommand from "../../../application/users/commands/deleteUserById.js";
+import UpdateUserCommand from "../../../application/users/commands/updateUser.js";
+import FindUserQuery from "../../../application/users/queries/findUserById.js";
+
 import responseMapper from '../responseDto/usersResponseDtoMapper.js'
 import handle from "../../errors/errorHandler.js";
 import {ValidationError} from "../../errors/presentationErrors.js";
 
 class UsersController {
-    constructor(createCase, updateCase, findUserByIdCase, deleteUserByIdCase) {
-        this.createCase = createCase
-        this.updateCase = updateCase
+    constructor(createHandler, updateHandler, findUserByIdCase, deleteHandler) {
+        this.createHandler = createHandler
+        this.updateHandler = updateHandler
         this.findUserByIdCase = findUserByIdCase
-        this.deleteUserByIdCase = deleteUserByIdCase
+        this.deleteHandler = deleteHandler
     }
 
     async create(data) {
         try {
             this._validateData(data, true);
-            const dto = new UserCreateDto(data)
-            const user = await this.createCase.execute(dto)
+            const command = new CreateUserCommand(
+                data.username, data.email, data.password,
+            )
+            const user_id = await this.createHandler.handle(command)
             return {
                 status: 201,
-                data: responseMapper.toResponseDto(user),
+                data: {id : user_id}
             }
 
         } catch (err) {
@@ -32,11 +37,16 @@ class UsersController {
         try {
             this._validateData(data, false);
             this._parseId(id)
-            const dto = new UserUpdateDto(id, data)
-            const user = await this.updateCase.execute(dto)
+            const command = new UpdateUserCommand(
+                id,
+                data.username ?? undefined,
+                data.email ?? undefined,
+                data.password ?? undefined
+            );
+            const user_id = await this.updateHandler.handle(command)
             return {
                 status: 200,
-                data: responseMapper.toResponseDto(user)
+                data: {id : user_id}
             }
         } catch (err) {
             return handle(err)
@@ -46,8 +56,8 @@ class UsersController {
     async findById(id) {
         try {
             this._parseId(id);
-            const dto = new UserFindByIdDto(id)
-            const user = await this.findUserByIdCase.execute(dto)
+            const command = new FindUserQuery(id)
+            const user = await this.findUserByIdCase.handle(command)
             return {
                 status: 200,
                 data: responseMapper.toResponseDto(user)
@@ -60,8 +70,8 @@ class UsersController {
     async deleteById(id) {
         try {
             this._parseId(id);
-            const dto = new UserFindByIdDto(id)
-            await this.deleteUserByIdCase.execute(dto)
+            const command = new DeleteUserCommand(id)
+            await this.deleteHandler.handle(command)
             return {
                 status: 204,
                 data: null
@@ -107,6 +117,8 @@ class UsersController {
         if (!Number.isInteger(id)) {
             throw new ValidationError('Validation error: Invalid user id');
         }
+
+        return id
     }
 
     _validateEmail(email) {

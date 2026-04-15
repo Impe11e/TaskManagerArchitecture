@@ -2,29 +2,31 @@
 //import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
 import {NotFoundError} from '../../errors/applicationErrors.js';
 
-class UpdateUser {
+class UpdateUserCommandHandler {
     constructor(repository, domainService) {
         this.repository = repository;
         this.domainService = domainService;
     }
 
-    async execute(dto) {
-        const user = await this._findUserOrFail(dto.id)
+    async handle(command) {
+        const userDM = await this._findUserOrFail(command.id)
 
-        if (dto.email) {
-            await this.domainService.checkByEmail(dto.email);
+        if (command.email) {
+            await this.domainService.checkByEmail(command.email);
         }
-        if (dto.username) {
-            await this.domainService.checkByUsername(dto.username);
+        if (command.username) {
+            await this.domainService.checkByUsername(command.username);
         }
 
-        user.update({
-            username: dto.username,
-            email: dto.email,
-            password: dto.password
+        userDM.update({
+            username: command.username,
+            email: command.email,
+            password: command.password
         })
 
-        return await this.repository.update(user);
+        const updatedUser = await this.repository.update(user)
+
+        return updatedUser.id
     }
 
     async _findUserOrFail(id) {
@@ -39,4 +41,4 @@ class UpdateUser {
 }
 
 //export default new UpdateUser(usersRepo, UserDtoMapper);
-export default UpdateUser;
+export default UpdateUserCommandHandler;

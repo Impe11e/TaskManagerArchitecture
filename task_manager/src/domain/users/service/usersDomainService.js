@@ -8,7 +8,7 @@ class UsersDomainService {
     async checkByEmail(email) {
         const user = await this.repository.checkByEmail(email);
         if (user) {
-            throw new ConflictError(`User ${email} already exists`);
+            throw new ConflictError(`User with ${email} email already exists`);
         }
     }
 

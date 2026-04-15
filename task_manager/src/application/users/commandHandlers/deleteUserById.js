@@ -1,14 +1,16 @@
 //import usersRepo from '../../../infrastructure/users/repository/usersRepo.js';
 import {NotFoundError} from '../../errors/applicationErrors.js';
 
-class DeleteUserById {
+class DeleteUserCommandHandler {
     constructor(repository) {
         this.repository = repository;
     }
 
-    async execute(dto) {
-        const id = dto.id;
+    async handle(command) {
+        const id = command.id;
         await this._findUserOrFail(id)
+
+        //returns true if succeed
         return await this.repository.deleteById(id);
     }
 
@@ -22,4 +24,4 @@ class DeleteUserById {
 }
 
 //export default new DeleteUserById(usersRepo);
-export default DeleteUserById;
+export default DeleteUserCommandHandler;

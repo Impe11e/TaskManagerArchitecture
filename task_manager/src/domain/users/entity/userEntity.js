@@ -70,5 +70,5 @@ class UserEntity {
         }
     }
 }
-console.log()
+
 export default UserEntity;
