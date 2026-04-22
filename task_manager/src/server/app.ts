@@ -1,10 +1,10 @@
-import express from "express";
+import express,{type Express} from "express";
 import getUserRouter from "../presentation/users/routes/usersRoutes.js";
 import container from "./compose_roots/usersRoot.js"
 //import taskRouter from "./routes/tasksRoutes.js";
 //import profileRouter from "./routes/profilesRoutes.js";
 
-const app = express();
+const app: Express = express();
 
 app.set("query parser", "extended");
 

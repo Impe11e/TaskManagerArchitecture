@@ -63,8 +63,8 @@ task_manager/
 │   │   ├── presentationErrors.js
 │   │   └── errorHandler.js
 │   └── server/
-│       ├── app.js               ← Express application, route registration
-│       ├── server.js            ← Starting an HTTP server         
+│       ├── app.ts               ← Express application, route registration
+│       ├── server.ts            ← Starting an HTTP server         
 │       └── routes/
 │           ├── profilesRoutes.js   ← routes /profiles
 │           ├── tasksRoutes.js   ← routes /tasks
@@ -169,7 +169,7 @@ Sidecar modules:
 
 - **Routes** (`profileRoutes.js`, `tasksRoutes.js`, `usersRoutes.js`) - визначають REST-маршрути застосунку та пов’язують HTTP-запити з відповідними методами контролерів.
 
-- **App / Server** (`app.js`, `server.js`) - відповідають за конфігурацію Express-застосунку та запуск HTTP-сервера.
+- **App / Server** (`app.ts`, `server.ts`) - відповідають за конфігурацію Express-застосунку та запуск HTTP-сервера.
 
 ## Посилання на GitHub репозиторій проекта
 
