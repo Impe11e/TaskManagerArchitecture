@@ -6,22 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-
     "build-db": "docker build -t db-image .",
     "start-db": "docker run -d -p 5433:5432 --name database --env-file .env_db db-image",
     "run-db": "docker start database",
     "stop-db": "docker stop database",
     "delete-db-container": "docker rm database",
-
     "build-tdb": "docker build -t tdb-image .",
     "start-tdb": "docker run -d -p 5434:5432 --name test_db --env-file .env_tdb tdb-image",
     "run-tdb": "docker start test_db",
     "stop-tdb": "docker stop test_db",
     "delete-tdb-container": "docker rm test_db",
-
     "test:int": "npm run run-tdb && (NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest tests/integrational --runInBand ; npm run stop-tdb)",
     "test:unit": "NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest tests/unit --runInBand",
-
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -34,6 +30,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@types/node": "^25.6.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
@@ -43,6 +40,7 @@
     "globals": "^16.5.0",
     "jest": "^30.3.0",
     "supertest": "^7.2.2",
+    "typescript": "^6.0.3",
     "vite": "^7.3.1"
   }
 }
