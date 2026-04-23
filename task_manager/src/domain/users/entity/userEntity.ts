@@ -1,8 +1,19 @@
 import {InvariantError} from "../../errors/domainErrors.js";
 
+type UpdateObjType = {
+    username: string,
+    email: string,
+    password: string
+}
+
 class UserEntity {
-    constructor(id, username, email, password) {
-        UserEntity._validateInConstructor(id,username, email, password);
+    public id: number;
+    public email: string;
+    public username: string;
+    public password: string;
+
+    constructor(id: number, username: string, email: string, password: string) {
+        UserEntity._validateInConstructor(id, username, email, password);
 
         this.id = id;
         this.username = username;
@@ -10,13 +21,13 @@ class UserEntity {
         this.password = password;
     }
 
-    static _validateId(id) {
-        if (id <= 0){
+    static _validateId(id: number): void {
+        if (id <= 0) {
             throw new InvariantError('Business logic violated: id should be greater than 0.');
         }
     }
 
-    static _validateEmail(email) {
+    static _validateEmail(email: string): void {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!emailRegex.test(email)) {
@@ -24,7 +35,7 @@ class UserEntity {
         }
     }
 
-    static _validateUsername(username) {
+    static _validateUsername(username: string): void {
         if (username.length <= 5) {
             throw new InvariantError('Business logic violated: username is too short.');
         }
@@ -34,7 +45,7 @@ class UserEntity {
         }
     }
 
-    static _validatePassword(password) {
+    static _validatePassword(password: string): void {
         if (password.length <= 8) {
             throw new InvariantError('Business logic violated: password is too short.');
         }
@@ -44,8 +55,8 @@ class UserEntity {
         }
     }
 
-    static _validateInConstructor(id,username,email,password) {
-        if(id) {
+    static _validateInConstructor(id: number, username: string, email: string, password: string): void {
+        if (id) {
             UserEntity._validateId(id)
         }
         UserEntity._validateUsername(username)
@@ -53,7 +64,7 @@ class UserEntity {
         UserEntity._validatePassword(password);
     }
 
-    update({username, email, password}) {
+    update({username, email, password}: UpdateObjType): void {
         if (username !== undefined) {
             UserEntity._validateUsername(username);
             this.username = username;
