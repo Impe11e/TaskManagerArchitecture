@@ -1,27 +1,41 @@
 //import UserCreateDto from '../requestDto/userCreateDto.js'
-import CreateUserCommand from "../../../application/users/commands/createUser.js";
-import DeleteUserCommand from "../../../application/users/commands/deleteUserById.js";
-import UpdateUserCommand from "../../../application/users/commands/updateUser.js";
-import FindUserQuery from "../../../application/users/queries/findUserById.js";
+import type {CreateUserCommand} from "../../../application/users/commands/createUser.js";
+import type {DeleteUserCommand} from "../../../application/users/commands/deleteUserById.js";
+import type {UpdateUserCommand} from "../../../application/users/commands/updateUser.js";
+import type {FindUserQuery} from "../../../application/users/queries/findUserById.js";
+import type {IHandler} from "../../../application/users/IHandler.js";
+import type UserEntity from "../../../domain/users/entity/userEntity.js";
+import type {IUserController} from "./IUserController.js";
+import type {ResponseType, DataType} from "./controllerTypes.js";
 
 import responseMapper from '../responseDto/usersResponseDtoMapper.js'
 import handle from "../../errors/errorHandler.js";
 import {ValidationError} from "../../errors/presentationErrors.js";
 
-class UsersController {
-    constructor(createHandler, updateHandler, findHandler, deleteHandler) {
+class UsersController implements IUserController{
+    private createHandler: IHandler<CreateUserCommand, {id: number}>;
+    private updateHandler: IHandler<UpdateUserCommand, {id: number}>;
+    private findHandler: IHandler<FindUserQuery, UserEntity>;
+    private deleteHandler: IHandler<DeleteUserCommand, boolean>;
+
+    constructor(createHandler: IHandler<CreateUserCommand, {id: number}>,
+                updateHandler: IHandler<UpdateUserCommand, {id: number}>,
+                findHandler: IHandler<FindUserQuery, UserEntity>,
+                deleteHandler: IHandler<DeleteUserCommand, boolean>) {
         this.createHandler = createHandler
         this.updateHandler = updateHandler
         this.findHandler = findHandler
         this.deleteHandler = deleteHandler
     }
 
-    async create(data) {
+    async create(data: DataType): Promise<ResponseType> {
         try {
             this._validateData(data, true);
-            const command = new CreateUserCommand(
-                data.username, data.email, data.password,
-            )
+            const command: CreateUserCommand = {
+                username: data.username,
+                email: data.email,
+                password: data.password
+            }
             const res = await this.createHandler.handle(command)
             return {
                 status: 201,
@@ -33,16 +47,16 @@ class UsersController {
         }
     }
 
-    async update(id, data) {
+    async update(id: string, data: DataType): Promise<ResponseType> {
         try {
             this._validateData(data, false);
-            this._parseId(id)
-            const command = new UpdateUserCommand(
-                id,
-                data.username ?? undefined,
-                data.email ?? undefined,
-                data.password ?? undefined
-            );
+            const pid:number = this._parseId(id)
+            const command: UpdateUserCommand = {
+                id: pid,
+                username: data.username ?? undefined,
+                email: data.email ?? undefined,
+                password: data.password ?? undefined
+            };
             const res = await this.updateHandler.handle(command)
             return {
                 status: 200,
@@ -53,11 +67,11 @@ class UsersController {
         }
     }
 
-    async findById(id) {
+    async findById(id: string): Promise<ResponseType> {
         try {
-            this._parseId(id);
-            const command = new FindUserQuery(id)
-            const user = await this.findHandler.handle(command)
+            const pid: number = this._parseId(id);
+            const query: FindUserQuery = {id: pid}
+            const user = await this.findHandler.handle(query)
             return {
                 status: 200,
                 data: responseMapper.toResponseDto(user)
@@ -67,10 +81,10 @@ class UsersController {
         }
     }
 
-    async deleteById(id) {
+    async deleteById(id: string): Promise<ResponseType> {
         try {
-            this._parseId(id);
-            const command = new DeleteUserCommand(id)
+            const pid: number = this._parseId(id);
+            const command:DeleteUserCommand = {id: pid}
             await this.deleteHandler.handle(command)
             return {
                 status: 204,
@@ -81,7 +95,7 @@ class UsersController {
         }
     }
 
-    _validateData(data, strict = false) {
+    _validateData(data: DataType, strict = false) {
         if (!data || typeof data !== 'object') {
             throw new ValidationError('Validation error: Invalid data (not object)');
         }
@@ -109,7 +123,7 @@ class UsersController {
         this._validatePassword(data.password)
     }
 
-    _parseId(rawId) {
+    _parseId(rawId: string): number {
         const id = parseInt(rawId)
         if (typeof id !== 'number') {
             throw new ValidationError('Validation error: Id must be a number');
@@ -121,19 +135,19 @@ class UsersController {
         return id
     }
 
-    _validateEmail(email) {
+    _validateEmail(email: string) {
         if (email && typeof email !== 'string') {
             throw new ValidationError(`Validation error: email must be a string`);
         }
     }
 
-    _validateUsername(username) {
+    _validateUsername(username: string) {
         if (username && typeof username !== 'string') {
             throw new ValidationError(`Validation error: username must be a string`);
         }
     }
 
-    _validatePassword(password) {
+    _validatePassword(password: string) {
         if (password && typeof password !== 'string') {
             throw new ValidationError(`Validation error: password must be a string`);
         }

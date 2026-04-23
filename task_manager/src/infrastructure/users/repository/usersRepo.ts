@@ -1,10 +1,12 @@
-import UserRepo from "../../../domain/users/repoInterfaces/userRepo.js";
+import type {IUserRepository} from "../../../domain/users/repoInterfaces/IUserRepo.ts";
+import type { Pool } from 'pg';
 import UsersMapper from "../mapper/usersMapper.js";
 import queries from "./queries.js"
 
-class UsersRepository extends UserRepo {
-    constructor(pool) {
-        super();
+class UsersRepository implements IUserRepository {
+    private pool: Pool;
+
+    constructor(pool: Pool) {
         this.pool = pool;
     }
 
@@ -57,5 +59,4 @@ class UsersRepository extends UserRepo {
 
 }
 
-//export default new UsersRepo(usersFactory, UsersMapper, pool);
 export default UsersRepository;

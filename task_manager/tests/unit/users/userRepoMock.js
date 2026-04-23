@@ -1,4 +1,4 @@
-import UserRepo from "../../../src/domain/users/repoInterfaces/userRepo.js";
+import {IUserRepository as UserRepo} from "../../../src/domain/users/repoInterfaces/userRepo.js";
 
 class InMemoryUsersRepository extends UserRepo{
     constructor() {
