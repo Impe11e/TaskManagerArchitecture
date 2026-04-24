@@ -1,16 +1,11 @@
-type UserEntityLike = {
-    id: number,
-    username: string,
-    password: string,
-    email: string
-}
+import UserEntity from "../entity/userEntity.js";
 
 export interface IUserRepository {
-    create(entity: UserEntityLike): Promise<UserEntityLike>;
+    create(entity: UserEntity): Promise<UserEntity>;
 
-    update(entity: Partial<UserEntityLike>): Promise<UserEntityLike>;
+    update(entity: Partial<UserEntity>): Promise<UserEntity>;
 
-    findById(id: number): Promise<UserEntityLike>;
+    findById(id: number): Promise<UserEntity>;
 
     deleteById(id: number): Promise<boolean>;
 

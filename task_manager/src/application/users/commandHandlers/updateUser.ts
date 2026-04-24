@@ -1,15 +1,21 @@
-//import usersRepo from '../../../infrastructure/users/repository/usersRepo.js';
-//import UserDtoMapper from "../dtoMapper/userDtoMapper.js";
+import type {IUserRepository} from '../../../domain/users/repoInterfaces/IUserRepo.ts'
+import type {UpdateUserCommand} from "../commands/updateUser.js";
+import UserEntity from "../../../domain/users/entity/userEntity.js"
+import type {IHandler} from '../IHandler.js';
+import type {IService} from "../../../domain/users/IService.js";
 import {NotFoundError} from '../../errors/applicationErrors.js';
 
-class UpdateUserCommandHandler {
-    constructor(repository, domainService) {
+class UpdateUserCommandHandler implements IHandler<UpdateUserCommand, {id: number}>  {
+    private repository: IUserRepository
+    private domainService: IService
+
+    constructor(repository: IUserRepository, domainService: IService) {
         this.repository = repository;
         this.domainService = domainService;
     }
 
-    async handle(command) {
-        const userDM = await this._findUserOrFail(command.id)
+    async handle(command: UpdateUserCommand): Promise<{id: number}> {
+        const userDM: UserEntity = await this._findUserOrFail(command.id)
 
         if (command.email) {
             await this.domainService.checkByEmail(command.email);
@@ -24,12 +30,12 @@ class UpdateUserCommandHandler {
             password: command.password
         })
 
-        const updatedUser = await this.repository.update(userDM)
+        const updatedUser: UserEntity = await this.repository.update(userDM)
 
         return {id: updatedUser.id}
     }
 
-    async _findUserOrFail(id) {
+    async _findUserOrFail(id: number): Promise<UserEntity> {
         const user = await this.repository.findById(id)
 
         if(!user) {

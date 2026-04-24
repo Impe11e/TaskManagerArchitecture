@@ -1,8 +1,5 @@
-import {IUserRepository as UserRepo} from "../../../src/domain/users/repoInterfaces/userRepo.js";
-
-class InMemoryUsersRepository extends UserRepo{
+class InMemoryUsersRepository {
     constructor() {
-        super()
         this.users = [];
         this.currentId = 1;
     }

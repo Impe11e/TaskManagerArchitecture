@@ -2,12 +2,12 @@
 import InMemoryUsersRepository from "../userRepoMock.js";
 
 //application
-import CreateUserCommandHandler from "../../../../src/application/users/commandHandlers/createUser.js";
-import DeleteUserCommandHandler from "../../../../src/application/users/commandHandlers/deleteUserById.js"
-import FindUserQueryHandler from "../../../../src/application/users/queryHandlers/findUserById.js"
-import UpdateUserCommandHandler from "../../../../src/application/users/commandHandlers/updateUser.js"
-import UsersFactory from "../../../../src/domain/users/factory/usersFactory.js";
-import UsersDomainService from "../../../../src/domain/users/service/usersDomainService.js";
+import CreateUserCommandHandler from "../../../../dist/application/users/commandHandlers/createUser.js";
+import DeleteUserCommandHandler from "../../../../dist/application/users/commandHandlers/deleteUserById.js"
+import FindUserQueryHandler from "../../../../dist/application/users/queryHandlers/findUserById.js"
+import UpdateUserCommandHandler from "../../../../dist/application/users/commandHandlers/updateUser.js"
+import UsersFactory from "../../../../dist/domain/users/factory/usersFactory.js";
+import UsersDomainService from "../../../../dist/domain/users/service/usersDomainService.js";
 
 describe("Use cases tests", () => {
     test("Should create user", async () => {

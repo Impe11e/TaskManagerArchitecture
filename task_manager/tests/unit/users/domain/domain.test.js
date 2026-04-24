@@ -1,5 +1,5 @@
-import UsersFactory from "../../../../src/domain/users/factory/usersFactory.js";
-import UsersDomainService from "../../../../src/domain/users/service/usersDomainService.js";
+import UsersFactory from "../../../../dist/domain/users/factory/usersFactory.js";
+import UsersDomainService from "../../../../dist/domain/users/service/usersDomainService.js";
 import UserRepoMock from "../userRepoMock.js";
 
 describe("Users Domain Entity test", () => {
