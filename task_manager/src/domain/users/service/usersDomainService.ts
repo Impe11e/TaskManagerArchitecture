@@ -1,5 +1,5 @@
 import {ConflictError} from "../../errors/domainErrors.js";
-import type {IUserRepository} from '../repoInterfaces/IUserRepo.js'
+import type {IUserRepository} from '../domainRequires/repo/IUserRepo.js'
 
 class UsersDomainService {
     private repository: IUserRepository;

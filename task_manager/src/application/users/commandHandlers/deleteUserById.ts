@@ -1,11 +1,11 @@
 //import usersRepo from '../../../infrastructure/users/repository/usersRepo.js';
-import type {IUserRepository} from '../../../domain/users/repoInterfaces/IUserRepo.ts'
-import type {DeleteUserCommand} from "../commands/deleteUserById.js";
-import type {IHandler} from '../IHandler.js';
+import type {IUserRepository} from '../../../domain/users/domainRequires/repo/IUserRepo.ts'
+import type {DeleteUserCommand} from "../applicationRequires/commands/deleteUserById.js";
+import type {IDeleteHandler} from '../applicationRequires/IDeleteHandler.js';
 
 import {NotFoundError} from '../../errors/applicationErrors.js';
 
-class DeleteUserCommandHandler implements IHandler<DeleteUserCommand, boolean> {
+class DeleteUserCommandHandler implements IDeleteHandler {
     private repository: IUserRepository
 
     constructor(repository: IUserRepository) {

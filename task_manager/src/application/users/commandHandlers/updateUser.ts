@@ -1,11 +1,11 @@
-import type {IUserRepository} from '../../../domain/users/repoInterfaces/IUserRepo.ts'
-import type {UpdateUserCommand} from "../commands/updateUser.js";
-import UserEntity from "../../../domain/users/entity/userEntity.js"
-import type {IHandler} from '../IHandler.js';
-import type {IService} from "../../../domain/users/IService.js";
+import type {IUserRepository} from '../../../domain/users/domainRequires/repo/IUserRepo.ts'
+import type {UpdateUserCommand} from "../applicationRequires/commands/updateUser.js";
+import type {IUpdateHandler} from '../applicationRequires/IUpdateHandler.js';
+import type {TUserEntity} from "../../../domain/users/domainRequires/application/TUserEntity.js";
+import type {IService} from "../../../domain/users/domainRequires/application/IService.js";
 import {NotFoundError} from '../../errors/applicationErrors.js';
 
-class UpdateUserCommandHandler implements IHandler<UpdateUserCommand, {id: number}>  {
+class UpdateUserCommandHandler implements IUpdateHandler {
     private repository: IUserRepository
     private domainService: IService
 
@@ -15,7 +15,7 @@ class UpdateUserCommandHandler implements IHandler<UpdateUserCommand, {id: numbe
     }
 
     async handle(command: UpdateUserCommand): Promise<{id: number}> {
-        const userDM: UserEntity = await this._findUserOrFail(command.id)
+        const userDM: TUserEntity = await this._findUserOrFail(command.id)
 
         if (command.email) {
             await this.domainService.checkByEmail(command.email);
@@ -30,12 +30,12 @@ class UpdateUserCommandHandler implements IHandler<UpdateUserCommand, {id: numbe
             password: command.password
         })
 
-        const updatedUser: UserEntity = await this.repository.update(userDM)
+        const updatedUser: TUserEntity = await this.repository.update(userDM)
 
         return {id: updatedUser.id}
     }
 
-    async _findUserOrFail(id: number): Promise<UserEntity> {
+    async _findUserOrFail(id: number): Promise<TUserEntity> {
         const user = await this.repository.findById(id)
 
         if(!user) {

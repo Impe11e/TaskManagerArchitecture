@@ -1,10 +1,10 @@
-import type {IUserRepository} from '../../../domain/users/repoInterfaces/IUserRepo.ts'
-import type {CreateUserCommand} from "../commands/createUser.js";
-import type {IFactory} from "../../../domain/users/IFactory.js";
-import type {IHandler} from '../IHandler.js';
-import type {IService} from "../../../domain/users/IService.js";
+import type {IUserRepository} from '../../../domain/users/domainRequires/repo/IUserRepo.ts'
+import type {CreateUserCommand} from "../applicationRequires/commands/createUser.js";
+import type {ICreateHandler} from '../applicationRequires/ICreateHandle.js';
+import type {IFactory} from "../../../domain/users/domainRequires/application/IFactory.js";
+import type {IService} from "../../../domain/users/domainRequires/application/IService.js";
 
-class CreateUserHandler implements IHandler<CreateUserCommand, {id: number}>{
+class CreateUserHandler implements ICreateHandler {
     private repository: IUserRepository
     private userFactory: IFactory
     private domainService: IService

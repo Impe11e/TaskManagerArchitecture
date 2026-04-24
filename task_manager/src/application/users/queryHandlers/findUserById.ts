@@ -1,22 +1,22 @@
 import {NotFoundError} from '../../errors/applicationErrors.js';
-import type {IUserRepository} from '../../../domain/users/repoInterfaces/IUserRepo.ts'
-import type {IHandler} from '../IHandler.js';
-import UserEntity from "../../../domain/users/entity/userEntity.js"
-import type {FindUserQuery} from "../queries/findUserById.js";
+import type {IUserRepository} from '../../../domain/users/domainRequires/repo/IUserRepo.ts'
+import type {IFindHandler} from '../applicationRequires/IFindHandler.js';
+import type {TUserEntity} from "../../../domain/users/domainRequires/application/TUserEntity.js";
+import type {FindUserQuery} from "../applicationRequires/queries/findUserById.js";
 
-class FindUserQueryHandler implements IHandler<FindUserQuery, UserEntity> {
+class FindUserQueryHandler implements IFindHandler {
     private repository: IUserRepository
 
     constructor(repository: IUserRepository) {
         this.repository = repository;
     }
 
-    async handle(command: FindUserQuery) {
+    async handle(command: FindUserQuery): Promise<TUserEntity> {
         const id = command.id;
         return await this._findUserOrFail(id)
     }
 
-    async _findUserOrFail(id: number) {
+    async _findUserOrFail(id: number): Promise<TUserEntity> {
         const user = await this.repository.findById(id)
 
         if(!user) {
