@@ -4,7 +4,7 @@ import type {IDeleteHandler} from "../../../application/users/applicationRequire
 import type {IUpdateHandler} from "../../../application/users/applicationRequires/IUpdateHandler.js";
 import type {IFindHandler} from "../../../application/users/applicationRequires/IFindHandler.js";
 
-import type {IUserController} from "./IUserController.js";
+import type {IUserController} from "../controller/IUserController.js";
 import type {ResponseType, DataType} from "./controllerTypes.js";
 
 import ResponseMapper from '../responseDto/usersResponseDtoMapper.js'

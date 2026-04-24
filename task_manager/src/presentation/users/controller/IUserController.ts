@@ -1,4 +1,4 @@
-import type {ResponseType, DataType} from "./controllerTypes.js";
+import type {ResponseType, DataType} from "../presentationRequires/controllerTypes.js";
 
 export interface IUserController {
     findById(id: string): Promise<ResponseType>;
