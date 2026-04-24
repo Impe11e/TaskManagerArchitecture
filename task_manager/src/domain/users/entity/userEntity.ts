@@ -1,4 +1,5 @@
 import {InvariantError} from "../../errors/domainErrors.js";
+import type {TUserEntity} from "../domainRequires/repo/TUserEntity.js";
 
 type UpdateObjType = {
     username: string,
@@ -64,7 +65,7 @@ class UserEntity {
         UserEntity._validatePassword(password);
     }
 
-    update({username, email, password}: UpdateObjType): void {
+    public update({username, email, password}: UpdateObjType): void {
         if (username !== undefined) {
             UserEntity._validateUsername(username);
             this.username = username;

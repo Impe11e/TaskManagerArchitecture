@@ -14,8 +14,8 @@ class UpdateUserCommandHandler implements IUpdateHandler {
         this.domainService = domainService;
     }
 
-    async handle(command: UpdateUserCommand): Promise<{id: number}> {
-        const userDM: TUserEntity = await this._findUserOrFail(command.id)
+    public async handle(command: UpdateUserCommand): Promise<{id: number}> {
+        const userDM = await this._findUserOrFail(command.id)
 
         if (command.email) {
             await this.domainService.checkByEmail(command.email);
@@ -30,12 +30,12 @@ class UpdateUserCommandHandler implements IUpdateHandler {
             password: command.password
         })
 
-        const updatedUser: TUserEntity = await this.repository.update(userDM)
+        const updatedUser = await this.repository.update(userDM)
 
         return {id: updatedUser.id}
     }
 
-    async _findUserOrFail(id: number): Promise<TUserEntity> {
+    private async _findUserOrFail(id: number): Promise<TUserEntity> {
         const user = await this.repository.findById(id)
 
         if(!user) {

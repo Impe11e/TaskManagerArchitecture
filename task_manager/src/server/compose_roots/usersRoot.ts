@@ -19,7 +19,7 @@ const findUserById = new FindUserQueryHandler(usersRepository);
 const deleteUserById = new DeleteUser(usersRepository);
 
 //controller (part of presentation)
-import UsersController from "../../presentation/users/presentationRequires/usersController.ts";
+import UsersController from "../../presentation/users/controller/usersController.js";
 
 const usersController = new UsersController(createUser, updateUser, findUserById, deleteUserById);
 

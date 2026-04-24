@@ -12,7 +12,7 @@ class DeleteUserCommandHandler implements IDeleteHandler {
         this.repository = repository;
     }
 
-    async handle(command: DeleteUserCommand): Promise<boolean> {
+    public async handle(command: DeleteUserCommand): Promise<boolean> {
         const id = command.id;
         await this._findUserOrFail(id)
 
@@ -20,7 +20,7 @@ class DeleteUserCommandHandler implements IDeleteHandler {
         return await this.repository.deleteById(id);
     }
 
-    async _findUserOrFail(id: number) {
+    private async _findUserOrFail(id: number) {
         const user = await this.repository.findById(id)
 
         if(!user) {

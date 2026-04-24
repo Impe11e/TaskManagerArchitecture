@@ -11,12 +11,12 @@ class FindUserQueryHandler implements IFindHandler {
         this.repository = repository;
     }
 
-    async handle(command: FindUserQuery): Promise<TUserEntity> {
+    public async handle(command: FindUserQuery): Promise<TUserEntity> {
         const id = command.id;
         return await this._findUserOrFail(id)
     }
 
-    async _findUserOrFail(id: number): Promise<TUserEntity> {
+    private async _findUserOrFail(id: number): Promise<TUserEntity> {
         const user = await this.repository.findById(id)
 
         if(!user) {

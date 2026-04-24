@@ -15,7 +15,7 @@ class CreateUserHandler implements ICreateHandler {
         this.domainService = domainService;
     }
 
-    async handle(command: CreateUserCommand): Promise<{id: number}> {
+    public async handle(command: CreateUserCommand): Promise<{id: number}> {
         await this.domainService.checkByEmail(command.email);
         await this.domainService.checkByUsername(command.username);
 
