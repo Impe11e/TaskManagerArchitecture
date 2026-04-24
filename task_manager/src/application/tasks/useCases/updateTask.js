@@ -29,12 +29,12 @@ export default class UpdateTaskUseCase {
       }
       task.dueDate = updateData.dueDate;
     }
-    if (updateData.userId !== undefined) {
-      if (!updateData.userId || updateData.userId <= 0) {
-        throw new ValidationError('User ID must be valid');
-      }
-      task.userId = updateData.userId;
-    }
+    // if (updateData.userId !== undefined) {
+    //   if (!updateData.userId || updateData.userId <= 0) {
+    //     throw new ValidationError('User ID must be valid');
+    //   }
+    //   task.userId = updateData.userId;
+    // }
     if (task.title.length < 3) {
         throw new ValidationError("Title must be at least 3 chars.");
     }

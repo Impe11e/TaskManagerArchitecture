@@ -10,8 +10,7 @@ export class TaskMapper {
       status: raw.status,
       priority: raw.priority,
       dueDate: raw.due_date || raw.dueDate,
-      createdAt: raw.created_at || raw.createdAt,
-      userId: raw.user_id || raw.userId,
+      createdAt: raw.created_at || raw.createdAt
     });
   }
 
@@ -24,8 +23,7 @@ export class TaskMapper {
       status: entity.status,
       priority: entity.priority,
       dueDate: entity.dueDate,
-      createdAt: entity.createdAt,
-      userId: entity.userId,
+      createdAt: entity.createdAt
     });
   }
 }

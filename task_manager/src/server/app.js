@@ -1,7 +1,7 @@
 import express from "express";
-import getUserRouter from "../presentation/users/routes/usersRoutes.js";
+// import getUserRouter from "../presentation/users/routes/usersRoutes.js";
 import getTaskRouter from "../presentation/tasks/routes/tasksRoutes.js";
-import userContainer from "./compose_roots/usersRoot.js"
+// import userContainer from "./compose_roots/usersRoot.js"
 import taskContainer from "./compose_roots/taskRoot.js"
 // import profileRouter from "./routes/profilesRoutes.js";
 
@@ -12,7 +12,7 @@ app.set("query parser", "extended");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/users", getUserRouter(userContainer.usersController));
+// app.use("/users", getUserRouter(userContainer.usersController));
 app.use("/tasks", getTaskRouter(taskContainer.taskController));
 // app.use("/profiles", profileRouter);
 

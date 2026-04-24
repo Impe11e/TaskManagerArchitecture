@@ -8,7 +8,7 @@ export default class TaskModel {
     createdAt,
     priority,
     dueDate,
-    userId,
+    // userId,
     //projectId
   }) {
     this.id = id;
@@ -18,7 +18,7 @@ export default class TaskModel {
     this.createdAt = createdAt;
     this.priority = priority;
     this.dueDate = dueDate;
-    this.userId = userId;
+    // this.userId = userId;
     //projectId
   }
 }

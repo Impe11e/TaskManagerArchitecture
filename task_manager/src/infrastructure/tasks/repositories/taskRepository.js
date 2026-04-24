@@ -22,21 +22,17 @@ export default class TaskRepository extends ITaskRepository {
 
   async save(taskEntity) {
     const dbModel = TaskMapper.toPersistence(taskEntity);
-    
     const params = [
       dbModel.title,
       dbModel.description,
       dbModel.status,
       dbModel.priority,
-      dbModel.dueDate,
-      dbModel.userId
+      dbModel.dueDate
     ];
-
     const query = !taskEntity.id ? queries.create : queries.update;
     if (taskEntity.id) {
       params.push(taskEntity.id);
     }
-
     const res = await this.pool.query(query, params);
     return TaskMapper.toDomain(res.rows[0]);
   }
