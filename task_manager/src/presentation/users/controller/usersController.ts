@@ -9,7 +9,7 @@ import type {ResponseType, DataType} from "../presentationRequires/controllerTyp
 
 import ResponseMapper from '../responseDto/usersResponseDtoMapper.js'
 import handleError from "../../errors/errorHandler.js";
-import {ValidationError} from "../../errors/presentationErrors.js";
+import Validator from "../../validation/validator.js";
 
 class UsersController implements IUserController{
     private createHandler: ICreateHandler;
@@ -29,7 +29,7 @@ class UsersController implements IUserController{
 
     async create(data: DataType): Promise<ResponseType> {
         try {
-            this._validateData(data, true);
+            Validator.validateData(data, true);
             const command = {
                 username: data.username,
                 email: data.email,
@@ -48,8 +48,8 @@ class UsersController implements IUserController{
 
     async update(id: string, data: DataType): Promise<ResponseType> {
         try {
-            this._validateData(data, false);
-            const pid:number = this._parseId(id)
+            Validator.validateData(data, false);
+            const pid:number = Validator.parseId(id)
             const command = {
                 id: pid,
                 username: data.username ?? undefined,
@@ -68,7 +68,7 @@ class UsersController implements IUserController{
 
     async findById(id: string): Promise<ResponseType> {
         try {
-            const pid: number = this._parseId(id);
+            const pid: number = Validator.parseId(id);
             const query = {id: pid}
             const user = await this.findHandler.handle(query)
             return {
@@ -82,7 +82,7 @@ class UsersController implements IUserController{
 
     async deleteById(id: string): Promise<ResponseType> {
         try {
-            const pid: number = this._parseId(id);
+            const pid: number = Validator.parseId(id);
             const command = {id: pid}
             await this.deleteHandler.handle(command)
             return {
@@ -91,64 +91,6 @@ class UsersController implements IUserController{
             }
         } catch (err) {
             return handleError(err)
-        }
-    }
-
-    _validateData(data: DataType, strict = false) {
-        if (!data || typeof data !== 'object') {
-            throw new ValidationError('Validation error: Invalid data (not object)');
-        }
-
-        const REQUIRED = ['email', 'username', 'password'];
-        const ALLOWED = ['id', ...REQUIRED];
-        const attributes = Object.keys(data)
-
-        for (const attribute of attributes) {
-            if (!ALLOWED.includes(attribute)) {
-                throw new ValidationError(`Validation error: User doesnt have ${attribute} as an attribute`);
-            }
-        }
-        if (strict) {
-            for (const required of REQUIRED) {
-                if (!attributes.includes(required)) {
-                    throw new ValidationError(`Validation error: User's attribute missing: ${required}`);
-                }
-            }
-        }
-
-        //Types validations
-        this._validateEmail(data.email)
-        this._validateUsername(data.username)
-        this._validatePassword(data.password)
-    }
-
-    _parseId(rawId: string): number {
-        const id = parseInt(rawId)
-        if (typeof id !== 'number') {
-            throw new ValidationError('Validation error: Id must be a number');
-        }
-        if (!Number.isInteger(id)) {
-            throw new ValidationError('Validation error: Invalid user id');
-        }
-
-        return id
-    }
-
-    _validateEmail(email: string) {
-        if (email && typeof email !== 'string') {
-            throw new ValidationError(`Validation error: email must be a string`);
-        }
-    }
-
-    _validateUsername(username: string) {
-        if (username && typeof username !== 'string') {
-            throw new ValidationError(`Validation error: username must be a string`);
-        }
-    }
-
-    _validatePassword(password: string) {
-        if (password && typeof password !== 'string') {
-            throw new ValidationError(`Validation error: password must be a string`);
         }
     }
 }
