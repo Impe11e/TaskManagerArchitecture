@@ -1,4 +1,4 @@
-import type {DataType} from "../users/presentationRequires/controllerTypes.js";
+import type {DataType} from "../users/controllerRequires/controllerTypes.js";
 import {ValidationError} from "../errors/presentationErrors.js";
 
 class Validator {
