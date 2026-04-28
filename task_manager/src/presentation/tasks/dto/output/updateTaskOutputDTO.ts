@@ -1,9 +1,9 @@
 export interface UpdateTaskOutputDTO {
-  id: string;
+  id: number;
   title: string;
   description: string;
   status: string;
   priority: string;
-  dueDate: string | Date;
-  updatedAt: string | Date;
+  dueDate: Date | null;
+  createdAt: Date;
 }

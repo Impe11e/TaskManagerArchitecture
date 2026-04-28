@@ -1,25 +1,36 @@
-import { TaskRepository } from '../../infrastructure/tasks/repositories/taskRepository.js';
+// infrastructure
 import { pool } from '../../infrastructure/pool.js';
+import { TaskRepository } from '../../infrastructure/tasks/repositories/taskRepository.js';
+
+// domain
 import { TaskFactory } from '../../domain/tasks/factories/taskFactory.js';
-import { CreateTaskUseCase } from '../../application/tasks/useCases/createTask.js';
-import { GetAllTasksUseCase } from '../../application/tasks/useCases/getAllTasks.js';
-import { DeleteTaskUseCase } from '../../application/tasks/useCases/deleteTask.js';
-import { GetTaskByIdUseCase } from '../../application/tasks/useCases/getTaskById.js';
-import { UpdateTaskUseCase } from '../../application/tasks/useCases/updateTask.js';
+
+// application (handlers)
+import { CreateTaskHandler } from '../../application/tasks/applicationRequires/commandHandlers/createTaskHandler.js';
+import { UpdateTaskHandler } from '../../application/tasks/applicationRequires/commandHandlers/updateTaskHandler.js';
+import { DeleteTaskHandler } from '../../application/tasks/applicationRequires/commandHandlers/deleteTaskHandler.js';
+import { GetAllTasksHandler } from '../../application/tasks/applicationRequires/queryHandlers/getAllTasksHandler.js';
+import { GetTaskByIdHandler } from '../../application/tasks/applicationRequires/queryHandlers/getTaskByIdHandler.js';
+
+// controller (presentation)
 import { TaskController } from '../../presentation/tasks/controllers/taskController.js';
 
+// wiring
 const taskRepository = new TaskRepository(pool);
 const taskFactory = new TaskFactory(taskRepository);
-const createTaskUseCase = new CreateTaskUseCase(taskRepository, taskFactory);
-const getAllTasksUseCase = new GetAllTasksUseCase(taskRepository);
-const deleteTaskUseCase = new DeleteTaskUseCase(taskRepository);
-const getTaskByIdUseCase = new GetTaskByIdUseCase(taskRepository);
-const updateTaskUseCase = new UpdateTaskUseCase(taskRepository);
+
+const createTask = new CreateTaskHandler(taskRepository, taskFactory);
+const updateTask = new UpdateTaskHandler(taskRepository);
+const deleteTask = new DeleteTaskHandler(taskRepository);
+const getAllTasks = new GetAllTasksHandler(taskRepository);
+const getTaskById = new GetTaskByIdHandler(taskRepository);
+
 const taskController = new TaskController(
-  createTaskUseCase,
-  getAllTasksUseCase,
-  deleteTaskUseCase,
-  getTaskByIdUseCase,
-  updateTaskUseCase
+  createTask,
+  updateTask,
+  deleteTask,
+  getAllTasks,
+  getTaskById
 );
+
 export default { taskController };

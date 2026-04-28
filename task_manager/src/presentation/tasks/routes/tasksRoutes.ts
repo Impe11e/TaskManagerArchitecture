@@ -23,6 +23,10 @@ export const getRouter = (controller: TaskController) => {
   router.put('/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
     const result = await controller.update(Number(id), req.body);
+    if (result.status === 204) {
+      res.status(204).send();
+      return;
+    }
     res.status(result.status).json(result.data);
   });
 
