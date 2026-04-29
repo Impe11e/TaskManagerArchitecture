@@ -53,22 +53,22 @@ task_manager/
 │   ├── repositories/            ← Repositories for data access
 │   │   ├── profileRepository.js
 │   │   ├── taskRepository.js
-│   │   └── usersRepo.js
+│   │   └── usersRepo.ts
 │   ├── models/                  ← Domain models and data structures
 │   │   ├── profileModel.js
 │   │   ├── taskModel.js
 │   │   ├── taskConsts.js        ← Configuration values ​​for tasks (statuses, priorities)
 │   │   └── userModel.js
 │   ├── errors/                  ← Helpers for error handling
-│   │   ├── presentationErrors.js
-│   │   └── errorHandler.js
+│   │   ├── presentationErrors.ts
+│   │   └── errorHandler.ts
 │   └── server/
-│       ├── app.js               ← Express application, route registration
-│       ├── server.js            ← Starting an HTTP server         
+│       ├── app.ts               ← Express application, route registration
+│       ├── server.ts            ← Starting an HTTP server         
 │       └── routes/
 │           ├── profilesRoutes.js   ← routes /profiles
 │           ├── tasksRoutes.js   ← routes /tasks
-│           └── usersRoutes.js   ← routes /users
+│           └── usersRoutes.ts   ← routes /users
 ├── package.json
 ├── vite.config.js
 └── README.md
@@ -167,9 +167,9 @@ Sidecar modules:
 
 - **Middleware** - проміжні обробники запитів (наприклад, парсинг JSON, обробка помилок).
 
-- **Routes** (`profileRoutes.js`, `tasksRoutes.js`, `usersRoutes.js`) - визначають REST-маршрути застосунку та пов’язують HTTP-запити з відповідними методами контролерів.
+- **Routes** (`profileRoutes.js`, `tasksRoutes.js`, `usersRoutes.ts`) - визначають REST-маршрути застосунку та пов’язують HTTP-запити з відповідними методами контролерів.
 
-- **App / Server** (`app.js`, `server.js`) - відповідають за конфігурацію Express-застосунку та запуск HTTP-сервера.
+- **App / Server** (`app.ts`, `server.ts`) - відповідають за конфігурацію Express-застосунку та запуск HTTP-сервера.
 
 ## Посилання на GitHub репозиторій проекта
 

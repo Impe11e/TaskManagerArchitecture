@@ -1,15 +1,19 @@
-export class InvariantError extends Error {
-  type: string = 'INVARIANT';
-  constructor(message: string) {
-    super(message);
-    Object.setPrototypeOf(this, InvariantError.prototype);
-  }
+class InvariantError extends Error {
+    public readonly type = 'INVARIANT';
+
+    constructor(message: string) {
+        super(message);
+        Object.setPrototypeOf(this, Error.prototype);
+    }
 }
 
-export class ConflictError extends Error {
-  type: string = 'CONFLICT';
-  constructor(message: string) {
-    super(message);
-    Object.setPrototypeOf(this, ConflictError.prototype);
-  }
+class ConflictError extends Error {
+    public readonly type = 'CONFLICT';
+
+    constructor(message: string) {
+        super(message);
+        Object.setPrototypeOf(this, Error.prototype);
+    }
 }
+
+export {InvariantError, ConflictError};

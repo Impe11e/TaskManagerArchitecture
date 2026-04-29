@@ -48,7 +48,7 @@ export class TaskController {
       await this.updateTaskHandler.execute(command);
       return { status: 204, data: null };
     } catch (err) {
-      return handle(err);
+      return handle(err as any);
     }
   }
 
@@ -61,7 +61,7 @@ export class TaskController {
       }
       return { status: 200, data: toTaskOutputDTO(task) };
     } catch (err) {
-      return handle(err);
+      return handle(err as any);
     }
   }
 
@@ -71,7 +71,7 @@ export class TaskController {
       const tasks = await this.getAllTasksHandler.execute(query);
       return { status: 200, data: tasks.map(toTaskOutputDTO) };
     } catch (err) {
-      return handle(err);
+      return handle(err as any);
     }
   }
 
@@ -89,7 +89,7 @@ export class TaskController {
       const output: CreateTaskOutputDTO = { id: result ?? 0 };
       return { status: 201, data: output };
     } catch (err) {
-      return handle(err);
+      return handle(err as any);
     }
   }
 
@@ -99,7 +99,7 @@ export class TaskController {
       await this.deleteTaskHandler.execute(command);
       return { status: 204, data: null };
     } catch (err) {
-      return handle(err);
+      return handle(err as any);
     }
   }
 }
