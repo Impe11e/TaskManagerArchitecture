@@ -1,19 +1,18 @@
 import {InvariantError} from "../../errors/domainErrors.js";
-import type {TUserEntity} from "../domainRequires/repo/TUserEntity.js";
 
 type UpdateObjType = {
-    username: string,
-    email: string,
-    password: string
+    username: string | undefined,
+    email: string | undefined,
+    password: string | undefined
 }
 
 class UserEntity {
-    public id: number;
+    public id: number | null;
     public email: string;
     public username: string;
     public password: string;
 
-    constructor(id: number, username: string, email: string, password: string) {
+    constructor(id: number | null, username: string, email: string, password: string) {
         UserEntity._validateInConstructor(id, username, email, password);
 
         this.id = id;
@@ -56,7 +55,7 @@ class UserEntity {
         }
     }
 
-    static _validateInConstructor(id: number, username: string, email: string, password: string): void {
+    static _validateInConstructor(id: number | null, username: string, email: string, password: string): void {
         if (id) {
             UserEntity._validateId(id)
         }

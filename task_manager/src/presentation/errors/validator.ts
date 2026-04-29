@@ -1,5 +1,5 @@
 import type {DataType} from "../users/controllerRequires/controllerTypes.js";
-import {ValidationError} from "../errors/presentationErrors.js";
+import {ValidationError} from "./presentationErrors.js";
 
 class Validator {
     static validateData(data: DataType, strict = false) {
@@ -42,19 +42,19 @@ class Validator {
         return id
     }
 
-    static validateEmail(email: string) {
+    static validateEmail(email: string | undefined) {
         if (email && typeof email !== 'string') {
             throw new ValidationError(`Validation error: email must be a string`);
         }
     }
 
-    static validateUsername(username: string) {
+    static validateUsername(username: string | undefined) {
         if (username && typeof username !== 'string') {
             throw new ValidationError(`Validation error: username must be a string`);
         }
     }
 
-    static validatePassword(password: string) {
+    static validatePassword(password: string | undefined) {
         if (password && typeof password !== 'string') {
             throw new ValidationError(`Validation error: password must be a string`);
         }

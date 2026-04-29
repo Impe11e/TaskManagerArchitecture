@@ -4,6 +4,7 @@ import type {TUserEntity} from "../../../domain/users/domainRequires/repo/TUserE
 import type {Pool} from 'pg';
 import UsersMapper from "../mapper/usersMapper.js";
 import queries from "./queries.js"
+import type {TRepoResponse} from "../../../domain/users/domainRequires/repo/TRepoResponse.js";
 
 class UsersRepository implements IUserRepository {
     private pool: Pool;
@@ -12,7 +13,7 @@ class UsersRepository implements IUserRepository {
         this.pool = pool;
     }
 
-    async create(entity: TUserEntity): Promise<TUserEntity> {
+    async create(entity: TUserEntity): Promise<TRepoResponse> {
         const userObj = UsersMapper.toPersistence(entity);
         const {id, ...data} = userObj;
 
@@ -23,7 +24,7 @@ class UsersRepository implements IUserRepository {
     }
 
 
-    async update(entity: TUserEntity): Promise<TUserEntity> {
+    async update(entity: TUserEntity): Promise<TRepoResponse> {
         const userObj = UsersMapper.toPersistence(entity);
         const {id, ...data} = userObj;
 
@@ -33,7 +34,7 @@ class UsersRepository implements IUserRepository {
         return UsersMapper.toDomain(response.rows[0]);
     }
 
-    async findById(id: number): Promise<TUserEntity> {
+    async findById(id: number): Promise<TRepoResponse | null> {
         const response = await this.pool.query(queries.findById, [id]);
         const user = response.rows[0];
 
@@ -46,17 +47,17 @@ class UsersRepository implements IUserRepository {
 
     async deleteById(id: number): Promise<boolean> {
         const response = await this.pool.query(queries.deleteById, [id]);
-        return response.rowCount > 0;
+        return (response.rowCount ?? 0) > 0;
     }
 
     async checkByUsername(username: string): Promise<boolean> {
         const response = await this.pool.query(queries.findUsername, [username]);
-        return response.rowCount > 0;
+        return (response.rowCount ?? 0) > 0;
     }
 
     async checkByEmail(email: string): Promise<boolean> {
         const response = await this.pool.query(queries.findEmail, [email]);
-        return response.rowCount > 0;
+        return (response.rowCount ?? 0) > 0;
     }
 
 }

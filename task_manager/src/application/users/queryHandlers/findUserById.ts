@@ -1,6 +1,6 @@
 import {NotFoundError} from '../../errors/applicationErrors.js';
 import type {IUserRepository} from '../../../domain/users/domainRequires/repo/IUserRepo.ts'
-import type {IFindHandler} from '../applicationRequires/IFindHandler.js';
+import type {IFindHandler} from '../applicationRequires/IHandles/IFindHandler.js';
 import type {TUserEntity} from "../../../domain/users/domainRequires/application/TUserEntity.js";
 import type {FindUserQuery} from "../applicationRequires/queries/findUserById.js";
 

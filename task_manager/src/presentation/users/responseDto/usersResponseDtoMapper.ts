@@ -1,4 +1,4 @@
-import type UserEntity from "../../../domain/users/entity/userEntity.js";
+import type {TQueryResponse} from "../../../application/users/applicationRequires/queryResponse/TResponse.js";
 
 type UserResponseDto = {
     id: number,
@@ -7,7 +7,7 @@ type UserResponseDto = {
 }
 
 class UserDtoMapper {
-    static toResponseDto(entity: UserEntity): UserResponseDto {
+    static toResponseDto(entity: TQueryResponse): UserResponseDto {
         return {
             id: entity.id,
             username: entity.username,

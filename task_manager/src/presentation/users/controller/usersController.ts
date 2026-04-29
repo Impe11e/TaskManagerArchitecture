@@ -1,15 +1,15 @@
 //import UserCreateDto from '../requestDto/userCreateDto.js'
-import type {ICreateHandler} from "../../../application/users/applicationRequires/ICreateHandle.js";
-import type {IDeleteHandler} from "../../../application/users/applicationRequires/IDeleteHandler.js";
-import type {IUpdateHandler} from "../../../application/users/applicationRequires/IUpdateHandler.js";
-import type {IFindHandler} from "../../../application/users/applicationRequires/IFindHandler.js";
+import type {ICreateHandler} from "../../../application/users/applicationRequires/IHandles/ICreateHandle.js";
+import type {IDeleteHandler} from "../../../application/users/applicationRequires/IHandles/IDeleteHandler.js";
+import type {IUpdateHandler} from "../../../application/users/applicationRequires/IHandles/IUpdateHandler.js";
+import type {IFindHandler} from "../../../application/users/applicationRequires/IHandles/IFindHandler.js";
 
 import type {IUserController} from "../controllerRequires/IUserController.js";
 import type {ResponseType, DataType} from "../controllerRequires/controllerTypes.js";
 
 import ResponseMapper from '../responseDto/usersResponseDtoMapper.js'
 import handleError from "../../errors/errorHandler.js";
-import Validator from "../../validation/validator.js";
+import Validator from "../../errors/validator.js";
 
 class UsersController implements IUserController{
     private createHandler: ICreateHandler;

@@ -1,6 +1,6 @@
 import type {IUserRepository} from '../../../domain/users/domainRequires/repo/IUserRepo.ts'
 import type {UpdateUserCommand} from "../applicationRequires/commands/updateUser.js";
-import type {IUpdateHandler} from '../applicationRequires/IUpdateHandler.js';
+import type {IUpdateHandler} from '../applicationRequires/IHandles/IUpdateHandler.js';
 import type {TUserEntity} from "../../../domain/users/domainRequires/application/TUserEntity.js";
 import type {IService} from "../../../domain/users/domainRequires/application/IService.js";
 import {NotFoundError} from '../../errors/applicationErrors.js';

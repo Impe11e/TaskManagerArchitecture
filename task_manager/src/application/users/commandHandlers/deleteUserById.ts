@@ -1,7 +1,7 @@
 //import usersRepo from '../../../infrastructure/users/repository/usersRepo.js';
 import type {IUserRepository} from '../../../domain/users/domainRequires/repo/IUserRepo.ts'
 import type {DeleteUserCommand} from "../applicationRequires/commands/deleteUserById.js";
-import type {IDeleteHandler} from '../applicationRequires/IDeleteHandler.js';
+import type {IDeleteHandler} from '../applicationRequires/IHandles/IDeleteHandler.js';
 
 import {NotFoundError} from '../../errors/applicationErrors.js';
 

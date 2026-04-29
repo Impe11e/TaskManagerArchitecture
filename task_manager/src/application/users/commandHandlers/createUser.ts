@@ -1,6 +1,6 @@
 import type {IUserRepository} from '../../../domain/users/domainRequires/repo/IUserRepo.ts'
 import type {CreateUserCommand} from "../applicationRequires/commands/createUser.js";
-import type {ICreateHandler} from '../applicationRequires/ICreateHandle.js';
+import type {ICreateHandler} from '../applicationRequires/IHandles/ICreateHandle.js';
 import type {IFactory} from "../../../domain/users/domainRequires/application/IFactory.js";
 import type {IService} from "../../../domain/users/domainRequires/application/IService.js";
 
