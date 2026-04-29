@@ -6,17 +6,12 @@
   "scripts": {
     "dev": "tsx watch src/server/server.ts",
     "dev:ui": "vite",
-    "build": "vite build",
-    "start": "node dist/server/server.js",
-    "build-db": "docker build -t db-image .",
-    "start-db": "docker run -d -p 5433:5432 --name database --env-file .env_db db-image",
-    "run-db": "docker start database",
-    "stop-db": "docker stop database",
-    "delete-db-container": "docker rm database",
-    "test:int": "npm run run-tdb && (cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest tests/integrational --runInBand ; npm run stop-tdb)",
-    "test:unit": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest tests/unit --runInBand",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build:ui": "vite build",
+    "build": "tsc",
+    "test:unit": "cross-env NODE_OPTIONS=--experimental-vm-modules jest tests/unit --runInBand",
+    "test:int": "npm run run-tdb && (cross-env NODE_OPTIONS=--experimental-vm-modules jest tests/integrational --runInBand ; npm run stop-tdb)",
+    "run-tdb": "docker run -d -p 5434:5432 --name test_database --env-file .env_tpool postgres",
+    "stop-tdb": "docker stop test_database && docker rm test_database"
   },
   "dependencies": {
     "dotenv": "^17.3.1",
@@ -27,9 +22,11 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@types/node": "^25.6.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
+    "cross-env": "^10.1.0",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
@@ -37,6 +34,7 @@
     "jest": "^30.3.0",
     "supertest": "^7.2.2",
     "tsx": "^4.21.0",
+    "typescript": "^6.0.3",
     "vite": "^7.3.1"
   }
 }
