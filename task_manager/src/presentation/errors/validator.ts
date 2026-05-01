@@ -2,7 +2,7 @@ import type {DataType} from "../users/controllerRequires/controllerTypes.js";
 import {ValidationError} from "./presentationErrors.js";
 
 class Validator {
-    static validateData(data: DataType, strict = false) {
+    static validateData(data: unknown, strict = false): DataType {
         if (!data || typeof data !== 'object') {
             throw new ValidationError('Validation error: Invalid data (not object)');
         }
@@ -24,37 +24,40 @@ class Validator {
             }
         }
 
+        const obj = data as Record<string, unknown>;
+
         //Types validations
-        Validator.validateEmail(data.email)
-        Validator.validateUsername(data.username)
-        Validator.validatePassword(data.password)
+        Validator.validateEmail(obj.email)
+        Validator.validateUsername(obj.username)
+        Validator.validatePassword(obj.password)
+
+        return data as DataType;
     }
 
-    static parseId(rawId: string): number {
-        const id = parseInt(rawId)
-        if (typeof id !== 'number') {
-            throw new ValidationError('Validation error: Id must be a number');
+    static parseId(rawId: unknown): number {
+        if (typeof rawId == "string") {
+            const id = parseInt(rawId)
+            if (!Number.isInteger(id)) {
+                throw new ValidationError('Validation error: Id seems not to be an integer');
+            }
+            return id;
         }
-        if (!Number.isInteger(id)) {
-            throw new ValidationError('Validation error: Invalid user id');
-        }
-
-        return id
+        throw new ValidationError('Validation error: controller should receive id as string');
     }
 
-    static validateEmail(email: string | undefined) {
+    static validateEmail(email: unknown) {
         if (email && typeof email !== 'string') {
             throw new ValidationError(`Validation error: email must be a string`);
         }
     }
 
-    static validateUsername(username: string | undefined) {
+    static validateUsername(username: unknown) {
         if (username && typeof username !== 'string') {
             throw new ValidationError(`Validation error: username must be a string`);
         }
     }
 
-    static validatePassword(password: string | undefined) {
+    static validatePassword(password: unknown) {
         if (password && typeof password !== 'string') {
             throw new ValidationError(`Validation error: password must be a string`);
         }

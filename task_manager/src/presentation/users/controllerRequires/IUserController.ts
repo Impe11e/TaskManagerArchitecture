@@ -1,8 +1,8 @@
-import type {ResponseType, DataType} from "./controllerTypes.js";
+import type {ResponseType} from "./controllerTypes.js";
 
 export interface IUserController {
-    findById(id: string): Promise<ResponseType>;
-    create(data: DataType): Promise<ResponseType>;
-    update(id: string, data: DataType): Promise<ResponseType>;
-    deleteById(id: string): Promise<ResponseType>;
+    findById(id: unknown): Promise<ResponseType>;
+    create(data: unknown): Promise<ResponseType>;
+    update(id: unknown, data: unknown): Promise<ResponseType>;
+    deleteById(id: unknown): Promise<ResponseType>;
 }
