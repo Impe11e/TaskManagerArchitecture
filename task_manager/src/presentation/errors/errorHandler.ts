@@ -1,42 +1,63 @@
-type KnownErrorType =
-    | 'INVARIANT'
-    | 'VALIDATION'
-    | 'NOT_FOUND'
-    | 'CONFLICT'
-    | 'FORBIDDEN';
-
-type ErrorLike = {
-    type?: KnownErrorType,
-    message?: string,
-    stack?: string,
-}
-
 type Response = {
     status: number;
     data: string;
+};
+
+function isObject(err: unknown): err is Record<string, unknown> {
+    return typeof err === 'object' && err !== null;
 }
 
-const handle = (err: ErrorLike): Response => {
+function hasType(err: unknown): err is { type: string } {
+    return isObject(err) && typeof err.type === 'string';
+}
+
+function getMessage(err: unknown): string {
+    if (isObject(err) && typeof err.message === 'string') {
+        return err.message;
+    }
+    if (typeof err === 'string') {
+        return err;
+    }
+    return 'Unknown error';
+}
+
+function getStack(err: unknown): string {
+    if (isObject(err) && typeof err.stack === 'string') {
+        return err.stack;
+    }
+    return 'No error stack';
+}
+
+const handle = (err: unknown): Response => {
     let status = 500;
 
-    if (err.type === 'INVARIANT') {
-        status = 400;
-    } else if (err.type === 'VALIDATION') {
-        status = 400;
-    } else if (err.type === 'NOT_FOUND') {
-        status = 404;
-    } else if (err.type === 'CONFLICT') {
-        status = 409;
-    } else if (err.type === 'FORBIDDEN') {
-        status = 403;
+    if (hasType(err)) {
+        switch (err.type) {
+            case 'INVARIANT':
+            case 'VALIDATION':
+                status = 400;
+                break;
+            case 'NOT_FOUND':
+                status = 404;
+                break;
+            case 'CONFLICT':
+                status = 409;
+                break;
+            case 'FORBIDDEN':
+                status = 403;
+                break;
+        }
     }
 
-    console.log((err.message ?? 'No error message') + "\n" + (err.stack ?? 'No error stack'));
+    const message = getMessage(err);
+    const stack = getStack(err);
+
+    console.log(message + "\n" + stack);
 
     return {
-        status: status,
-        data: err.message ?? 'Unknown error',
-    }
-}
+        status,
+        data: message,
+    };
+};
 
 export default handle;
