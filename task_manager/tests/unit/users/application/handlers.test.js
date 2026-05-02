@@ -12,10 +12,9 @@ import UsersDomainService from "../../../../dist/domain/users/service/usersDomai
 describe("Use cases tests", () => {
     test("Should create user", async () => {
         const usersRepository = new InMemoryUsersRepository()
-        const usersDomainService = new UsersDomainService(usersRepository);
-        const createUser = new CreateUserCommandHandler(usersRepository, UsersFactory, usersDomainService);
+        const usersFactory = new UsersFactory(usersRepository);
+        const createUser = new CreateUserCommandHandler(usersRepository, usersFactory);
         const findUserById = new FindUserQueryHandler(usersRepository);
-
 
         const result = await createUser.handle({
             username: "testuser",
@@ -26,16 +25,17 @@ describe("Use cases tests", () => {
         const user = await findUserById.handle({id: 1})
 
         expect(result.id).toBe(1);
-        expect(user.username).toBe("testuser");
+        expect(user.username.value).toBe("testuser");
     });
 
     test("Should update user", async () => {
         const usersRepository = new InMemoryUsersRepository()
         const usersDomainService = new UsersDomainService(usersRepository);
-        const updateUser = new UpdateUserCommandHandler(usersRepository, usersDomainService);
-        const createUser = new CreateUserCommandHandler(usersRepository, UsersFactory, usersDomainService);
-        const findUserById = new FindUserQueryHandler(usersRepository);
+        const usersFactory = new UsersFactory(usersRepository);
 
+        const updateUser = new UpdateUserCommandHandler(usersRepository, usersDomainService);
+        const createUser = new CreateUserCommandHandler(usersRepository, usersFactory);
+        const findUserById = new FindUserQueryHandler(usersRepository);
 
         await createUser.handle({
             username: "testuser",
@@ -52,15 +52,14 @@ describe("Use cases tests", () => {
 
         const user = await findUserById.handle({id: 1})
 
-
         expect(result.id).toBe(1);
-        expect(user.email).toBe("test22@gmail.com");
+        expect(user.email.value).toBe("test22@gmail.com");
     });
 
     test("Should find user", async () => {
         const usersRepository = new InMemoryUsersRepository()
-        const usersDomainService = new UsersDomainService(usersRepository);
-        const createUser = new CreateUserCommandHandler(usersRepository, UsersFactory, usersDomainService);
+        const usersFactory = new UsersFactory(usersRepository);
+        const createUser = new CreateUserCommandHandler(usersRepository, usersFactory);
         const findUserById = new FindUserQueryHandler(usersRepository);
 
         await createUser.handle({
@@ -71,14 +70,14 @@ describe("Use cases tests", () => {
 
         const result = await findUserById.handle({id: 1})
 
-        expect(result.id).toBe(1);
-        expect(result.username).toBe("testuser");
+        expect(result.id.value).toBe(1);
+        expect(result.username.value).toBe("testuser");
     })
 
     test("Should not find user", async () => {
         const usersRepository = new InMemoryUsersRepository()
-        const usersDomainService = new UsersDomainService(usersRepository);
-        const createUser = new CreateUserCommandHandler(usersRepository, UsersFactory, usersDomainService);
+        const usersFactory = new UsersFactory(usersRepository);
+        const createUser = new CreateUserCommandHandler(usersRepository, usersFactory);
         const findUserById = new FindUserQueryHandler(usersRepository);
 
         await createUser.handle({
@@ -95,8 +94,8 @@ describe("Use cases tests", () => {
 
     test("Should delete user", async () => {
         const usersRepository = new InMemoryUsersRepository()
-        const usersDomainService = new UsersDomainService(usersRepository);
-        const createUser = new CreateUserCommandHandler(usersRepository, UsersFactory, usersDomainService);
+        const usersFactory = new UsersFactory(usersRepository);
+        const createUser = new CreateUserCommandHandler(usersRepository, usersFactory);
         const deleteUserById = new DeleteUserCommandHandler(usersRepository);
 
         await createUser.handle({
