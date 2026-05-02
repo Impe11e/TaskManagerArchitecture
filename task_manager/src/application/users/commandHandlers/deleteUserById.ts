@@ -2,8 +2,8 @@
 import type {IUserRepository} from '../../../domain/users/domainRequires/repo/IUserRepo.ts'
 import type {DeleteUserCommand} from "../applicationRequires/commands/deleteUserById.js";
 import type {IDeleteHandler} from '../applicationRequires/IHandles/IDeleteHandler.js';
-
 import {NotFoundError} from '../../errors/applicationErrors.js';
+import Id from "../../../domain/users/valueObjects/idObj.js";
 
 class DeleteUserCommandHandler implements IDeleteHandler {
     private repository: IUserRepository
@@ -13,14 +13,15 @@ class DeleteUserCommandHandler implements IDeleteHandler {
     }
 
     public async handle(command: DeleteUserCommand): Promise<boolean> {
-        const id = command.id;
+        const id = new Id(command.id);
+
         await this._findUserOrFail(id)
 
         //returns true if succeed
         return await this.repository.deleteById(id);
     }
 
-    private async _findUserOrFail(id: number) {
+    private async _findUserOrFail(id: Id) {
         const user = await this.repository.findById(id)
 
         if(!user) {

@@ -9,9 +9,9 @@ type UserResponseDto = {
 class UserDtoMapper {
     static toResponseDto(entity: TQueryResponse): UserResponseDto {
         return {
-            id: entity.id,
-            username: entity.username,
-            email: entity.email,
+            id: entity.id.value,
+            username: entity.username.value,
+            email: entity.email.value,
         };
     }
 }

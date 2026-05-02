@@ -4,7 +4,10 @@ import type {TUserEntity} from "../../../domain/users/domainRequires/repo/TUserE
 import type {Pool} from 'pg';
 import UsersMapper from "../mapper/usersMapper.js";
 import queries from "./queries.js"
-import type {TRepoResponse} from "../../../domain/users/domainRequires/repo/TRepoResponse.js";
+import Id from "../../../domain/users/valueObjects/idObj.js";
+import type Username from "../../../domain/users/valueObjects/usernameObj.js";
+import type Email from "../../../domain/users/valueObjects/emailObj.js";
+import type {TNewUserEntity} from "../../../domain/users/domainRequires/repo/TNewUserEntity.js";
 
 class UsersRepository implements IUserRepository {
     private pool: Pool;
@@ -13,19 +16,18 @@ class UsersRepository implements IUserRepository {
         this.pool = pool;
     }
 
-    async create(entity: TUserEntity): Promise<TRepoResponse> {
-        const userObj = UsersMapper.toPersistence(entity);
-        const {id, ...data} = userObj;
+    async create(entity: TNewUserEntity): Promise<TUserEntity> {
+        const userObj = UsersMapper.toDataObjNewUser(entity);
 
-        const response = await this.pool.query(queries.create, [data.username, data.email, data.password]);
+        const response = await this.pool.query(queries.create, [userObj.username, userObj.email, userObj.password]);
         const created = response.rows[0]
 
         return UsersMapper.toDomain(created);
     }
 
 
-    async update(entity: TUserEntity): Promise<TRepoResponse> {
-        const userObj = UsersMapper.toPersistence(entity);
+    async update(entity: TUserEntity): Promise<TUserEntity> {
+        const userObj = UsersMapper.toDataObjUser(entity);
         const {id, ...data} = userObj;
 
         const query = queries.update;
@@ -34,8 +36,8 @@ class UsersRepository implements IUserRepository {
         return UsersMapper.toDomain(response.rows[0]);
     }
 
-    async findById(id: number): Promise<TRepoResponse | null> {
-        const response = await this.pool.query(queries.findById, [id]);
+    async findById(id: Id): Promise<TUserEntity | null> {
+        const response = await this.pool.query(queries.findById, [id.value]);
         const user = response.rows[0];
 
         if (!user) {
@@ -45,21 +47,20 @@ class UsersRepository implements IUserRepository {
         return UsersMapper.toDomain(user)
     }
 
-    async deleteById(id: number): Promise<boolean> {
-        const response = await this.pool.query(queries.deleteById, [id]);
+    async deleteById(id: Id): Promise<boolean> {
+        const response = await this.pool.query(queries.deleteById, [id.value]);
         return (response.rowCount ?? 0) > 0;
     }
 
-    async checkByUsername(username: string): Promise<boolean> {
-        const response = await this.pool.query(queries.findUsername, [username]);
+    async checkByUsername(username: Username): Promise<boolean> {
+        const response = await this.pool.query(queries.findUsername, [username.value]);
         return (response.rowCount ?? 0) > 0;
     }
 
-    async checkByEmail(email: string): Promise<boolean> {
-        const response = await this.pool.query(queries.findEmail, [email]);
+    async checkByEmail(email: Email): Promise<boolean> {
+        const response = await this.pool.query(queries.findEmail, [email.value]);
         return (response.rowCount ?? 0) > 0;
     }
-
 }
 
 export default UsersRepository;

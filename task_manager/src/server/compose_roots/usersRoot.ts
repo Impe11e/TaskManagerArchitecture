@@ -4,16 +4,19 @@ import UsersRepository from '../../infrastructure/users/repository/usersRepo.js'
 
 const usersRepository = new UsersRepository(pool)
 
+//domain
+import UsersDomainService from "../../domain/users/service/usersDomainService.js";
+import UsersFactory from "../../domain/users/factory/usersFactory.js"
+const usersDomainService = new UsersDomainService(usersRepository);
+const usersFactory = new UsersFactory(usersDomainService)
+
 //application
 import CreateUserHandler from "../../application/users/commandHandlers/createUser.js";
 import DeleteUser from "../../application/users/commandHandlers/deleteUserById.js"
 import FindUserQueryHandler from "../../application/users/queryHandlers/findUserById.js"
 import UpdateUserCommandHandler from "../../application/users/commandHandlers/updateUser.js"
-import UsersFactory from "../../domain/users/factory/usersFactory.js";
-import UsersDomainService from "../../domain/users/service/usersDomainService.js";
 
-const usersDomainService = new UsersDomainService(usersRepository);
-const createUser = new CreateUserHandler(usersRepository, UsersFactory, usersDomainService);
+const createUser = new CreateUserHandler(usersRepository, usersFactory);
 const updateUser = new UpdateUserCommandHandler(usersRepository, usersDomainService);
 const findUserById = new FindUserQueryHandler(usersRepository);
 const deleteUserById = new DeleteUser(usersRepository);

@@ -2,27 +2,22 @@ import type {IUserRepository} from '../../../domain/users/domainRequires/repo/IU
 import type {CreateUserCommand} from "../applicationRequires/commands/createUser.js";
 import type {ICreateHandler} from '../applicationRequires/IHandles/ICreateHandle.js';
 import type {IFactory} from "../../../domain/users/domainRequires/application/IFactory.js";
-import type {IService} from "../../../domain/users/domainRequires/application/IService.js";
 
 class CreateUserHandler implements ICreateHandler {
     private repository: IUserRepository
     private userFactory: IFactory
-    private domainService: IService
 
-    constructor(repository: IUserRepository, userFactory: IFactory, domainService: IService) {
+    constructor(repository: IUserRepository, userFactory: IFactory) {
         this.repository = repository;
         this.userFactory = userFactory;
-        this.domainService = domainService;
     }
 
     public async handle(command: CreateUserCommand): Promise<{id: number}> {
-        await this.domainService.checkByEmail(command.email);
-        await this.domainService.checkByUsername(command.username);
 
-        const userDM = this.userFactory.create(null, command.username, command.email, command.password);
+        const userDM = await this.userFactory.create(command.username, command.email, command.password);
         const createdUser = await this.repository.create(userDM);
 
-        return {id: createdUser.id}
+        return {id: createdUser.id.value}
     }
 }
 

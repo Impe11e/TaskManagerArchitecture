@@ -4,6 +4,10 @@ import type {IUpdateHandler} from '../applicationRequires/IHandles/IUpdateHandle
 import type {TUserEntity} from "../../../domain/users/domainRequires/application/TUserEntity.js";
 import type {IService} from "../../../domain/users/domainRequires/application/IService.js";
 import {NotFoundError} from '../../errors/applicationErrors.js';
+import Email from "../../../domain/users/valueObjects/emailObj.js";
+import Username from "../../../domain/users/valueObjects/usernameObj.js";
+import Password from "../../../domain/users/valueObjects/passwordObj.js";
+import Id from "../../../domain/users/valueObjects/idObj.js";
 
 class UpdateUserCommandHandler implements IUpdateHandler {
     private repository: IUserRepository
@@ -15,27 +19,33 @@ class UpdateUserCommandHandler implements IUpdateHandler {
     }
 
     public async handle(command: UpdateUserCommand): Promise<{id: number}> {
-        const userDM = await this._findUserOrFail(command.id)
 
-        if (command.email) {
-            await this.domainService.checkByEmail(command.email);
+        const id = new Id(command.id);
+        const userDM = await this._findUserOrFail(id)
+
+        const email = command.email ? new Email(command.email) : undefined
+        const username = command.username ? new Username(command.username) : undefined
+        const password = command.password ? new Password(command.password) : undefined
+
+        if (email) {
+            await this.domainService.checkByEmail(email);
         }
-        if (command.username) {
-            await this.domainService.checkByUsername(command.username);
+        if (username) {
+            await this.domainService.checkByUsername(username);
         }
 
         userDM.update({
-            username: command.username,
-            email: command.email,
-            password: command.password
+            username: username,
+            email: email,
+            password: password
         })
 
         const updatedUser = await this.repository.update(userDM)
 
-        return {id: updatedUser.id}
+        return {id: updatedUser.id.value}
     }
 
-    private async _findUserOrFail(id: number): Promise<TUserEntity> {
+    private async _findUserOrFail(id: Id): Promise<TUserEntity> {
         const user = await this.repository.findById(id)
 
         if(!user) {
