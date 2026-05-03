@@ -1,12 +1,7 @@
-type TAuditEvent = {
-    operation: string;
-    entityId: number;
-    payload: unknown;
-    occurredAt: Date;
-};
+import type {TAuditSyncEvent} from "./events/IAuditSyncEvent.js";
 
 interface IAuditService {
-    log(event: TAuditEvent): void;
+    log(event: TAuditSyncEvent): void;
 }
 
-export type { IAuditService, TAuditEvent };
+export type { IAuditService, TAuditSyncEvent };

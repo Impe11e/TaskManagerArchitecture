@@ -15,7 +15,7 @@ import CreateUserHandler from "../../application/users/commandHandlers/createUse
 import DeleteUser from "../../application/users/commandHandlers/deleteUserById.js"
 import FindUserQueryHandler from "../../application/users/queryHandlers/findUserById.js"
 import UpdateUserCommandHandler from "../../application/users/commandHandlers/updateUser.js"
-import AuditService from "../../modules/audit/AuditService.js";
+import AuditService from "../../modules/audit/auditService.js";
 
 const createUser = new CreateUserHandler(usersRepository, usersFactory);
 const updateUser = new UpdateUserCommandHandler(usersRepository, usersDomainService);

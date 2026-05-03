@@ -5,6 +5,7 @@ import type {IDeleteHandler} from '../applicationRequires/IHandles/IDeleteHandle
 import type {IAuditService} from "../../../modules/audit/IAuditService.js";
 import {NotFoundError} from '../../errors/applicationErrors.js';
 import Id from "../../../domain/users/valueObjects/idObj.js";
+import EventUserDeleted from "../events/sync/deleted.js";
 
 class DeleteUserCommandHandler implements IDeleteHandler {
     private repository: IUserRepository
@@ -20,13 +21,13 @@ class DeleteUserCommandHandler implements IDeleteHandler {
 
         const user = await this._findUserOrFail(id)
 
+        //returns true if succeed
         const isDeleted = await this.repository.deleteById(id);
 
         if (isDeleted) {
-            this.logEvent(user)
+            this.auditService.log(new EventUserDeleted(user));
         }
 
-        //returns true if succeed
         return isDeleted
     }
 
@@ -38,18 +39,6 @@ class DeleteUserCommandHandler implements IDeleteHandler {
         }
 
         return user;
-    }
-
-    private logEvent(user: TUserEntity) {
-        this.auditService.log({
-            operation: "Deleting User",
-            entityId: user.id.value,
-            payload: {
-                username: user.username.value,
-                email: user.email.value
-            },
-            occurredAt: new Date()
-        })
     }
 }
 
