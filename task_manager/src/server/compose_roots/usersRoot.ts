@@ -15,11 +15,13 @@ import CreateUserHandler from "../../application/users/commandHandlers/createUse
 import DeleteUser from "../../application/users/commandHandlers/deleteUserById.js"
 import FindUserQueryHandler from "../../application/users/queryHandlers/findUserById.js"
 import UpdateUserCommandHandler from "../../application/users/commandHandlers/updateUser.js"
+import AuditService from "../../modules/audit/AuditService.js";
 
 const createUser = new CreateUserHandler(usersRepository, usersFactory);
 const updateUser = new UpdateUserCommandHandler(usersRepository, usersDomainService);
 const findUserById = new FindUserQueryHandler(usersRepository);
-const deleteUserById = new DeleteUser(usersRepository);
+const auditService = new AuditService()
+const deleteUserById = new DeleteUser(usersRepository, auditService);
 
 //controller (part of presentation)
 import UsersController from "../../presentation/users/controller/usersController.js";
