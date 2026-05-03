@@ -1,5 +1,4 @@
 import express, { type Express } from "express";
-
 import getProfileRouter from "../presentation/profiles/routes/profilesRoutes.js";
 import profilesContainer from "./compose_roots/profileRoot.js";
 

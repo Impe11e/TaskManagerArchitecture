@@ -5,7 +5,7 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
-  globalIgnores(["dist"]),
+  globalIgnores(["dist", "**/*.ts", "**/*.tsx"]),
   {
     files: ["**/*.{js,jsx}"],
     extends: [
@@ -15,11 +15,10 @@ export default defineConfig([
     ],
     languageOptions: {
       ecmaVersion: 2020,
-      // МИ ДОДАЄМО JEST ТА NODE СЮДИ
       globals: {
         ...globals.browser,
-        ...globals.jest,
         ...globals.node,
+        ...globals.jest,
       },
       parserOptions: {
         ecmaVersion: "latest",

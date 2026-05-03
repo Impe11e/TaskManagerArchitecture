@@ -1,4 +1,4 @@
-import type { ProfileDataType } from "../profiles/controllerRequires/controllerTypes.js";
+import { ProfileDataType } from "../profiles/controllerRequires/controllerTypes.js";
 import { ValidationError } from "../errors/presentationErrors.js";
 
 class Validator {

@@ -1,26 +1,21 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "checkJs": false,
-    "noEmitOnError": false,
-    "rootDir": "./src",
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "outDir": "./dist",
-
-    "module": "nodenext",
-    "moduleResolution": "nodenext", 
-    "target": "esnext",
-    "lib": ["esnext", "dom"],
-    "types": ["node"],
-
-    "sourceMap": true,
-    "declaration": false,
-    
-    "strict": false,
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "ignoreDeprecations": "6.0",
+    "allowJs": true,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "skipLibCheck": true
+    "sourceMap": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "tests"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
