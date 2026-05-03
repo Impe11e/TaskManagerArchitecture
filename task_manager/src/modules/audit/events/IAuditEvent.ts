@@ -1,4 +1,4 @@
-export type TAuditSyncEvent = {
+export type TAuditEvent = {
     operation: string;
     entityId: number;
     payload: object;

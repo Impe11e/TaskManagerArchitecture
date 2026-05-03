@@ -1,7 +1,7 @@
-import type {TAuditSyncEvent} from "./events/IAuditSyncEvent.js";
+import type {TAuditEvent} from "./events/IAuditEvent.js";
 
 interface IAuditService {
-    log(event: TAuditSyncEvent): void;
+    log(event: TAuditEvent): void;
 }
 
-export type { IAuditService, TAuditSyncEvent };
+export type { IAuditService, TAuditEvent };

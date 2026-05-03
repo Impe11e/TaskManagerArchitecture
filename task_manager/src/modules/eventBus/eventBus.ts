@@ -1,9 +1,9 @@
-type EventHandler<T> = (event: T) => Promise<void> | void;
+type TEventHandler<T> = (event: T) => Promise<void> | void;
 
 class EventBus {
-    private handlers = new Map<string, EventHandler<any>[]>();
+    private handlers = new Map<string, TEventHandler<any>[]>();
 
-    subscribe<T>(eventName: string, handler: EventHandler<T>) {
+    subscribe<T>(eventName: string, handler: TEventHandler<T>) {
         const list = this.handlers.get(eventName) || [];
         list.push(handler);
         this.handlers.set(eventName, list);
@@ -17,3 +17,6 @@ class EventBus {
         }
     }
 }
+
+export default EventBus;
+export type { TEventHandler };

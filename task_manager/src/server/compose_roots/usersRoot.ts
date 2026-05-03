@@ -1,3 +1,9 @@
+//eventBus
+import EventBus from "../../modules/eventBus/eventBus.js";
+import type {TAuditEvent} from "../../modules/audit/events/IAuditEvent.js";
+
+const eventBus = new EventBus;
+
 //infrastructure
 import pool from '../../infrastructure/pool.js'
 import UsersRepository from '../../infrastructure/users/repository/usersRepo.js'
@@ -16,11 +22,19 @@ import DeleteUser from "../../application/users/commandHandlers/deleteUserById.j
 import FindUserQueryHandler from "../../application/users/queryHandlers/findUserById.js"
 import UpdateUserCommandHandler from "../../application/users/commandHandlers/updateUser.js"
 import AuditService from "../../modules/audit/auditService.js";
+import AuditSubscriber from "../../modules/audit/auditSubscriber.js";
 
-const createUser = new CreateUserHandler(usersRepository, usersFactory);
+const auditService = new AuditService()
+//subscriptions
+const auditSubscriber = new AuditSubscriber(auditService)
+eventBus.subscribe("UserCreated", (event: TAuditEvent) =>
+    auditSubscriber.handle(event)
+);
+
+
+const createUser = new CreateUserHandler(usersRepository, usersFactory, eventBus);
 const updateUser = new UpdateUserCommandHandler(usersRepository, usersDomainService);
 const findUserById = new FindUserQueryHandler(usersRepository);
-const auditService = new AuditService()
 const deleteUserById = new DeleteUser(usersRepository, auditService);
 
 //controller (part of presentation)

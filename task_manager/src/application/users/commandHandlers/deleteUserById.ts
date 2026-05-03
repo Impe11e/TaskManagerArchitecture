@@ -5,7 +5,7 @@ import type {IDeleteHandler} from '../applicationRequires/IHandles/IDeleteHandle
 import type {IAuditService} from "../../../modules/audit/IAuditService.js";
 import {NotFoundError} from '../../errors/applicationErrors.js';
 import Id from "../../../domain/users/valueObjects/idObj.js";
-import EventUserDeleted from "../events/sync/deleted.js";
+import EventUserDeleted from "../events/deleted.js";
 
 class DeleteUserCommandHandler implements IDeleteHandler {
     private repository: IUserRepository

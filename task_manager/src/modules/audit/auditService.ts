@@ -1,9 +1,9 @@
-import type {IAuditService, TAuditSyncEvent} from './IAuditService.js';
+import type {IAuditService, TAuditEvent} from './IAuditService.js';
 import {AUDIT_CONFIG} from "./config.js";
 import fs from "fs";
 
 class AuditService implements IAuditService {
-    log(event: TAuditSyncEvent): void {
+    log(event: TAuditEvent): void {
         const entry = `[${event.occurredAt}] ${event.operation} | id=${event.entityId} | ${JSON.stringify(event.payload)}\n`;
 
         fs.mkdir(AUDIT_CONFIG.logDir, { recursive: true } , (err) => {
