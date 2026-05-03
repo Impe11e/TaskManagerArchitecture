@@ -30,6 +30,9 @@ const auditSubscriber = new AuditSubscriber(auditService)
 eventBus.subscribe("UserCreated", (event: TAuditEvent) =>
     auditSubscriber.handle(event)
 );
+eventBus.subscribe("UserUpdated", (event: TAuditEvent) =>
+    auditSubscriber.handle(event)
+);
 
 
 const createUser = new CreateUserHandler(usersRepository, usersFactory, eventBus);
