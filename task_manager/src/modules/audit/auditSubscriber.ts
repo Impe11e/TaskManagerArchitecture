@@ -5,7 +5,13 @@ class AuditSubscriber implements ISubscriber{
     constructor(private audit: IAuditService) {}
 
     async handle(event: TAuditEvent) {
-        this.audit.log(event);
+        try {
+            this.audit.log(event);
+        }
+        catch (error) {
+            console.error("Error while audit logging occurred:");
+            console.error(error);
+        }
     }
 }
 
