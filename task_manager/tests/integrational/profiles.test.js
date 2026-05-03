@@ -24,7 +24,6 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  // Очищаємо базу перед кожним тестом
   await pool.query("TRUNCATE TABLE users RESTART IDENTITY CASCADE");
 });
 

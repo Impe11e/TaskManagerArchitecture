@@ -3,7 +3,7 @@ class InvariantError extends Error {
 
   constructor(message: string) {
     super(message);
-    Object.setPrototypeOf(this, InvariantError.prototype);
+    Object.setPrototypeOf(this, Error.prototype);
   }
 }
 
@@ -12,7 +12,7 @@ class ConflictError extends Error {
 
   constructor(message: string) {
     super(message);
-    Object.setPrototypeOf(this, ConflictError.prototype);
+    Object.setPrototypeOf(this, Error.prototype);
   }
 }
 

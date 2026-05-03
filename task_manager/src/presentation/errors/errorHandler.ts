@@ -16,7 +16,7 @@ type Response = {
   data: string;
 };
 
-const handle = (err: ErrorLike): Response => {
+export const handle = (err: ErrorLike): Response => {
   let status = 500;
 
   if (err.type === "INVARIANT") {
