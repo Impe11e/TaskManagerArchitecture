@@ -14,11 +14,13 @@ class EventUserUpdated {
                 userId: newUser.id.value,
                 username: newUser.username.value,
                 email: newUser.email.value,
+                password: "---",
             },
             oldData: {
                 userId: oldUser.id.value,
                 username: oldUser.username.value,
                 email: oldUser.email.value,
+                password: "---",
             }
         }
         this.occurredAt = new Date()

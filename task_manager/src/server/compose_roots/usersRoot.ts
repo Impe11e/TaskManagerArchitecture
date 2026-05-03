@@ -34,7 +34,6 @@ eventBus.subscribe("UserUpdated", (event: TAuditEvent) =>
     auditSubscriber.handle(event)
 );
 
-
 const createUser = new CreateUserHandler(usersRepository, usersFactory, eventBus);
 const updateUser = new UpdateUserCommandHandler(usersRepository, usersDomainService, eventBus);
 const findUserById = new FindUserQueryHandler(usersRepository);
