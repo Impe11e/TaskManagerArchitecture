@@ -8,12 +8,14 @@ import FindUserQueryHandler from "../../../../dist/application/users/queryHandle
 import UpdateUserCommandHandler from "../../../../dist/application/users/commandHandlers/updateUser.js"
 import UsersFactory from "../../../../dist/domain/users/factory/usersFactory.js";
 import UsersDomainService from "../../../../dist/domain/users/service/usersDomainService.js";
+import eventBusMock from "../eventBusMock.js";
+import auditServiceMock from "../auditServiceMock.js";
 
 describe("Use cases tests", () => {
     test("Should create user", async () => {
         const usersRepository = new InMemoryUsersRepository()
         const usersFactory = new UsersFactory(usersRepository);
-        const createUser = new CreateUserCommandHandler(usersRepository, usersFactory);
+        const createUser = new CreateUserCommandHandler(usersRepository, usersFactory, eventBusMock);
         const findUserById = new FindUserQueryHandler(usersRepository);
 
         const result = await createUser.handle({
@@ -33,8 +35,8 @@ describe("Use cases tests", () => {
         const usersDomainService = new UsersDomainService(usersRepository);
         const usersFactory = new UsersFactory(usersRepository);
 
-        const updateUser = new UpdateUserCommandHandler(usersRepository, usersDomainService);
-        const createUser = new CreateUserCommandHandler(usersRepository, usersFactory);
+        const updateUser = new UpdateUserCommandHandler(usersRepository, usersDomainService, eventBusMock);
+        const createUser = new CreateUserCommandHandler(usersRepository, usersFactory, eventBusMock);
         const findUserById = new FindUserQueryHandler(usersRepository);
 
         await createUser.handle({
@@ -59,7 +61,7 @@ describe("Use cases tests", () => {
     test("Should find user", async () => {
         const usersRepository = new InMemoryUsersRepository()
         const usersFactory = new UsersFactory(usersRepository);
-        const createUser = new CreateUserCommandHandler(usersRepository, usersFactory);
+        const createUser = new CreateUserCommandHandler(usersRepository, usersFactory, eventBusMock);
         const findUserById = new FindUserQueryHandler(usersRepository);
 
         await createUser.handle({
@@ -77,7 +79,7 @@ describe("Use cases tests", () => {
     test("Should not find user", async () => {
         const usersRepository = new InMemoryUsersRepository()
         const usersFactory = new UsersFactory(usersRepository);
-        const createUser = new CreateUserCommandHandler(usersRepository, usersFactory);
+        const createUser = new CreateUserCommandHandler(usersRepository, usersFactory, eventBusMock);
         const findUserById = new FindUserQueryHandler(usersRepository);
 
         await createUser.handle({
@@ -95,8 +97,8 @@ describe("Use cases tests", () => {
     test("Should delete user", async () => {
         const usersRepository = new InMemoryUsersRepository()
         const usersFactory = new UsersFactory(usersRepository);
-        const createUser = new CreateUserCommandHandler(usersRepository, usersFactory);
-        const deleteUserById = new DeleteUserCommandHandler(usersRepository);
+        const createUser = new CreateUserCommandHandler(usersRepository, usersFactory, eventBusMock);
+        const deleteUserById = new DeleteUserCommandHandler(usersRepository, auditServiceMock);
 
         await createUser.handle({
             username: "testuser",
