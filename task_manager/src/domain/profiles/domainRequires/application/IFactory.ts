@@ -1,10 +1,5 @@
-import ProfileEntity from "../../entity/profileEntity.js";
+import NewProfileEntity from "../../entity/newProfileEntity.js";
 
 export interface IFactory {
-  create(
-    id: number | null,
-    userId: number,
-    phone: string,
-    bio: string,
-  ): ProfileEntity;
+  create(userId: number, phone: string, bio: string): NewProfileEntity;
 }

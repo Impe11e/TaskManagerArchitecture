@@ -1,8 +1,10 @@
 import type { IProfileRepository } from "../../../domain/profiles/domainRequires/repo/IProfileRepo.js";
 import type { TProfileEntity } from "../../../domain/profiles/domainRequires/repo/TProfileEntity.js";
+import type { TNewProfileEntity } from "../../../domain/profiles/domainRequires/repo/TNewProfileEntity.js";
 import type { Pool } from "pg";
 import ProfileMapper from "../mapper/profileMapper.js";
 import queries from "./queries.js";
+import Id from "../../../domain/profiles/valueObjects/idObj.js";
 
 class ProfileRepository implements IProfileRepository {
   private pool: Pool;
@@ -11,54 +13,40 @@ class ProfileRepository implements IProfileRepository {
     this.pool = pool;
   }
 
-  async create(entity: TProfileEntity): Promise<TProfileEntity> {
-    const profileObj = ProfileMapper.toPersistence(entity);
-
+  async create(entity: TNewProfileEntity): Promise<TProfileEntity> {
+    const data = ProfileMapper.toDataObjNewProfile(entity);
     const response = await this.pool.query(queries.create, [
-      profileObj.user_id,
-      profileObj.phone,
-      profileObj.bio,
+      data.user_id,
+      data.phone,
+      data.bio,
     ]);
 
     return ProfileMapper.toDomain(response.rows[0]);
   }
 
   async update(entity: TProfileEntity): Promise<TProfileEntity> {
-    const profileObj = ProfileMapper.toPersistence(entity);
-
+    const data = ProfileMapper.toDataObjProfile(entity);
     const response = await this.pool.query(queries.update, [
-      profileObj.phone,
-      profileObj.bio,
-      profileObj.id,
+      data.phone,
+      data.bio,
+      data.id,
     ]);
-
     return ProfileMapper.toDomain(response.rows[0]);
   }
 
-  async findById(id: number): Promise<TProfileEntity | null> {
-    const response = await this.pool.query(queries.findById, [id]);
-    const profile = response.rows[0];
-
-    if (!profile) {
-      return null;
-    }
-
-    return ProfileMapper.toDomain(profile);
+  async findById(id: Id): Promise<TProfileEntity | null> {
+    const response = await this.pool.query(queries.findById, [id.value]);
+    if (response.rowCount === 0) return null;
+    return ProfileMapper.toDomain(response.rows[0]);
   }
 
-  async findByUserId(userId: number): Promise<TProfileEntity | null> {
+  async checkByUserId(userId: number): Promise<boolean> {
     const response = await this.pool.query(queries.findByUserId, [userId]);
-    const profile = response.rows[0];
-
-    if (!profile) {
-      return null;
-    }
-
-    return ProfileMapper.toDomain(profile);
+    return (response.rowCount ?? 0) > 0;
   }
 
-  async deleteById(id: number): Promise<boolean> {
-    const response = await this.pool.query(queries.deleteById, [id]);
+  async deleteById(id: Id): Promise<boolean> {
+    const response = await this.pool.query(queries.deleteById, [id.value]);
     return (response.rowCount ?? 0) > 0;
   }
 }

@@ -1,8 +1,8 @@
-import type { ResponseType, ProfileDataType } from "./controllerTypes.js";
+import type { ResponseType } from "./controllerTypes.js";
 
 export interface IProfileController {
-  findById(id: string): Promise<ResponseType>;
-  create(data: ProfileDataType): Promise<ResponseType>;
-  update(id: string, data: ProfileDataType): Promise<ResponseType>;
-  deleteById(id: string): Promise<ResponseType>;
+  findById(id: unknown): Promise<ResponseType>;
+  create(data: unknown): Promise<ResponseType>;
+  update(id: unknown, data: unknown): Promise<ResponseType>;
+  deleteById(id: unknown): Promise<ResponseType>;
 }

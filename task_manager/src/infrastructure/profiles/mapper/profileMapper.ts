@@ -1,23 +1,31 @@
 import ProfilesFactory from "../../../domain/profiles/factory/profilesFactory.js";
 import ProfileEntity from "../../../domain/profiles/entity/profileEntity.js";
-
-type ProfileModel = {
-  id: number;
-  user_id: number;
-  phone: string;
-  bio: string;
-};
+import NewProfileEntity from "../../../domain/profiles/entity/newProfileEntity.js";
+import { TProfileModel } from "../../../domain/profiles/domainRequires/repo/TProfileModel.js";
 
 class ProfileMapper {
-  static toDomain(raw: ProfileModel): ProfileEntity {
-    return ProfilesFactory.create(raw.id, raw.user_id, raw.phone, raw.bio);
+  static toDomain(raw: TProfileModel): ProfileEntity {
+    return ProfilesFactory.reconstitute(
+      raw.id,
+      raw.user_id,
+      raw.phone,
+      raw.bio,
+    );
   }
 
-  static toPersistence(profile: ProfileEntity) {
+  static toDataObjNewProfile(profile: NewProfileEntity) {
     return {
-      id: profile.id,
-      user_id: profile.userId,
-      phone: profile.phone,
+      user_id: profile.userId.value,
+      phone: profile.phone.value,
+      bio: profile.bio,
+    };
+  }
+
+  static toDataObjProfile(profile: ProfileEntity) {
+    return {
+      id: profile.id.value,
+      user_id: profile.userId.value,
+      phone: profile.phone.value,
       bio: profile.bio,
     };
   }

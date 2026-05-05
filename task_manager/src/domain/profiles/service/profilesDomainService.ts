@@ -8,10 +8,12 @@ class ProfilesDomainService {
     this.repository = repository;
   }
 
-  async checkExistingProfile(userId: number): Promise<void> {
-    const profile = await this.repository.findByUserId(userId);
-    if (profile) {
-      throw new ConflictError(`Profile for user ${userId} already exists`);
+  async checkByUserId(userId: number): Promise<void> {
+    const exists = await this.repository.checkByUserId(userId);
+    if (exists) {
+      throw new ConflictError(
+        `Profile for user with ID ${userId} already exists`,
+      );
     }
   }
 }

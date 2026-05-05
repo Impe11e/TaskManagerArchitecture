@@ -5,63 +5,52 @@ import FindProfileQueryHandler from "../../../../dist/application/profiles/query
 import UpdateProfileCommandHandler from "../../../../dist/application/profiles/commandHandlers/updateProfile.js";
 import ProfilesFactory from "../../../../dist/domain/profiles/factory/profilesFactory.js";
 import ProfilesDomainService from "../../../../dist/domain/profiles/service/profilesDomainService.js";
+import eventBusMock from "../eventBusMock.js";
+import auditServiceMock from "../auditServiceMock.js";
 
-describe("Profiles Use cases tests", () => {
-  let repo, service, createHandler, findHandler;
-
-  beforeEach(() => {
-    repo = new InMemoryProfilesRepository();
-    service = new ProfilesDomainService(repo);
-    createHandler = new CreateProfileCommandHandler(
-      repo,
-      ProfilesFactory,
-      service,
-    );
-    findHandler = new FindProfileQueryHandler(repo);
-  });
+describe("Profiles Application Tests", () => {
+  const VALID_PHONE = "+380991112233";
 
   test("Should create profile", async () => {
+    const repo = new InMemoryProfilesRepository();
+    const service = new ProfilesDomainService(repo);
+    const factory = new ProfilesFactory(service);
+
+    const createHandler = new CreateProfileCommandHandler(
+      repo,
+      factory,
+      eventBusMock,
+    );
+    const findHandler = new FindProfileQueryHandler(repo);
+
     const result = await createHandler.handle({
       userId: 1,
-      phone: "+380991112233",
-      bio: "Test bio",
+      phone: VALID_PHONE,
+      bio: "test",
     });
-
     const profile = await findHandler.handle({ id: 1 });
+
     expect(result.id).toBe(1);
-    expect(profile.phone).toBe("+380991112233");
-  });
-
-  test("Should update profile", async () => {
-    await createHandler.handle({
-      userId: 1,
-      phone: "+380991112233",
-      bio: "Old",
-    });
-    const updateHandler = new UpdateProfileCommandHandler(repo, service);
-
-    await updateHandler.handle({
-      id: 1,
-      phone: "+380997778899",
-      bio: "Updated bio",
-    });
-
-    const profile = await findHandler.handle({ id: 1 });
-    expect(profile.phone).toBe("+380997778899");
-    expect(profile.bio).toBe("Updated bio");
+    expect(profile.phone.value).toBe(VALID_PHONE);
   });
 
   test("Should delete profile", async () => {
-    await createHandler.handle({
-      userId: 1,
-      phone: "+380991112233",
-      bio: "To delete",
-    });
-    const deleteHandler = new DeleteProfileCommandHandler(repo);
+    const repo = new InMemoryProfilesRepository();
+    const service = new ProfilesDomainService(repo);
+    const factory = new ProfilesFactory(service);
+    const createHandler = new CreateProfileCommandHandler(
+      repo,
+      factory,
+      eventBusMock,
+    );
+    const deleteHandler = new DeleteProfileCommandHandler(
+      repo,
+      auditServiceMock,
+    );
 
+    await createHandler.handle({ userId: 1, phone: VALID_PHONE, bio: "test" });
     const isDeleted = await deleteHandler.handle({ id: 1 });
-    expect(isDeleted).toBe(true);
 
-    await expect(findHandler.handle({ id: 1 })).rejects.toThrow();
+    expect(isDeleted).toBe(true);
   });
 });

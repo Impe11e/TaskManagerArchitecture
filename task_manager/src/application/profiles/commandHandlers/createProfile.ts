@@ -1,36 +1,39 @@
 import type { IProfileRepository } from "../../../domain/profiles/domainRequires/repo/IProfileRepo.js";
 import type { CreateProfileCommand } from "../applicationRequires/commands/createProfile.js";
-import type { ICreateHandler } from "../applicationRequires/ICreateHandler.js";
-import type { IFactory } from "../../../domain/profiles/domainRequires/application/IFactory.js";
-import type { IService } from "../../../domain/profiles/domainRequires/application/IService.js";
+import type { ICreateHandler } from "../applicationRequires/IHandles/ICreateHandler.js";
+import ProfilesFactory from "../../../domain/profiles/factory/profilesFactory.js";
+import type { TEventBus } from "../../../modules/eventBus/TEventBus.js";
+import EventProfileCreated from "../events/created.js";
 
 class CreateProfileHandler implements ICreateHandler {
   private repository: IProfileRepository;
-  private profileFactory: IFactory;
-  private domainService: IService;
+  private profileFactory: ProfilesFactory;
+  private eventBus: TEventBus;
 
   constructor(
     repository: IProfileRepository,
-    profileFactory: IFactory,
-    domainService: IService,
+    profileFactory: ProfilesFactory,
+    eventBus: TEventBus,
   ) {
     this.repository = repository;
     this.profileFactory = profileFactory;
-    this.domainService = domainService;
+    this.eventBus = eventBus;
   }
 
   public async handle(command: CreateProfileCommand): Promise<{ id: number }> {
-    await this.domainService.checkExistingProfile(command.userId);
-
-    const profileDM = this.profileFactory.create(
-      null,
+    const profileDM = await this.profileFactory.create(
       command.userId,
       command.phone,
       command.bio,
     );
     const createdProfile = await this.repository.create(profileDM);
 
-    return { id: createdProfile.id as number };
+    this.eventBus.publish(
+      "ProfileCreated",
+      new EventProfileCreated(createdProfile),
+    );
+
+    return { id: createdProfile.id.value };
   }
 }
 

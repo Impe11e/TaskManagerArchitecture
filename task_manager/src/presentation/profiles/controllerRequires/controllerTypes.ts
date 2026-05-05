@@ -3,10 +3,10 @@ type ResponseType = {
   data: unknown;
 };
 
-type ProfileDataType = {
-  userId?: number;
-  phone?: string;
-  bio?: string;
+type DataType = {
+  userId: number;
+  phone: string;
+  bio: string;
 };
 
-export type { ResponseType, ProfileDataType };
+export type { ResponseType, DataType };
