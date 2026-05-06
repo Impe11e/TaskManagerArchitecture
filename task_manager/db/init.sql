@@ -24,6 +24,7 @@ description TEXT,
 status statuses,
 created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 priority priorities,
-due_date DATE 
+due_date DATE
+-- user_id INT NOT NULL REFERENCES Users(id) ON DELETE CASCADE
 );
 

@@ -37,4 +37,5 @@ const pool: Pool = new Pool({
     database: env.DB_NAME,
 });
 
+export { pool };
 export default pool;
