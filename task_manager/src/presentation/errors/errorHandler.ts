@@ -60,4 +60,5 @@ const handle = (err: unknown): Response => {
     };
 };
 
+export { handle };
 export default handle;
