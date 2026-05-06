@@ -1,15 +1,15 @@
 //import UserCreateDto from '../requestDto/userCreateDto.js'
-import type {ICreateHandler} from "../../../application/users/applicationRequires/ICreateHandle.js";
-import type {IDeleteHandler} from "../../../application/users/applicationRequires/IDeleteHandler.js";
-import type {IUpdateHandler} from "../../../application/users/applicationRequires/IUpdateHandler.js";
-import type {IFindHandler} from "../../../application/users/applicationRequires/IFindHandler.js";
+import type {ICreateHandler} from "../../../application/users/applicationRequires/IHandles/ICreateHandle.js";
+import type {IDeleteHandler} from "../../../application/users/applicationRequires/IHandles/IDeleteHandler.js";
+import type {IUpdateHandler} from "../../../application/users/applicationRequires/IHandles/IUpdateHandler.js";
+import type {IFindHandler} from "../../../application/users/applicationRequires/IHandles/IFindHandler.js";
 
 import type {IUserController} from "../controllerRequires/IUserController.js";
 import type {ResponseType, DataType} from "../controllerRequires/controllerTypes.js";
 
 import ResponseMapper from '../responseDto/usersResponseDtoMapper.js'
 import handleError from "../../errors/errorHandler.js";
-import Validator from "../../validation/validator.js";
+import Validator from "../../errors/validator.js";
 
 class UsersController implements IUserController{
     private createHandler: ICreateHandler;
@@ -27,13 +27,13 @@ class UsersController implements IUserController{
         this.deleteHandler = deleteHandler
     }
 
-    async create(data: DataType): Promise<ResponseType> {
+    async create(data: unknown): Promise<ResponseType> {
         try {
-            Validator.validateData(data, true);
+            const validData: DataType = Validator.validateData(data, true);
             const command = {
-                username: data.username,
-                email: data.email,
-                password: data.password
+                username: validData.username,
+                email: validData.email,
+                password: validData.password
             }
             const res = await this.createHandler.handle(command)
             return {
@@ -46,15 +46,15 @@ class UsersController implements IUserController{
         }
     }
 
-    async update(id: string, data: DataType): Promise<ResponseType> {
+    async update(id: unknown, data: unknown): Promise<ResponseType> {
         try {
-            Validator.validateData(data, false);
-            const pid:number = Validator.parseId(id)
+            const validData: Partial<DataType> = Validator.validateData(data, false);
+            const pid: number = Validator.parseId(id)
             const command = {
                 id: pid,
-                username: data.username ?? undefined,
-                email: data.email ?? undefined,
-                password: data.password ?? undefined
+                username: validData.username,
+                email: validData.email,
+                password: validData.password
             };
             const res = await this.updateHandler.handle(command)
             return {
@@ -66,7 +66,7 @@ class UsersController implements IUserController{
         }
     }
 
-    async findById(id: string): Promise<ResponseType> {
+    async findById(id: unknown): Promise<ResponseType> {
         try {
             const pid: number = Validator.parseId(id);
             const query = {id: pid}
@@ -80,7 +80,7 @@ class UsersController implements IUserController{
         }
     }
 
-    async deleteById(id: string): Promise<ResponseType> {
+    async deleteById(id: unknown): Promise<ResponseType> {
         try {
             const pid: number = Validator.parseId(id);
             const command = {id: pid}

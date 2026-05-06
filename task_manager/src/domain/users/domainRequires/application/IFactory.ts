@@ -1,5 +1,5 @@
-import UsersEntity from "../../entity/userEntity.js";
+import type NewUserEntity from "../../entity/newUserEntity.js";
 
 export interface IFactory {
-    create(id: number, username: string, email: string, password: string): UsersEntity;
+    create(username: string, email: string, password: string): Promise<NewUserEntity>;
 }

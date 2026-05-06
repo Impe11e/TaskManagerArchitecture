@@ -1,6 +1,6 @@
 import request from "supertest";
 import app from "../../dist/server/app.js";
-import { pool } from "../../dist/infrastructure/pool.js";
+import pool from "../../dist/infrastructure/pool.js";
 
 beforeEach(async () => {
     await pool.query('TRUNCATE TABLE users RESTART IDENTITY CASCADE');
