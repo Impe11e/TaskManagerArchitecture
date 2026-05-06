@@ -6,11 +6,11 @@ import { TaskRepository } from '../../infrastructure/tasks/repositories/taskRepo
 import { TaskFactory } from '../../domain/tasks/factories/taskFactory.js';
 
 // application (handlers)
-import { CreateTaskHandler } from '../../application/tasks/applicationRequires/commandHandlers/createTaskHandler.js';
-import { UpdateTaskHandler } from '../../application/tasks/applicationRequires/commandHandlers/updateTaskHandler.js';
-import { DeleteTaskHandler } from '../../application/tasks/applicationRequires/commandHandlers/deleteTaskHandler.js';
-import { GetAllTasksHandler } from '../../application/tasks/applicationRequires/queryHandlers/getAllTasksHandler.js';
-import { GetTaskByIdHandler } from '../../application/tasks/applicationRequires/queryHandlers/getTaskByIdHandler.js';
+import { CreateTaskHandler } from '../../application/tasks/commandHandlers/createTaskHandler.js';
+import { UpdateTaskHandler } from '../../application/tasks/commandHandlers/updateTaskHandler.js';
+import { DeleteTaskHandler } from '../../application/tasks/commandHandlers/deleteTaskHandler.js';
+import { GetAllTasksHandler } from '../../application/tasks/queryHandlers/getAllTasksHandler.js';
+import { GetTaskByIdHandler } from '../../application/tasks/queryHandlers/getTaskByIdHandler.js';
 
 // controller (presentation)
 import { TaskController } from '../../presentation/tasks/controllers/taskController.js';

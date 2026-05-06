@@ -1,8 +1,8 @@
-import { CreateTaskCommand } from '../commands/createTaskCommand';
-import { ITaskRepository } from '../../../../domain/tasks/repoInterfaces/ITaskRepository';
-import { TaskFactory } from '../../../../domain/tasks/factories/taskFactory';
-import EventBus from '../../../../modules/eventBus/eventBus';
-import TaskCreatedEvent from '../../events/created';
+import { CreateTaskCommand } from '../applicationRequires/commands/createTaskCommand';
+import { ITaskRepository } from '../../../domain/tasks/repoInterfaces/ITaskRepository';
+import { TaskFactory } from '../../../domain/tasks/factories/taskFactory';
+import EventBus from '../../../modules/eventBus/eventBus';
+import TaskCreatedEvent from '../events/created';
 
 export class CreateTaskHandler {
   constructor(

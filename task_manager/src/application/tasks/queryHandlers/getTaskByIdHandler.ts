@@ -1,5 +1,5 @@
-import { GetTaskByIdQuery } from '../queries/getTaskByIdQuery';
-import { ITaskRepository } from '../../../../domain/tasks/repoInterfaces/ITaskRepository';
+import { GetTaskByIdQuery } from '../applicationRequires/queries/getTaskByIdQuery';
+import { ITaskRepository } from '../../../domain/tasks/repoInterfaces/ITaskRepository';
 
 export class GetTaskByIdHandler {
   constructor(private readonly repo: ITaskRepository) {}
