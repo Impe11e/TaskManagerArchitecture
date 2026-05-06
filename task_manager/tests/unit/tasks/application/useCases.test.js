@@ -1,10 +1,10 @@
 import { fn as jestFn } from 'jest-mock';
 import { TaskFactory } from "../../../../src/domain/tasks/factories/taskFactory.ts";
-import { CreateTaskHandler } from "../../../../src/application/tasks/applicationRequires/commandHandlers/createTaskHandler.ts";
-import { UpdateTaskHandler } from "../../../../src/application/tasks/applicationRequires/commandHandlers/updateTaskHandler.ts";
-import { DeleteTaskHandler } from "../../../../src/application/tasks/applicationRequires/commandHandlers/deleteTaskHandler.ts";
-import { GetTaskByIdHandler } from "../../../../src/application/tasks/applicationRequires/queryHandlers/getTaskByIdHandler.ts";
-import { GetAllTasksHandler } from "../../../../src/application/tasks/applicationRequires/queryHandlers/getAllTasksHandler.ts";
+import { CreateTaskHandler } from "../../../../src/application/tasks/commandHandlers/createTaskHandler";
+import { UpdateTaskHandler } from "../../../../src/application/tasks/commandHandlers/updateTaskHandler";
+import { DeleteTaskHandler } from "../../../../src/application/tasks/commandHandlers/deleteTaskHandler";
+import { GetTaskByIdHandler } from "../../../../src/application/tasks/queryHandlers/getTaskByIdHandler";
+import { GetAllTasksHandler } from "../../../../src/application/tasks/queryHandlers/getAllTasksHandler";
 import { CreateTaskCommand } from "../../../../src/application/tasks/applicationRequires/commands/createTaskCommand.ts";
 import { UpdateTaskCommand } from "../../../../src/application/tasks/applicationRequires/commands/updateTaskCommand.ts";
 import { DeleteTaskCommand } from "../../../../src/application/tasks/applicationRequires/commands/deleteTaskCommand.ts";

@@ -1,5 +1,5 @@
-import { GetAllTasksQuery } from '../queries/getAllTasksQuery';
-import { ITaskRepository } from '../../../../domain/tasks/repoInterfaces/ITaskRepository';
+import { GetAllTasksQuery } from '../applicationRequires/queries/getAllTasksQuery';
+import { ITaskRepository } from '../../../domain/tasks/repoInterfaces/ITaskRepository';
 
 export class GetAllTasksHandler {
   constructor(private readonly repo: ITaskRepository) {}

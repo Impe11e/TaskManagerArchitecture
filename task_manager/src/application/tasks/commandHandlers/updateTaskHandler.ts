@@ -1,8 +1,8 @@
-import { UpdateTaskCommand } from '../commands/updateTaskCommand';
-import { ITaskRepository } from '../../../../domain/tasks/repoInterfaces/ITaskRepository';
-import { NotFoundError, ValidationError } from '../../../errors/applicationErrors.js';
-import EventBus from '../../../../modules/eventBus/eventBus';
-import TaskUpdatedEvent from '../../events/updated';
+import { UpdateTaskCommand } from '../applicationRequires/commands/updateTaskCommand';
+import { ITaskRepository } from '../../../domain/tasks/repoInterfaces/ITaskRepository';
+import { NotFoundError, ValidationError } from '../../errors/applicationErrors.js';
+import EventBus from '../../../modules/eventBus/eventBus';
+import TaskUpdatedEvent from '../events/updated';
 
 
 export class UpdateTaskHandler {
