@@ -6,7 +6,7 @@ import type { IFindHandler } from "../../../application/profiles/applicationRequ
 import type { IProfileController } from "../controllerRequires/IProfileController.js";
 import type {
   ResponseType,
-  DataType,
+  DataType as ProfileDataType,
 } from "../controllerRequires/controllerTypes.js";
 
 import ResponseMapper from "../responseDto/profilesResponseDtoMapper.js";
@@ -33,7 +33,10 @@ class ProfilesController implements IProfileController {
 
   async create(data: unknown): Promise<ResponseType> {
     try {
-      const validData: DataType = Validator.validateData(data, true);
+      const validData: ProfileDataType = Validator.validateProfileData(
+        data,
+        true,
+      );
 
       const command = {
         userId: validData.userId,
@@ -54,7 +57,10 @@ class ProfilesController implements IProfileController {
 
   async update(id: unknown, data: unknown): Promise<ResponseType> {
     try {
-      const validData: Partial<DataType> = Validator.validateData(data, false);
+      const validData: Partial<ProfileDataType> = Validator.validateProfileData(
+        data,
+        false,
+      );
       const pid: number = Validator.parseId(id);
 
       const command = {
