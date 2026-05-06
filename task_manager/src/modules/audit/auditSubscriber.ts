@@ -1,7 +1,7 @@
 import type {IAuditService, TAuditEvent} from "./IAuditService.js";
 import type {ISubscriber} from "../eventBus/ISubscriber.js";
 
-class AuditSubscriber implements ISubscriber{
+class AuditSubscriber {
     constructor(private audit: IAuditService) {}
 
     async handle(event: TAuditEvent) {
