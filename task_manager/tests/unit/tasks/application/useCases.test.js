@@ -1,139 +1,152 @@
-// infrastructure
-import InMemoryTaskRepository from "../taskRepoMock.js";
-import InMemoryUsersRepository from "../../users/userRepoMock.js";
+import { fn as jestFn } from 'jest-mock';
+import { TaskFactory } from "../../../../src/domain/tasks/factories/taskFactory.ts";
+import { CreateTaskHandler } from "../../../../src/application/tasks/commandHandlers/createTaskHandler";
+import { UpdateTaskHandler } from "../../../../src/application/tasks/commandHandlers/updateTaskHandler";
+import { DeleteTaskHandler } from "../../../../src/application/tasks/commandHandlers/deleteTaskHandler";
+import { GetTaskByIdHandler } from "../../../../src/application/tasks/queryHandlers/getTaskByIdHandler";
+import { GetAllTasksHandler } from "../../../../src/application/tasks/queryHandlers/getAllTasksHandler";
+import { CreateTaskCommand } from "../../../../src/application/tasks/applicationRequires/commands/createTaskCommand.ts";
+import { UpdateTaskCommand } from "../../../../src/application/tasks/applicationRequires/commands/updateTaskCommand.ts";
+import { DeleteTaskCommand } from "../../../../src/application/tasks/applicationRequires/commands/deleteTaskCommand.ts";
+import { GetTaskByIdQuery } from "../../../../src/application/tasks/applicationRequires/queries/getTaskByIdQuery.ts";
+import { GetAllTasksQuery } from "../../../../src/application/tasks/applicationRequires/queries/getAllTasksQuery.ts";
+import { TASK_PRIORITY, TASK_STATUS } from "../../../../src/domain/constants/tasks/taskConsts.ts";
+import { NotFoundError } from "../../../../src/application/errors/applicationErrors.ts";
 
-// application
-import CreateTaskUseCase from "../../../../src/application/tasks/useCases/createTask.js";
-import UpdateTaskUseCase from "../../../../src/application/tasks/useCases/updateTask.js";
-import GetTaskByIdUseCase from "../../../../src/application/tasks/useCases/getTaskById.js";
-import DeleteTaskUseCase from "../../../../src/application/tasks/useCases/deleteTask.js";
-import GetAllTasksUseCase from "../../../../src/application/tasks/useCases/getAllTasks.js";
+class InMemoryTaskRepository {
+    constructor() {
+        this.tasks = [];
+        this.currentId = 1;
+    }
 
-// domain
-import TaskFactory from "../../../../src/domain/tasks/factories/taskFactory.js";
-import TaskDomainService from "../../../../src/domain/tasks/services/taskDomainService.js";
+    async create(taskEntity) {
+        taskEntity.id = this.currentId++;
+        this.tasks.push(taskEntity);
+        return taskEntity;
+    }
 
-describe("Task Use cases tests", () => {
+    async getAll() {
+        return [...this.tasks];
+    }
+
+    async getById(id) {
+        return this.tasks.find((t) => t.id === Number(id)) || null;
+    }
+
+    async update(id, taskEntity) {
+        const index = this.tasks.findIndex((t) => t.id === Number(id));
+        if (index !== -1) {
+            this.tasks[index] = taskEntity;
+        }
+        return taskEntity;
+    }
+
+    async delete(id) {
+        const index = this.tasks.findIndex((t) => t.id === Number(id));
+        if (index === -1) return false;
+        this.tasks.splice(index, 1);
+        return true;
+    }
+
+    async findByTitle(title) {
+        return this.tasks.find((t) => t.title === title) || null;
+    }
+
+    async countByStatus(status) {
+        return this.tasks.filter((t) => t.status === status).length;
+    }
+}
+
+describe("Task handlers (CQS)", () => {
     let taskRepository;
-    let usersRepository;
-    let taskDomainService;
     let taskFactory;
-    const testUserId = 1;
+    let createTaskHandler;
+    let updateTaskHandler;
+    let deleteTaskHandler;
+    let getTaskByIdHandler;
+    let getAllTasksHandler;
+    let eventBusMock;
+    let notificationServiceMock;
 
     beforeEach(() => {
         taskRepository = new InMemoryTaskRepository();
-        usersRepository = new InMemoryUsersRepository();
-        taskDomainService = new TaskDomainService(usersRepository);
-        taskFactory = new TaskFactory(taskRepository, taskDomainService);
-
-        // Create one test user for all tests
-        usersRepository.users.push({
-            id: testUserId,
-            username: "testuser",
-            email: "test@gmail.com",
-            password: "hashedpass"
-        });
+        taskFactory = new TaskFactory(taskRepository);
+        eventBusMock = { publish: jestFn() };
+        notificationServiceMock = { notifyTaskDeleted: jestFn() };
+        createTaskHandler = new CreateTaskHandler(taskRepository, taskFactory, eventBusMock);
+        updateTaskHandler = new UpdateTaskHandler(taskRepository, eventBusMock);
+        deleteTaskHandler = new DeleteTaskHandler(taskRepository, notificationServiceMock);
+        getTaskByIdHandler = new GetTaskByIdHandler(taskRepository);
+        getAllTasksHandler = new GetAllTasksHandler(taskRepository);
     });
 
-    test("Should create task", async () => {
-        const createTaskUseCase = new CreateTaskUseCase(taskRepository, taskFactory);
+    test("creates task and returns id", async () => {
+        const command = new CreateTaskCommand("Test Task", "Test Description");
+        const id = await createTaskHandler.execute(command);
 
-        const result = await createTaskUseCase.execute({
-            title: "Test Task",
-            description: "Test Description",
-            userId: testUserId
-        });
-
-        expect(result.id).toBe(1);
-        expect(result.title).toBe("Test Task");
+        expect(id).toBe(1);
     });
 
-    test("Should update task", async () => {
-        const createTaskUseCase = new CreateTaskUseCase(taskRepository, taskFactory);
-        const updateTaskUseCase = new UpdateTaskUseCase(taskRepository);
+    test("updates existing task", async () => {
+        const createId = await createTaskHandler.execute(
+            new CreateTaskCommand("Original", "Original description")
+        );
 
-        await createTaskUseCase.execute({
-            title: "Original Title",
-            description: "Original Description",
-            userId: testUserId
-        });
+        await updateTaskHandler.execute(
+            new UpdateTaskCommand(
+                createId,
+                "Updated Title",
+                "Updated Description",
+                TASK_STATUS.IN_PROGRESS,
+                TASK_PRIORITY.HIGH
+            )
+        );
 
-        const result = await updateTaskUseCase.execute(1, {
-            title: "Updated Title",
-            description: "Updated Description"
-        });
-
-        expect(result.id).toBe(1);
-        expect(result.title).toBe("Updated Title");
+        const updated = await taskRepository.getById(createId);
+        expect(updated.title).toBe("Updated Title");
+        expect(updated.description).toBe("Updated Description");
+        expect(updated.status).toBe(TASK_STATUS.IN_PROGRESS);
+        expect(updated.priority).toBe(TASK_PRIORITY.HIGH);
     });
 
-    test("Should not update non-existent task", async () => {
-        const updateTaskUseCase = new UpdateTaskUseCase(taskRepository);
-
+    test("throws when updating missing task", async () => {
         await expect(
-            updateTaskUseCase.execute(999, {
-                title: "Updated Title"
-            })
-        ).rejects.toThrow();
+            updateTaskHandler.execute(new UpdateTaskCommand(999, "Updated Title"))
+        ).rejects.toThrow(NotFoundError);
     });
 
-    test("Should get task by id", async () => {
-        const createTaskUseCase = new CreateTaskUseCase(taskRepository, taskFactory);
-        const getTaskByIdUseCase = new GetTaskByIdUseCase(taskRepository);
+    test("deletes task", async () => {
+        const id = await createTaskHandler.execute(
+            new CreateTaskCommand("Task to delete", "Description")
+        );
 
-        await createTaskUseCase.execute({
-            title: "Test Task",
-            description: "Description",
-            userId: testUserId
-        });
+        await deleteTaskHandler.execute(new DeleteTaskCommand(id));
+        const task = await taskRepository.getById(id);
 
-        const result = await getTaskByIdUseCase.execute(1);
+        expect(task).toBeNull();
+    });
 
-        expect(result.id).toBe(1);
-        expect(result.title).toBe("Test Task");
-    })
+    test("query by id returns read dto", async () => {
+        const id = await createTaskHandler.execute(
+            new CreateTaskCommand("Task 1", "Description 1")
+        );
 
-    test("Should not get non-existent task by id", async () => {
-        const getTaskByIdUseCase = new GetTaskByIdUseCase(taskRepository);
+        const result = await getTaskByIdHandler.execute(new GetTaskByIdQuery(id));
 
-        await expect(getTaskByIdUseCase.execute(999)).rejects.toThrow();
-    })
+        expect(result.id).toBe(id);
+        expect(result.title).toBe("Task 1");
+        expect(result).toHaveProperty("createdAt");
+    });
 
-    test("Should delete task", async () => {
-        const createTaskUseCase = new CreateTaskUseCase(taskRepository, taskFactory);
-        const deleteTaskUseCase = new DeleteTaskUseCase(taskRepository);
+    test("query all returns read dto list", async () => {
+        await createTaskHandler.execute(new CreateTaskCommand("Task 1", "Description 1"));
+        await createTaskHandler.execute(new CreateTaskCommand("Task 2", "Description 2"));
 
-        await createTaskUseCase.execute({
-            title: "Task to delete",
-            description: "Description",
-            userId: testUserId
-        });
-
-        await deleteTaskUseCase.execute(1);
-
-        expect(await taskRepository.findById(1)).toBeNull();
-    })
-
-    test("Should get all tasks", async () => {
-        const createTaskUseCase = new CreateTaskUseCase(taskRepository, taskFactory);
-        const getAllTasksUseCase = new GetAllTasksUseCase(taskRepository);
-
-        await createTaskUseCase.execute({
-            title: "Task 1",
-            description: "Description 1",
-            userId: testUserId
-        });
-
-        await createTaskUseCase.execute({
-            title: "Task 2",
-            description: "Description 2",
-            userId: testUserId
-        });
-
-        const result = await getAllTasksUseCase.execute();
+        const result = await getAllTasksHandler.execute(new GetAllTasksQuery());
 
         expect(result).toHaveLength(2);
-        expect(result[0].title).toBe("Task 1");
+        expect(result[0]).toHaveProperty("id");
+        expect(result[0]).toHaveProperty("title");
         expect(result[1].title).toBe("Task 2");
     });
 });

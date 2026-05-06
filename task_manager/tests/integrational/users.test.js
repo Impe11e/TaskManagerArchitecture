@@ -1,6 +1,6 @@
 import request from "supertest";
-import app from "../../src/server/app.js";
-import pool from "../../src/infrastructure/pool.js";
+import app from "../../dist/server/app.js";
+import pool from "../../dist/infrastructure/pool.js";
 
 beforeEach(async () => {
     await pool.query('TRUNCATE TABLE users RESTART IDENTITY CASCADE');
@@ -18,7 +18,7 @@ describe("Users API flows", () => {
             .send({
                 username: "testuser",
                 email: "test@gmail.com",
-                password: "123456"
+                password: "123456789"
             });
 
         expect(createRes.status).toBe(201);
@@ -38,7 +38,7 @@ describe("Users API flows", () => {
             .send({
                 username: "testuser",
                 email: "test@gmail.com",
-                password: "123456"
+                password: "123456789"
             });
 
         expect(createRes.status).toBe(201);
@@ -66,7 +66,7 @@ describe("Users API flows", () => {
             .send({
                 username: "testuser",
                 email: "test@gmail.com",
-                password: "123456"
+                password: "123456789"
             });
 
         expect(createRes.status).toBe(201);
@@ -89,7 +89,7 @@ describe("Users API flows", () => {
             .send({
                 username: "userr1",
                 email: "user1@gmail.com",
-                password: "123456"
+                password: "123456789"
             });
 
         expect(user1Res.status).toBe(201);
@@ -99,7 +99,7 @@ describe("Users API flows", () => {
             .send({
                 username: "userr2",
                 email: "user2@gmail.com",
-                password: "123456"
+                password: "123456789"
             });
 
         expect(user2Res.status).toBe(201);

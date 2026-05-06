@@ -1,22 +1,9 @@
 import request from "supertest";
-import app from "../../src/server/app.js";
-import pool from "../../src/infrastructure/pool.js";
-
-let testUserId;
+import app from "../../src/server/app.ts";
+import { pool } from "../../src/infrastructure/pool.ts";
 
 beforeAll(async () => {
     await pool.query('TRUNCATE TABLE tasks RESTART IDENTITY CASCADE');
-    await pool.query('TRUNCATE TABLE users RESTART IDENTITY CASCADE');
-
-    const createUserRes = await request(app)
-        .post("/users")
-        .send({
-            username: "testuser123",
-            email: "test@gmail.com",
-            password: "password123"
-        });
-
-    testUserId = createUserRes.body.id;
 });
 
 beforeEach(async () => {
@@ -34,23 +21,17 @@ describe("Tasks API flows", () => {
             .post("/tasks")
             .send({
                 title: "Test Task",
-                description: "Test Description",
-                userId: testUserId
+                description: "Test Description"
             });
 
-        console.log("CREATE Response:", JSON.stringify(createTaskRes.body));
         expect(createTaskRes.status).toBe(201);
-
         const taskId = createTaskRes.body.id;
 
-        console.log("GET /tasks/" + taskId);
         const getTaskRes = await request(app).get(`/tasks/${taskId}`);
-        console.log("GET Response:", getTaskRes.status, JSON.stringify(getTaskRes.body));
 
         expect(getTaskRes.status).toBe(200);
         expect(getTaskRes.body.id).toBe(taskId);
         expect(getTaskRes.body.title).toBe("Test Task");
-        expect(getTaskRes.body.userId).toBe(testUserId);
     });
 
     test("CREATE + UPDATE task", async () => {
@@ -59,7 +40,6 @@ describe("Tasks API flows", () => {
             .send({
                 title: "Original Title",
                 description: "Original Description",
-                userId: testUserId,
                 status: "NEW"
             });
 
@@ -73,7 +53,7 @@ describe("Tasks API flows", () => {
                 status: "IN_PROGRESS"
             });
 
-        expect(updateRes.status).toBe(200);
+        expect(updateRes.status).toBe(204);
 
         const getRes = await request(app).get(`/tasks/${taskId}`);
 
@@ -87,8 +67,7 @@ describe("Tasks API flows", () => {
             .post("/tasks")
             .send({
                 title: "Task to Delete",
-                description: "Will be deleted",
-                userId: testUserId
+                description: "Will be deleted"
             });
 
         expect(createTaskRes.status).toBe(201);
@@ -104,44 +83,19 @@ describe("Tasks API flows", () => {
         expect(getRes.status).toBe(404);
     });
 
-    test("CREATE task with invalid userId should fail", async () => {
-        const createTaskRes = await request(app)
-            .post("/tasks")
-            .send({
-                title: "Task with Invalid User",
-                description: "Should fail",
-                userId: 9999  
-            });
-
-        expect(createTaskRes.status).toBe(400);
-    });
-
-    test("CREATE task without userId should fail", async () => {
-        const createTaskRes = await request(app)
-            .post("/tasks")
-            .send({
-                title: "Task without User",
-                description: "Should fail"
-            });
-
-        expect(createTaskRes.status).toBe(400);
-    });
-
     test("GET all tasks", async () => {
         await request(app)
             .post("/tasks")
             .send({
                 title: "Task 1",
-                description: "First task",
-                userId: testUserId
+                description: "First task"
             });
 
         await request(app)
             .post("/tasks")
             .send({
                 title: "Task 2",
-                description: "Second task",
-                userId: testUserId
+                description: "Second task"
             });
 
         const getRes = await request(app).get("/tasks");
@@ -156,8 +110,7 @@ describe("Tasks API flows", () => {
             .post("/tasks")
             .send({
                 title: "AB",
-                description: "Short title",
-                userId: testUserId
+                description: "Short title"
             });
 
         expect(createTaskRes.status).toBe(400);
@@ -169,14 +122,12 @@ describe("Tasks API flows", () => {
             .send({
                 title: "Important Task",
                 description: "High priority task",
-                userId: testUserId,
                 status: "IN_PROGRESS",
                 priority: "HIGH"
             });
 
         expect(createTaskRes.status).toBe(201);
-        expect(createTaskRes.body.status).toBe("IN_PROGRESS");
-        expect(createTaskRes.body.priority).toBe("HIGH");
+        expect(createTaskRes.body).toHaveProperty("id");
     });
 
 });
