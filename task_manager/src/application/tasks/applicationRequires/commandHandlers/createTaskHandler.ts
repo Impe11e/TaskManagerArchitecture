@@ -1,12 +1,14 @@
-
 import { CreateTaskCommand } from '../commands/createTaskCommand';
 import { ITaskRepository } from '../../../../domain/tasks/repoInterfaces/ITaskRepository';
 import { TaskFactory } from '../../../../domain/tasks/factories/taskFactory';
+import EventBus from '../../../../modules/eventBus/eventBus';
+import TaskCreatedEvent from '../../events/created';
 
 export class CreateTaskHandler {
   constructor(
     private readonly repo: ITaskRepository,
-    private readonly factory: TaskFactory
+    private readonly factory: TaskFactory,
+    private readonly eventBus: EventBus
   ) {}
 
   async execute(command: CreateTaskCommand) {
@@ -20,6 +22,9 @@ export class CreateTaskHandler {
       dueDate
     });
     const created = await this.repo.create(task);
+
+    this.eventBus.publish('TaskCreated', new TaskCreatedEvent(created));
+
     return created.id;
   }
 }

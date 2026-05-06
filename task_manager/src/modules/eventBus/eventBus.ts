@@ -11,7 +11,6 @@ class EventBus {
 
     publish(eventName: string, event: any) {
         const handlers = this.handlers.get(eventName) || [];
-
         for (const handler of handlers) {
             handler(event);
         }

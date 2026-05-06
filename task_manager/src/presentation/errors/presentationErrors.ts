@@ -1,11 +1,10 @@
 class ValidationError extends Error {
-    public readonly type = 'VALIDATION';
+  public readonly type = "VALIDATION";
 
-    constructor(message: string) {
-        super(message);
-        Object.setPrototypeOf(this, Error.prototype);
-    }
+  constructor(message: string) {
+    super(message);
+    Object.setPrototypeOf(this, Error.prototype);
+  }
 }
 
-
-export {ValidationError};
+export { ValidationError };

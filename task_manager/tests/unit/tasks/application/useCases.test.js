@@ -1,3 +1,4 @@
+import { fn as jestFn } from 'jest-mock';
 import { TaskFactory } from "../../../../src/domain/tasks/factories/taskFactory.ts";
 import { CreateTaskHandler } from "../../../../src/application/tasks/applicationRequires/commandHandlers/createTaskHandler.ts";
 import { UpdateTaskHandler } from "../../../../src/application/tasks/applicationRequires/commandHandlers/updateTaskHandler.ts";
@@ -64,13 +65,17 @@ describe("Task handlers (CQS)", () => {
     let deleteTaskHandler;
     let getTaskByIdHandler;
     let getAllTasksHandler;
+    let eventBusMock;
+    let notificationServiceMock;
 
     beforeEach(() => {
         taskRepository = new InMemoryTaskRepository();
         taskFactory = new TaskFactory(taskRepository);
-        createTaskHandler = new CreateTaskHandler(taskRepository, taskFactory);
-        updateTaskHandler = new UpdateTaskHandler(taskRepository);
-        deleteTaskHandler = new DeleteTaskHandler(taskRepository);
+        eventBusMock = { publish: jestFn() };
+        notificationServiceMock = { notifyTaskDeleted: jestFn() };
+        createTaskHandler = new CreateTaskHandler(taskRepository, taskFactory, eventBusMock);
+        updateTaskHandler = new UpdateTaskHandler(taskRepository, eventBusMock);
+        deleteTaskHandler = new DeleteTaskHandler(taskRepository, notificationServiceMock);
         getTaskByIdHandler = new GetTaskByIdHandler(taskRepository);
         getAllTasksHandler = new GetAllTasksHandler(taskRepository);
     });
